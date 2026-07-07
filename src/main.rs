@@ -2,10 +2,13 @@ use bevy_ecs::prelude::*;
 use macroquad::prelude::*;
 
 use starbloom_base::*;
+use starbloom_map::*;
 
 async fn mainloop() {
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
+
+    world.insert_resource(TileMap::default());
 
     schedule.add_systems((update_player, render_player));
 
