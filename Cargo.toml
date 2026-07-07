@@ -4,5 +4,10 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+bevy_ecs = "0.18.1"
 macroquad = "0.4.15"
+starbloom-base = { version = "0.1.0", path = "crates/starbloom-base" }
 starbloom-intro = { version = "*", path = "crates/starbloom-intro" }
+
+[features]
+intro = []

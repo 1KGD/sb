@@ -1,0 +1,8 @@
+[package]
+name = "starbloom-base"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bevy_ecs = "0.18.1"
+macroquad = "0.4.15"

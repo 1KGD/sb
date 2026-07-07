@@ -927,14 +927,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "starbloom-intro"
-version = "0.1.0"
-dependencies = [
- "macroquad",
- "starbloom-base",
-]
-
-[[package]]
 name = "syn"
 version = "2.0.118"
 source = "registry+https://github.com/rust-lang/crates.io-index"

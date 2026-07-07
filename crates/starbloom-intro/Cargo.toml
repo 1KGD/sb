@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 macroquad = "0.4.15"
+starbloom-base = { version = "0.1.0", path = "../starbloom-base" }
