@@ -17,6 +17,8 @@ const PRESENTS_TEXT: &str = "1KGD\nPresents:";
 const TITLE_TEXT: &str = "STARBLOOM";
 
 pub async fn main() {
+    error!("started intro sequence");
+
     screen(5., async |progress: f32| {
         clear_background(BLACK);
         let dim: TextDimensions = measure_multiline_text(PRESENTS_TEXT, None, 40, 1., None);
@@ -44,4 +46,6 @@ pub async fn main() {
         );
     })
     .await;
+
+    error!("Ended intro sequence");
 }
