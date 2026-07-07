@@ -1,11 +1,8 @@
 use bevy_ecs::prelude::*;
 use macroquad::prelude::*;
 
-#[derive(Component)]
-pub struct Position(pub Vec2);
-
-impl Default for Position {
-    fn default() -> Self {
-        Self(Vec2::default())
-    }
+#[derive(Default, Component)]
+pub struct Position {
+    pub x: f32,
+    pub y: f32,
 }
