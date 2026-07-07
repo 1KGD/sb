@@ -1,6 +1,8 @@
 [package]
-name = "sb"
+name = "starbloom"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+macroquad = "0.4.15"
+starbloom-intro = { version = "*", path = "crates/starbloom-intro" }
