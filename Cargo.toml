@@ -9,6 +9,7 @@ authors = ["John Schiefelbein"]
 bevy_ecs = "0.19"
 macroquad = "0.4.15"
 starbloom-base = { version = "0.1.0", path = "crates/starbloom-base" }
+starbloom-camera = { version = "0.1.0", path = "crates/starbloom-camera" }
 starbloom-intro = { version = "*", path = "crates/starbloom-intro" }
 starbloom-map = { version = "0.1.0", path = "crates/starbloom-map" }
 

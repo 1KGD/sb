@@ -2,6 +2,7 @@ use bevy_ecs::prelude::*;
 use macroquad::prelude::*;
 
 use starbloom_base::*;
+use starbloom_camera::*;
 
 #[derive(Component, Default)]
 #[require(Position)]
@@ -26,8 +27,11 @@ fn render_player(query: Query<&Position, With<Player>>) {
     }
 }
 
-fn update_player(query: Query<&mut Position, With<LocalPlayer>>) {
-    for mut position in query {
+fn update_player(
+    mut query: Query<&mut Position, With<LocalPlayer>>,
+    mut camera: ResMut<MainCamera>,
+) {
+    if let Ok(mut position) = query.single_mut() {
         if is_key_down(KeyCode::Down) {
             position.y += 100. * get_frame_time();
         }
@@ -35,5 +39,9 @@ fn update_player(query: Query<&mut Position, With<LocalPlayer>>) {
         if is_key_down(KeyCode::Up) {
             position.y -= 100. * get_frame_time();
         }
+
+        let old_pos: Vec2 = camera.position.clone();
+
+        camera.position += (position.as_vec2() - old_pos) / 10.;
     }
 }

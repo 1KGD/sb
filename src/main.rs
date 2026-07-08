@@ -2,6 +2,7 @@ use bevy_ecs::prelude::*;
 use macroquad::prelude::*;
 
 use starbloom_base::*;
+use starbloom_camera::*;
 use starbloom_map::*;
 
 mod player;
@@ -16,6 +17,8 @@ impl Plugin for MainPlugin {
             .get_resource_mut::<TileRegestry>()
             .expect(&"Could not get tile regestry");
         regestry.regester("starbloom:air", Tile::declare(false));
+
+        world.spawn(Player());
     }
 }
 
@@ -23,6 +26,7 @@ async fn mainloop() {
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
 
+    CameraPlugin::create(&mut world, &mut schedule);
     MapPlugin::create(&mut world, &mut schedule);
     PlayerPlugin::create(&mut world, &mut schedule);
     MainPlugin::create(&mut world, &mut schedule);

@@ -7,8 +7,8 @@ mod chunkloader;
 mod tile;
 
 pub use crate::chunk::*;
-pub use crate::tile::*;
 use crate::chunkloader::*;
+pub use crate::tile::*;
 
 pub struct MapPlugin();
 
