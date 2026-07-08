@@ -7,9 +7,13 @@ use starbloom_map::*;
 
 const PLAYER_SPEED: f32 = 200.;
 
+const PLAYER_NAME_FNT_SIZE: u16 = 20;
+
 #[derive(Component, Default)]
 #[require(Position)]
-pub struct Player();
+pub struct Player {
+    pub name: String,
+}
 
 #[derive(Component, Default)]
 #[require(Player)]
@@ -19,19 +23,41 @@ pub struct PlayerPlugin();
 
 impl Plugin for PlayerPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
-        schedule.add_systems(update_player.before(prepare_camera));
-        schedule.add_systems(render_player.after(render_chunks).before(prepare_ui_camera));
+        schedule.add_systems(update_local_player.before(prepare_camera));
+        schedule.add_systems(
+            render_players
+                .after(render_chunks)
+                .before(prepare_ui_camera),
+        );
+        schedule.add_systems(
+            render_player_names
+                .after(render_players)
+                .before(prepare_ui_camera),
+        );
         world.spawn(LocalPlayer());
     }
 }
 
-fn render_player(query: Query<&Position, With<Player>>) {
+fn render_players(query: Query<&Position, With<Player>>) {
     for position in query {
-        draw_rectangle(position.x-10., position.y-10., 20., 20., BLACK);
+        draw_rectangle(position.x - 10., position.y - 10., 20., 20., BLACK);
     }
 }
 
-fn update_player(
+fn render_player_names(query: Query<(&Position, &Player), Without<LocalPlayer>>) {
+    for (position, player) in query {
+        let dims = measure_text(&player.name, None, PLAYER_NAME_FNT_SIZE, 1.);
+        draw_text(
+            &player.name,
+            position.x - dims.width / 2.,
+            position.y - 15.,
+            PLAYER_NAME_FNT_SIZE as f32,
+            WHITE,
+        );
+    }
+}
+
+fn update_local_player(
     mut query: Query<&mut Position, With<LocalPlayer>>,
     mut camera: ResMut<MainCamera>,
 ) {
