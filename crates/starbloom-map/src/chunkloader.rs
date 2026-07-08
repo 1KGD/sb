@@ -7,5 +7,7 @@ use crate::chunk::*;
 pub struct ChunkloaderPlugin();
 
 impl Plugin for ChunkloaderPlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {}
+    fn create(world: &mut World, schedule: &mut Schedule) {
+        world.spawn(Chunk::load(0, 0));
+    }
 }

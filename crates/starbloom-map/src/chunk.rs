@@ -6,12 +6,24 @@ use crate::tile::*;
 const CHUNK_DIM: usize = 16;
 const TILE_SIZE: f32 = 16.;
 
+const CHUNK_SIZE: f32 = CHUNK_DIM as f32 * TILE_SIZE;
+
 #[derive(Component)]
 pub struct Chunk {
+    x: u64, // No overflows for you any time soon
+    y: u64,
     tiles: [[TileRepr; CHUNK_DIM]; CHUNK_DIM],
 }
 
 impl Chunk {
+    pub fn load(x: u64, y: u64) -> Self {
+        Self {
+            x,
+            y,
+            tiles: [[1; CHUNK_DIM]; CHUNK_DIM],
+        }
+    }
+
     pub fn render(&self, tile_regestry: &TileRegestry) {
         for (x, row) in self.tiles.iter().enumerate() {
             for (y, tile_idx) in row.iter().enumerate() {
@@ -20,8 +32,8 @@ impl Chunk {
                     continue;
                 }
                 draw_rectangle(
-                    x as f32 * TILE_SIZE,
-                    y as f32 * TILE_SIZE,
+                    self.x as f32 * CHUNK_SIZE + x as f32 * TILE_SIZE,
+                    self.y as f32 * CHUNK_SIZE + y as f32 * TILE_SIZE,
                     TILE_SIZE,
                     TILE_SIZE,
                     GREEN,

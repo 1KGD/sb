@@ -931,6 +931,7 @@ dependencies = [
  "bevy_ecs",
  "macroquad",
  "starbloom-base",
+ "starbloom-camera",
 ]
 
 [[package]]

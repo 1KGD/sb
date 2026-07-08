@@ -18,7 +18,7 @@ pub struct MainCamera {
     pub rotation: f32,
 }
 
-fn prepare_camera(camera: Res<MainCamera>) {
+pub fn prepare_camera(camera: Res<MainCamera>) {
     let mut cam = Camera2D::from_display_rect(Rect::new(
         0.,
         screen_height(),

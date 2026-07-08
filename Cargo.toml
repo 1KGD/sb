@@ -6,7 +6,7 @@ license = "MIT"
 authors = ["John Schiefelbein"]
 
 [dependencies]
-bevy_ecs = "0.19"
+bevy_ecs = {version="0.19", features=["debug"]}
 macroquad = "0.4.15"
 starbloom-base = { version = "*", path = "crates/starbloom-base" }
 starbloom-camera = { version = "*", path = "crates/starbloom-camera" }

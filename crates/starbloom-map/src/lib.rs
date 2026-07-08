@@ -1,6 +1,7 @@
 use bevy_ecs::prelude::*;
 
 use starbloom_base::*;
+use starbloom_camera::*;
 
 mod chunk;
 mod chunkloader;
@@ -17,11 +18,11 @@ impl Plugin for MapPlugin {
         ChunkloaderPlugin::create(world, schedule);
 
         world.insert_resource(TileRegestry::new());
-        schedule.add_systems(render_chunks);
+        schedule.add_systems(render_chunks.after(prepare_camera));
     }
 }
 
-fn render_chunks(query: Query<&Chunk>, tile_regestry: Res<TileRegestry>) {
+pub fn render_chunks(query: Query<&Chunk>, tile_regestry: Res<TileRegestry>) {
     for chunk in &query {
         chunk.render(&tile_regestry);
     }

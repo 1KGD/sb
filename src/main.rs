@@ -17,6 +17,7 @@ impl Plugin for MainPlugin {
             .get_resource_mut::<TileRegestry>()
             .expect(&"Could not get tile regestry");
         regestry.regester("starbloom:air", Tile::declare(false));
+        regestry.regester("starbloom:debug", Tile::declare(true));
 
         world.spawn(Player());
     }
@@ -34,7 +35,7 @@ async fn mainloop() {
     loop {
         clear_background(BLUE);
         schedule.run(&mut world);
-   
+
         #[cfg(feature = "show_fps")]
         draw_fps();
 

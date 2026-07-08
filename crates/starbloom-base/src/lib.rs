@@ -15,4 +15,9 @@ impl Position {
     pub fn as_vec2(&self) -> Vec2 {
         Vec2::new(self.x, self.y)
     }
+
+    pub fn from_vec2(&mut self, vec: Vec2) {
+        self.x = vec.x;
+        self.y = vec.y;
+    }
 }

@@ -896,12 +896,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "starbloom-camera"
+version = "0.1.0"
+dependencies = [
+ "bevy_ecs",
+ "macroquad",
+ "starbloom-base",
+]
+
+[[package]]
 name = "starbloom-map"
 version = "0.1.0"
 dependencies = [
  "bevy_ecs",
  "macroquad",
  "starbloom-base",
+ "starbloom-camera",
 ]
 
 [[package]]
