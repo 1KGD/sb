@@ -8,12 +8,24 @@ mod player;
 
 use crate::player::*;
 
+struct MainPlugin();
+
+impl Plugin for MainPlugin {
+    fn create(world: &mut World, _schedule: &mut Schedule) {
+        let mut regestry = world
+            .get_resource_mut::<TileRegestry>()
+            .expect(&"Could not get tile regestry");
+        regestry.regester("starbloom:air", Tile::declare(false));
+    }
+}
+
 async fn mainloop() {
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
 
     MapPlugin::create(&mut world, &mut schedule);
     PlayerPlugin::create(&mut world, &mut schedule);
+    MainPlugin::create(&mut world, &mut schedule);
 
     loop {
         clear_background(WHITE);

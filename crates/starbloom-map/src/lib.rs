@@ -20,7 +20,9 @@ struct Chunk {
 impl Chunk {
     pub fn render(&self, tile_regestry: &TileRegestry) {
         for (x, row) in self.tiles.iter().enumerate() {
-            for (y, tile) in row.iter().enumerate() {
+            for (y, tile_idx) in row.iter().enumerate() {
+                let tile = tile_regestry.get_tile_by_idx(tile_idx);
+                if !tile.renderable {continue;}
                 draw_rectangle(
                     x as f32 * TILE_SIZE,
                     y as f32 * TILE_SIZE,
@@ -40,7 +42,7 @@ impl Chunk {
 #[derive(Resource)]
 pub struct TileRegestry {
     ids: std::collections::BTreeMap<TileRepr, &'static str>,
-    entries: std::collections::HashMap<&'static str, &'static Tile>,
+    entries: std::collections::HashMap<&'static str, Tile>,
 }
 
 impl TileRegestry {
@@ -51,11 +53,16 @@ impl TileRegestry {
         }
     }
 
-    pub fn regester(&mut self, id: &'static str, tile: &'static Tile) {
+    pub fn regester(&mut self, id: &'static str, tile: Tile) {
         self.entries.insert(id, tile);
         if self.ids.values().find(|v| **v == id).is_none() {
             self.ids.insert(self.ids.len() as TileRepr, id);
         }
+        info!("Regestered tile '{}'", id);
+    }
+
+    pub fn get_tile_by_idx(&self, idx: &TileRepr) -> &Tile {
+        self.entries.get(self.ids.get(idx).expect("bad tile idx")).expect("Bad tile idx")
     }
 }
 

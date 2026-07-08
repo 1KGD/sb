@@ -1,3 +1,11 @@
 pub struct Tile {
-    pub id: u16,
+    pub renderable: bool
+}
+
+impl Tile {
+    pub const fn declare(renderable: bool) -> Self {
+        Self {
+            renderable
+        }
+    }
 }
