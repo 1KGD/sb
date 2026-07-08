@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 use bevy_ecs::prelude::*;
 use macroquad::prelude::*;
 
@@ -39,18 +37,33 @@ impl Chunk {
     }
 }
 
-pub trait TileType: Sync + Send {}
-
-#[derive(Resource, Default)]
+#[derive(Resource)]
 pub struct TileRegestry {
-    map: HashMap<TileRepr, Box<dyn TileType>>,
+    ids: std::collections::BTreeMap<TileRepr, &'static str>,
+    entries: std::collections::HashMap<&'static str, &'static Tile>,
+}
+
+impl TileRegestry {
+    pub fn new() -> Self {
+        Self {
+            ids: std::collections::BTreeMap::new(),
+            entries: std::collections::HashMap::new(),
+        }
+    }
+
+    pub fn regester(&mut self, id: &'static str, tile: &'static Tile) {
+        self.entries.insert(id, tile);
+        if self.ids.values().find(|v| **v == id).is_none() {
+            self.ids.insert(self.ids.len() as TileRepr, id);
+        }
+    }
 }
 
 pub struct MapPlugin();
 
 impl Plugin for MapPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
-        world.insert_resource(TileRegestry::default());
+        world.insert_resource(TileRegestry::new());
         schedule.add_systems(render_chunks);
     }
 }
