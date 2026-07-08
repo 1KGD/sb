@@ -1,5 +1,8 @@
 test:
-	cargo run
+	cargo run --features native_dev
+
+test-web:
+	cargo run --features web_dev --target wasm32-unknown-unknown
 
 fmt:
 	cargo fmt --all

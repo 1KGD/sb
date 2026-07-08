@@ -42,7 +42,7 @@ async fn mainloop() {
 async fn main() {
     set_fullscreen(true);
 
-    #[cfg(feature = "intro")]
+    #[cfg(not(feature = "skip_intro"))]
     starbloom_intro::main().await;
 
     mainloop().await;

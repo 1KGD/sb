@@ -14,8 +14,14 @@ starbloom-intro = { version = "*", path = "crates/starbloom-intro" }
 starbloom-map = { version = "0.1.0", path = "crates/starbloom-map" }
 
 [features]
-intro = []
+skip_intro = []
+show_fps = []
 web = []
 
-native_release = ["intro"]
-web_release = ["intro", "web"]
+dev = ["skip_intro", "show_fps"]
+
+native_dev = ["dev"]
+web_dev = ["dev", "web"]
+
+native_release = []
+web_release = ["web"]
