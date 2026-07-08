@@ -15,15 +15,9 @@ async fn mainloop() {
     MapPlugin::create(&mut world, &mut schedule);
     PlayerPlugin::create(&mut world, &mut schedule);
 
-    let mut checked: bool = false;
     loop {
         clear_background(WHITE);
         schedule.run(&mut world);
-        if !checked {
-            if macroquad::ui::root_ui().button(None, "Click Me") {
-                checked = true;
-            }
-        }
         next_frame().await;
     }
 }
