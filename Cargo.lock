@@ -919,6 +919,8 @@ name = "starbloom-map"
 version = "0.1.0"
 dependencies = [
  "bevy_ecs",
+ "macroquad",
+ "starbloom-base",
 ]
 
 [[package]]
