@@ -1,7 +1,3 @@
-pub struct Tile<'a> {
-    pub behavior: &'a (dyn TileBehavior + Sync),
-}
-
-pub trait TileBehavior {
-    fn invisible(&self) -> bool;
+pub struct Tile {
+    pub id: u16,
 }

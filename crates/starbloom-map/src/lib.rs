@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use bevy_ecs::prelude::*;
 use macroquad::prelude::*;
 
@@ -10,17 +12,17 @@ pub use crate::tile::*;
 const CHUNK_DIM: usize = 16;
 const TILE_SIZE: f32 = 16.;
 
+type TileRepr = u16;
+
+#[derive(Component)]
 struct Chunk {
-    tiles: [[Tile<'static>; CHUNK_DIM]; CHUNK_DIM],
+    tiles: [[TileRepr; CHUNK_DIM]; CHUNK_DIM],
 }
 
 impl Chunk {
-    pub fn render(&self) {
+    pub fn render(&self, tile_regestry: &TileRegestry) {
         for (x, row) in self.tiles.iter().enumerate() {
             for (y, tile) in row.iter().enumerate() {
-                if tile.behavior.invisible() {
-                    continue;
-                }
                 draw_rectangle(
                     x as f32 * TILE_SIZE,
                     y as f32 * TILE_SIZE,
@@ -32,35 +34,29 @@ impl Chunk {
         }
     }
 
-    pub fn get(&self, x: usize, y: usize) -> &Tile<'_> {
-        &self.tiles[x][y]
+    pub fn get(&self, x: usize, y: usize) -> TileRepr {
+        self.tiles[x][y]
     }
 }
 
-#[derive(Resource)]
-pub struct TileMap {
-    chunks: Vec<Vec<Chunk>>,
-}
+pub trait TileType: Sync + Send {}
 
-impl TileMap {
-    pub fn new() -> Self {
-        Self { chunks: vec![] }
-    }
+#[derive(Resource, Default)]
+pub struct TileRegestry {
+    map: HashMap<TileRepr, Box<dyn TileType>>,
 }
 
 pub struct MapPlugin();
 
 impl Plugin for MapPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
-        world.insert_resource(TileMap::new());
-        schedule.add_systems(render_world_map);
+        world.insert_resource(TileRegestry::default());
+        schedule.add_systems(render_chunks);
     }
 }
 
-fn render_world_map(map: Res<TileMap>) {
-    for row in &map.chunks {
-        for chunk in row {
-            chunk.render();
-        }
+fn render_chunks(query: Query<&Chunk>, tile_regestry: Res<TileRegestry>) {
+    for chunk in &query {
+        chunk.render(&tile_regestry);
     }
 }
