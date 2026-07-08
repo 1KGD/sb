@@ -32,8 +32,12 @@ async fn mainloop() {
     MainPlugin::create(&mut world, &mut schedule);
 
     loop {
-        clear_background(WHITE);
+        clear_background(BLUE);
         schedule.run(&mut world);
+   
+        #[cfg(feature = "show_fps")]
+        draw_fps();
+
         next_frame().await;
     }
 }

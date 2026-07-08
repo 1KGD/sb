@@ -1,6 +1,6 @@
 [package]
 name = "starbloom"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 license = "MIT"
 authors = ["John Schiefelbein"]
@@ -8,20 +8,36 @@ authors = ["John Schiefelbein"]
 [dependencies]
 bevy_ecs = "0.19"
 macroquad = "0.4.15"
-starbloom-base = { version = "0.1.0", path = "crates/starbloom-base" }
-starbloom-camera = { version = "0.1.0", path = "crates/starbloom-camera" }
+starbloom-base = { version = "*", path = "crates/starbloom-base" }
+starbloom-camera = { version = "*", path = "crates/starbloom-camera" }
 starbloom-intro = { version = "*", path = "crates/starbloom-intro" }
-starbloom-map = { version = "0.1.0", path = "crates/starbloom-map" }
+starbloom-map = { version = "*", path = "crates/starbloom-map" }
 
 [features]
 skip_intro = []
 show_fps = []
 web = []
+mobile = []
 
 dev = ["skip_intro", "show_fps"]
 
 native_dev = ["dev"]
 web_dev = ["dev", "web"]
+mobile_dev = ["dev", "mobile"]
 
-native_release = []
-web_release = ["web"]
+release = []
+
+native_release = ["release"]
+web_release = ["release", "web"]
+mobile_release = ["release", "mobile"]
+
+[profile.dev]
+opt-level = 1
+
+#[profile.dev.package."*"]
+#opt-level = 3
+
+[profile.wasm-release]
+inherits = "release"
+opt-level = "s"
+strip = "debuginfo"
