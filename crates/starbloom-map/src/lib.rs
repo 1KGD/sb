@@ -3,26 +3,22 @@ use macroquad::prelude::*;
 
 use starbloom_base::*;
 
+mod tile;
+
+pub use crate::tile::*;
+
 const CHUNK_DIM: usize = 16;
 const TILE_SIZE: f32 = 16.;
 
-#[repr(u16)]
-#[derive(PartialEq)]
-enum Tile {
-    AIR,
-    DIRT,
-    SAND,
-}
-
 struct Chunk {
-    tiles: [[Tile; CHUNK_DIM]; CHUNK_DIM],
+    tiles: [[Tile<'static>; CHUNK_DIM]; CHUNK_DIM],
 }
 
 impl Chunk {
     pub fn render(&self) {
         for (x, row) in self.tiles.iter().enumerate() {
             for (y, tile) in row.iter().enumerate() {
-                if *tile == Tile::AIR {
+                if tile.behavior.invisible() {
                     continue;
                 }
                 draw_rectangle(
@@ -35,9 +31,13 @@ impl Chunk {
             }
         }
     }
+
+    pub fn get(&self, x: usize, y: usize) -> &Tile<'_> {
+        &self.tiles[x][y]
+    }
 }
 
-#[derive(Resource, Default)]
+#[derive(Resource)]
 pub struct TileMap {
     chunks: Vec<Vec<Chunk>>,
 }
