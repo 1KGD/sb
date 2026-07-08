@@ -20,14 +20,14 @@ pub struct PlayerPlugin();
 impl Plugin for PlayerPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(update_player.before(prepare_camera));
-        schedule.add_systems(render_player.after(render_chunks));
+        schedule.add_systems(render_player.after(render_chunks).before(prepare_ui_camera));
         world.spawn(LocalPlayer());
     }
 }
 
 fn render_player(query: Query<&Position, With<Player>>) {
     for position in query {
-        draw_rectangle(position.x, position.y, 20., 20., BLACK);
+        draw_rectangle(position.x-10., position.y-10., 20., 20., BLACK);
     }
 }
 
