@@ -5,7 +5,8 @@ extensions = [
 
 myst_enable_extensions = [
     "alert",
-    "smartquotes"
+    "smartquotes",
+    "gfm_autolink"
 ]
 
 project = "STARBLOOM"
