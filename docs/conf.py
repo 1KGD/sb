@@ -6,6 +6,7 @@ extensions = [
 myst_enable_extensions = [
     "alert",
     "smartquotes",
+    "colon_fence",
     "gfm_autolink"
 ]
 
