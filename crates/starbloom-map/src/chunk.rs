@@ -1,7 +1,7 @@
 use bevy_ecs::prelude::*;
 use macroquad::prelude::*;
 
-use crate::tile::*;
+use starbloom_tiles::*;
 
 pub const CHUNK_DIM: usize = 16;
 
@@ -39,6 +39,15 @@ impl Chunk {
                 );
             }
         }
+
+        let dim = measure_text(format!("{}, {}", self.x, self.y), None, 20, 1.);
+        draw_text(
+            format!("{}, {}", self.x, self.y),
+            self.x as f32 * CHUNK_SIZE,
+            self.y as f32 * CHUNK_SIZE + dim.height,
+            20.,
+            BLACK,
+        );
     }
 
     pub fn get(&self, x: usize, y: usize) -> TileRepr {

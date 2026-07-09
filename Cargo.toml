@@ -12,6 +12,8 @@ starbloom-base = { version = "*", path = "crates/starbloom-base" }
 starbloom-camera = { version = "*", path = "crates/starbloom-camera" }
 starbloom-intro = { version = "*", path = "crates/starbloom-intro" }
 starbloom-map = { version = "*", path = "crates/starbloom-map" }
+starbloom-tiles = { version = "*", path = "crates/starbloom-tiles" }
+starbloom-worldgen = { version = "*", path = "crates/starbloom-worldgen" }
 
 [features]
 skip_intro = []

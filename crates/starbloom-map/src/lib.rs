@@ -2,14 +2,13 @@ use bevy_ecs::prelude::*;
 
 use starbloom_base::*;
 use starbloom_camera::*;
+use starbloom_tiles::*;
 
 mod chunk;
 mod chunkloader;
-mod tile;
 
 pub use crate::chunk::*;
 use crate::chunkloader::*;
-pub use crate::tile::*;
 
 pub struct MapPlugin();
 

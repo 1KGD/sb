@@ -647,9 +647,9 @@ dependencies = [
 
 [[package]]
 name = "memchr"
-version = "2.8.2"
+version = "2.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "88904434abc2901f197fe8cc55f0445e7ded921dba5911dad2e2b39b48e663c4"
+checksum = "cf8baf1c55e62ffcace7a9f06f4bd9cd3f0c4beb022d3b367256b91b87513d98"
 
 [[package]]
 name = "miniquad"
@@ -678,17 +678,6 @@ name = "ndk-sys"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e1bcdd74c20ad5d95aacd60ef9ba40fdf77f767051040541df557b7a9b2a2121"
-
-[[package]]
-name = "noise"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6da45c8333f2e152fc665d78a380be060eb84fad8ca4c9f7ac8ca29216cff0cc"
-dependencies = [
- "num-traits",
- "rand",
- "rand_xorshift",
-]
 
 [[package]]
 name = "nonmax"
@@ -789,30 +778,6 @@ name = "r-efi"
 version = "6.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f8dcc9c7d52a811697d2151c701e0d08956f92b0e24136cf4cf27b57a6a0d9bf"
-
-[[package]]
-name = "rand"
-version = "0.8.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5ca0ecfa931c29007047d1bc58e623ab12e5590e8c7cc53200d5202b69266d8a"
-dependencies = [
- "rand_core",
-]
-
-[[package]]
-name = "rand_core"
-version = "0.6.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
-
-[[package]]
-name = "rand_xorshift"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d25bf25ec5ae4a3f1b92f929810509a2f53d7dca2f50b794ff57e3face536c8f"
-dependencies = [
- "rand_core",
-]
 
 [[package]]
 name = "raw-window-handle"
@@ -923,69 +888,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 
 [[package]]
-name = "starbloom"
-version = "0.1.1"
-dependencies = [
- "bevy_ecs",
- "macroquad",
- "starbloom-base",
- "starbloom-camera",
- "starbloom-intro",
- "starbloom-map",
- "starbloom-tiles",
- "starbloom-worldgen",
-]
-
-[[package]]
-name = "starbloom-base"
-version = "0.1.0"
-dependencies = [
- "bevy_ecs",
- "macroquad",
-]
-
-[[package]]
-name = "starbloom-camera"
-version = "0.1.0"
-dependencies = [
- "bevy_ecs",
- "macroquad",
- "starbloom-base",
-]
-
-[[package]]
-name = "starbloom-intro"
-version = "0.1.0"
-dependencies = [
- "macroquad",
- "starbloom-base",
-]
-
-[[package]]
-name = "starbloom-map"
-version = "0.1.0"
-dependencies = [
- "bevy_ecs",
- "macroquad",
- "starbloom-base",
- "starbloom-camera",
- "starbloom-tiles",
-]
-
-[[package]]
 name = "starbloom-tiles"
 version = "0.1.0"
 dependencies = [
  "bevy_ecs",
  "macroquad",
-]
-
-[[package]]
-name = "starbloom-worldgen"
-version = "0.1.0"
-dependencies = [
- "bevy_ecs",
- "noise",
 ]
 
 [[package]]

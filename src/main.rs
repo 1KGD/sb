@@ -4,6 +4,7 @@ use macroquad::prelude::*;
 use starbloom_base::*;
 use starbloom_camera::*;
 use starbloom_map::*;
+use starbloom_tiles::*;
 
 mod player;
 

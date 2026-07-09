@@ -912,7 +912,12 @@ dependencies = [
  "macroquad",
  "starbloom-base",
  "starbloom-camera",
+ "starbloom-tiles",
 ]
+
+[[package]]
+name = "starbloom-tiles"
+version = "0.1.0"
 
 [[package]]
 name = "syn"
