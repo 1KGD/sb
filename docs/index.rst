@@ -1,6 +1,6 @@
-.. highlight:: rust
-
-.. include:: ../README
+=========
+STARBLOOM
+=========
 
 .. toctree::
     about

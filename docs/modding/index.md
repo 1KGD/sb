@@ -1,4 +1,9 @@
 # Modding
+
+:::{toctree}
+    tiles
+:::
+
 > [!WARNING]
 > All of this is highly speculative and most of these frameworks do not exist yet.
 
