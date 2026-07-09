@@ -1,10 +1,11 @@
 # STARBLOOM
 
 :::{contents} Table of Contents
-:depth: 3
+:depth: 2
 :::
 
 :::{toctree}
+:hidden: true
 about
 modding/index
 :::
