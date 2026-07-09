@@ -1,10 +1,6 @@
-=========
-STARBLOOM
-=========
-
 .. highlight:: rust
 
-.. literalinclude:: ../src/main.rs
+.. include:: ../README.md
 
 .. toctree::
     about
