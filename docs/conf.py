@@ -1,5 +1,6 @@
 extensions = [
-  "sphinx.ext.todo"
+  "sphinx.ext.todo",
+  "myst-parser"
 ]
 
 project = "STARBLOOM"
