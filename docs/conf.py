@@ -1,1 +1,3 @@
-extensions = []
+extensions = [
+  "sphinx.ext.todo"
+]
