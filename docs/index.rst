@@ -3,4 +3,5 @@ STARBLOOM
 =========
 
 .. toctree::
-   about
+    about
+    modding

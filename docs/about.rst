@@ -2,4 +2,5 @@
 About
 =====
 
-.. todo:: Full description
+.. todo::
+    Full description
