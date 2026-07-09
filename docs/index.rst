@@ -1,6 +1,6 @@
 .. highlight:: rust
 
-.. include:: ../README.md
+.. include:: ../README
 
 .. toctree::
     about
