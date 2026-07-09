@@ -1,4 +1,5 @@
-:::{highlight} rust
+:::{eval-rst}
+.. highlight:: rust
 :::
 
 :::{include} ../README.md
