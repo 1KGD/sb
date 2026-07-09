@@ -4,4 +4,4 @@ STARBLOOM
 
 .. toctree::
     about
-    modding
+    modding/index
