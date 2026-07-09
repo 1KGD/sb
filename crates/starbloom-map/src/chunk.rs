@@ -3,10 +3,9 @@ use macroquad::prelude::*;
 
 use crate::tile::*;
 
-const CHUNK_DIM: usize = 16;
-const TILE_SIZE: f32 = 16.;
+pub const CHUNK_DIM: usize = 16;
 
-const CHUNK_SIZE: f32 = CHUNK_DIM as f32 * TILE_SIZE;
+pub const CHUNK_SIZE: f32 = CHUNK_DIM as f32 * TILE_SIZE;
 
 #[derive(Component)]
 pub struct Chunk {
@@ -44,5 +43,14 @@ impl Chunk {
 
     pub fn get(&self, x: usize, y: usize) -> TileRepr {
         self.tiles[x][y]
+    }
+
+    pub fn get_bounding_rect(&self) -> Rect {
+        Rect::new(
+            self.x as f32 * CHUNK_SIZE,
+            self.y as f32 * CHUNK_SIZE,
+            CHUNK_SIZE,
+            CHUNK_SIZE,
+        )
     }
 }
