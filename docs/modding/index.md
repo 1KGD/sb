@@ -1,6 +1,7 @@
 # Modding
 
-:::{toctree}
+:::{note}
+.. toctree::
     tiles
 :::
 
