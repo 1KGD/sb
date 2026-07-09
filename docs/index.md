@@ -1,3 +1,6 @@
+:::{highlight} rust
+:::
+
 :::{include} ../README.md
 :::
 
