@@ -5,6 +5,7 @@ use starbloom_base::*;
 use starbloom_camera::*;
 use starbloom_map::*;
 use starbloom_tiles::*;
+use starbloom_worldgen::*;
 
 mod player;
 
@@ -32,6 +33,7 @@ async fn mainloop() {
 
     CameraPlugin::create(&mut world, &mut schedule);
     MapPlugin::create(&mut world, &mut schedule);
+    WorldgenPlugin::create(&mut world, &mut schedule);
     PlayerPlugin::create(&mut world, &mut schedule);
     MainPlugin::create(&mut world, &mut schedule);
 

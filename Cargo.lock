@@ -985,7 +985,9 @@ name = "starbloom-worldgen"
 version = "0.1.0"
 dependencies = [
  "bevy_ecs",
+ "macroquad",
  "noise",
+ "starbloom-base",
 ]
 
 [[package]]
