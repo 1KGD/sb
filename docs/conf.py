@@ -1,7 +1,6 @@
 extensions = [
   "sphinx.ext.todo",
   "myst_parser",
-  "sphinx_tippy"
 ]
 
 myst_enable_extensions = [

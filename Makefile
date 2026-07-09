@@ -24,7 +24,7 @@ install:
 	cargo install --path . --features native_release
 
 test-docs:
-	sphinx-autobuild docs docs-out
+	sphinx-autobuild -a -E docs docs-out
 
 build-docs:
 	sphinx-build docs docs-out
