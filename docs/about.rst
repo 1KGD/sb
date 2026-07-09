@@ -1,6 +1,0 @@
-=====
-About
-=====
-
-.. todo::
-    Full description
