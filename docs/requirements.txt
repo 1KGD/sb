@@ -1,2 +1,2 @@
-sphinx-conestack-theme
+sphinx-book-theme
 myst-parser
