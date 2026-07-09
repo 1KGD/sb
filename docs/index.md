@@ -1,7 +1,4 @@
-# STARBLOOM
-
-:::{contents} Table of Contents
-:depth: 2
+:::{include} ../README.md
 :::
 
 :::{toctree}
