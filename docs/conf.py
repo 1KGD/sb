@@ -1,4 +1,4 @@
-from sphynx import __display_version__
+from sphinx import __display_version__
 
 extensions = [
   "sphinx.ext.todo"
