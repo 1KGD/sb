@@ -43,5 +43,11 @@ They make good farmhands, doing everything from tending to plants and livestock 
 
 ### The Not-So-Frendly Ones
 
-They do what they were designed to do: *start fires*. And once they do, they will fight tooth and nail (bolt and screw?) to keep them burning.
+They do what they were designed to do: *start fires*. And once they do, they will fight tooth and nail (bolt and screw?) to keep them burning. They don't show up for a while, but when they do, they are a challenge (I hope you invested in kamakazi drones).
+
+## The World
+
+> [!NOTE]
+> The world is not infinite, it is just so big that visiting the entirty if it will run into issues. Probably something involving floating-point errors, stoage space, or memory, whichever has the decency to come first.
+
 
