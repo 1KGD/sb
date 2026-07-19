@@ -16,9 +16,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Run tests
-      run: cargo test --verbose
-    - name: Cargo Publish Workspaces
-      uses: vpetrigo/publish-crate@v1.0.1
-      with:
-        ignore-unpublished-changes: true
+    - name: Cargo Bump
+      uses: tj-actions/cargo-bump@v3.0.2
+    - name: Publish to crates.io
+      run: cargo publish --workspace
