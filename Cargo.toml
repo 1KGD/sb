@@ -1,9 +1,21 @@
+[workspace.package]
+version = "0.1.2"
+authors = ["John Schiefelbein"]
+license = "MIT"
+edition = "2024"
+
+[workspace]
+members = [
+    "crates/starbloom-base",
+    "crates/starbloom-camera",
+    "crates/starbloom-intro",
+    "crates/starbloom-map",
+    "crates/starbloom-tiles",
+    "crates/starbloom-worldgen"
+]
+
 [package]
 name = "starbloom"
-version = "0.1.1"
-edition = "2024"
-license = "MIT"
-authors = ["John Schiefelbein"]
 
 [dependencies]
 bevy_ecs = {version="0.19", default-features=false, features=["debug"]}

@@ -1,9 +1,9 @@
 [package]
 name = "starbloom-intro"
 description = "sub-package for starbloom"
-license = "MIT"
-version = "0.1.0"
-edition = "2024"
+license.workspace = true
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
 macroquad = "0.4.15"

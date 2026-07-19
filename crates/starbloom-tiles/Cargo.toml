@@ -1,9 +1,9 @@
 [package]
 name = "starbloom-tiles"
 description = "sub-package for starbloom"
-license = "MIT"
-version = "0.1.0"
-edition = "2024"
+license.workspace = true
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
 bevy_ecs = {version="0.19", default-features=false}
