@@ -885,7 +885,7 @@ checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 
 [[package]]
 name = "starbloom"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "bevy_ecs",
  "macroquad",
@@ -899,7 +899,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-base"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "bevy_ecs",
  "macroquad",
@@ -907,7 +907,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-camera"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "bevy_ecs",
  "macroquad",
@@ -916,7 +916,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-intro"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "macroquad",
  "starbloom-base",
@@ -924,7 +924,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-map"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "bevy_ecs",
  "macroquad",
@@ -935,7 +935,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-tiles"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "bevy_ecs",
  "macroquad",
@@ -943,7 +943,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-worldgen"
-version = "0.1.3"
+version = "0.1.4"
 dependencies = [
  "bevy_ecs",
  "macroquad",
