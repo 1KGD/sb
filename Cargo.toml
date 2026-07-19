@@ -32,6 +32,7 @@ description = "A game"
 version.workspace = true
 license.workspace = true
 edition.workspace = true
+homepage = "https://github.com/1KGD/sb"
 publish = true
 
 [dependencies]
