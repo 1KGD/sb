@@ -35,8 +35,6 @@ edition.workspace = true
 publish = true
 
 [dependencies]
-bevy_ecs = {version="0.19", default-features=false, features=["debug"]}
-macroquad = "0.4.15"
 bevy_ecs = { workspace = true, features = ["debug"] }
 macroquad = { workspace = true }
 starbloom-base = { workspace = true }

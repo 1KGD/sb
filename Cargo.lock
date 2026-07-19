@@ -889,6 +889,12 @@ version = "0.1.5"
 dependencies = [
  "bevy_ecs",
  "macroquad",
+ "starbloom-base",
+ "starbloom-camera",
+ "starbloom-intro",
+ "starbloom-map",
+ "starbloom-tiles",
+ "starbloom-worldgen",
 ]
 
 [[package]]
