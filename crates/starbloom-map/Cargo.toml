@@ -6,8 +6,8 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-bevy_ecs = {version="0.19", default-features=false}
-macroquad = "0.4.15"
-starbloom-base = { version = "0.1.0", path = "../starbloom-base" }
-starbloom-camera = { version = "0.1.0", path = "../starbloom-camera" }
-starbloom-tiles = { version = "0.1.0", path = "../starbloom-tiles" }
+bevy_ecs = { workspace = true }
+macroquad = { workspace = true }
+starbloom-base = { workspace = true }
+starbloom-camera = { workspace = true }
+starbloom-tiles = { workspace = true }

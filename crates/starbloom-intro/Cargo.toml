@@ -6,5 +6,5 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-macroquad = "0.4.15"
-starbloom-base = { version = "0.1.0", path = "../starbloom-base" }
+macroquad = { workspace = true }
+starbloom-base = { workspace = true }
