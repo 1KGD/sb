@@ -19,4 +19,4 @@ jobs:
     - name: Run tests
       run: cargo test --verbose
     - name: Cargo Publish Workspaces
-      uses: vpetrigo/publish-crate@1.0.1
+      uses: vpetrigo/publish-crate@v1.0.1
