@@ -26,12 +26,6 @@ publish = true
 [dependencies]
 bevy_ecs = {version="0.19", default-features=false, features=["debug"]}
 macroquad = "0.4.15"
-starbloom-base = { path = "crates/starbloom-base" }
-starbloom-camera = { path = "crates/starbloom-camera" }
-starbloom-intro = { path = "crates/starbloom-intro" }
-starbloom-map = { path = "crates/starbloom-map" }
-starbloom-tiles = { path = "crates/starbloom-tiles" }
-starbloom-worldgen = { path = "crates/starbloom-worldgen" }
 
 [features]
 skip_intro = []
