@@ -1,12 +1,18 @@
-from sphinx import __display_version__
-
 extensions = [
-  "sphinx.ext.todo"
+  "sphinx.ext.todo",
+  "myst_parser",
+]
+
+myst_enable_extensions = [
+    "alert",
+    "smartquotes",
+    "colon_fence",
+    "gfm_autolink"
 ]
 
 project = "STARBLOOM"
+language = "en"
 copyright = "2026-%Y John Schiefelebein"
-release = version = __display_version__
-show_authors = True
+show_authors = False
 
-html_theme = "bizstyle"
+html_theme = "sphinx_book_theme"

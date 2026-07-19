@@ -82,9 +82,8 @@ fn update_local_player(
 
         let pos: Vec2 = position.as_vec2();
 
+        // Don't use an expensive square root if you don't need it.
         if motion.distance_squared(Vec2::ZERO) != 0. {
-            // don't use an expensive square root if you
-            // don't need it
             position.from_vec2(pos + motion.normalize() * PLAYER_SPEED * get_frame_time());
         }
         let old_pos: Vec2 = camera.position.clone();

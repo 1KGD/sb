@@ -1,6 +1,0 @@
-=========
-STARBLOOM
-=========
-
-.. toctree::
-   about
