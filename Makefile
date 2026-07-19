@@ -29,3 +29,5 @@ test-docs:
 build-docs:
 	sphinx-build docs docs-out
 
+publish:
+	cargo publish --workspace
