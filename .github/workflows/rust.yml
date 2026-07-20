@@ -1,9 +1,7 @@
 name: Rust
 
 on:
-  push:
-    tags:
-      - v*
+  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
@@ -16,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Cargo Bump
-      uses: tj-actions/cargo-bump@v3.0.2
+      uses: dimitrmo/cargo-verison-action@1.0.0
     - name: Authenticate to crates.io
       uses: rust-lang/crates-io-auth-action@v1.0.5
     - name: Publish to crates.io
