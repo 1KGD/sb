@@ -14,13 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Git configure
-      run: git config user.name github-actions && git config user.email nil
-    - name: Version bump
-      uses: dimitrmo/cargo-verison-action@v1.0.51
-      with:
-        workspace: true
-        message: "Release %s"
     - name: Authenticate to crates.io
       uses: rust-lang/crates-io-auth-action@v1.0.5
       id: auth
