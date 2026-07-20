@@ -18,7 +18,7 @@ jobs:
     - name: Install cargo-workspaces
       run: cargo install cargo-workspaces
     - name: BUMP!
-      run: cargo ws version patch
+      run: cargo ws version patch -y
 
   binary:
     runs-on: ubuntu-latest
