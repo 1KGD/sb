@@ -1,5 +1,5 @@
 [workspace.package]
-version = "0.2.2"
+version = "0.2.3"
 authors = ["John Schiefelbein"]
 license = "MIT"
 edition = "2024"
@@ -8,12 +8,12 @@ edition = "2024"
 bevy_ecs = { version = "0.19", default-features = false }
 macroquad = "0.4.15"
 noise = "0.9.0"
-starbloom-intro = { version = "0.2.2", path = "crates/starbloom-intro" }
-starbloom-map = { version = "0.2.2", path = "crates/starbloom-map" }
-starbloom-worldgen = { version = "0.2.2", path = "crates/starbloom-worldgen" }
-starbloom-camera = { version = "0.2.2", path = "crates/starbloom-camera" }
-starbloom-tiles = { version = "0.2.2", path = "crates/starbloom-tiles" }
-starbloom-base = { version = "0.2.2", path = "crates/starbloom-base" }
+starbloom-intro = { version = "0.2.3", path = "crates/starbloom-intro" }
+starbloom-map = { version = "0.2.3", path = "crates/starbloom-map" }
+starbloom-worldgen = { version = "0.2.3", path = "crates/starbloom-worldgen" }
+starbloom-camera = { version = "0.2.3", path = "crates/starbloom-camera" }
+starbloom-tiles = { version = "0.2.3", path = "crates/starbloom-tiles" }
+starbloom-base = { version = "0.2.3", path = "crates/starbloom-base" }
 
 [workspace]
 resolver = "3"
@@ -32,8 +32,8 @@ description = "A game"
 version.workspace = true
 license.workspace = true
 edition.workspace = true
-homepage = "sb.readthedocs.io"
-repository = "github.com/1kgd/sb"
+homepage = "https://sb.readthedocs.io"
+repository = "https://github.com/1kgd/sb"
 publish = true
 
 [dependencies]
