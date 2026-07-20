@@ -92,6 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [binary, bump]
     steps:
+      - uses: actions/checkout@v4
       - name: Install git-cliff
         run: npm i -g git-cliff
       - name: Write changelog
