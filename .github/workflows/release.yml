@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Release binary
-        uses: rust-build/rust-build.action@1.4.5
+        uses: rust-build/rust-build.action@v1.4.5
   
   publish:
     runs-on: ubuntu-latest
@@ -37,6 +37,8 @@ jobs:
       id-token: write
     steps:
     - uses: actions/checkout@v4
+    - name: Get latest commit
+      run: git pull
     - name: Authenticate to crates.io
       uses: rust-lang/crates-io-auth-action@v1.0.5
       id: auth
