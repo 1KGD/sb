@@ -32,7 +32,8 @@ description = "A game"
 version.workspace = true
 license.workspace = true
 edition.workspace = true
-homepage = "https://github.com/1KGD/sb"
+homepage = "sb.readthedocs.io"
+repository = "github.com/1kgd/sb"
 publish = true
 
 [dependencies]
