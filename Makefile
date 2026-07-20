@@ -30,4 +30,4 @@ build-docs:
 	sphinx-build docs docs-out
 
 publish:
-	cargo publish --workspace
+	gh workspace run release.yml
