@@ -29,7 +29,7 @@ jobs:
     permissions:
       contents: write
     outputs:
-      version: ${{steps.version.outputs.version}}
+      tag: ${{steps.version.outputs.version}}
     steps:
     - uses: actions/checkout@v4
     - name: Config git
@@ -37,10 +37,10 @@ jobs:
     - name: Install cargo-workspaces
       run: cargo install cargo-workspaces
     - name: BUMP!
-      run: cargo ws version ${{inputs.type}} -y
+      run: cargo ws version ${{inputs.type}} --no-individual-tags -y
     - name: Export version
-      run: echo "version=$CARGO_PKG_VERSION" >> $GITHUB_OUTPUT
-      id: version
+      run: echo "version=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
+      id: tag
 
   make-release:
     runs-on: ubuntu-latest
@@ -50,16 +50,16 @@ jobs:
     steps:
       - name: Create release
         id: create_release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3.0.2
         with:
-          name: ${{ needs.bump.outputs.version }}
+          tag_name: v${{ needs.bump.outputs.tag }}
           draft: false
           prerelease: ${{ inputs.prerelease }}
           generate_release_notes: true
 
   binary:
     runs-on: ${{matrix.os}}
-    needs: make-release
+    needs: [bump, make-release]
     strategy:
       fail-fast: false
       matrix:
@@ -80,9 +80,9 @@ jobs:
       - name: Build binary
         run: cargo build --release --features native_release
       - name: Upload binary
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3.0.2
         with:
-          tag_name: ${{ needs.make-release.outputs.tag_name }}
+          tag_name: v${{ needs.bump.outputs.tag }}
           files: ${{ env.CARGO_TARGET_DIR }}
   
   publish:
