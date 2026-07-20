@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Version bump
-      uses: dimitrmo/cargo-verison-action@1.0.51
+      uses: dimitrmo/cargo-verison-action@v1.0.51
       with:
         message: "Release %s"
     - name: Authenticate to crates.io
