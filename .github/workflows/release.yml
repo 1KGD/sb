@@ -7,11 +7,36 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
+  #todo: cargo test beforehand
+
+  bump:
+    runs-on: ubuntu-latest
     permissions:
       contents: write
-      id-token: write
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install cargo-bump
+      run: cargo install cargo-bump
+    - name: BUMP!
+      run: cargo bump
+    - name: Commit
+      uses: EndBug/add-and-commit@v10
+      with:
+        message: "v${{env.CARGO_PKG_VERSION}}"
+
+  binary:
     runs-on: ubuntu-latest
+    needs: bump
+    steps:
+      - uses: actions/checkout@v4
+      - name: Release binary
+        uses: rust-build/rust-build.action@1.4.5
+  
+  publish:
+    runs-on: ubuntu-latest
+    needs: bump
+    permissions:
+      id-token: write
     steps:
     - uses: actions/checkout@v4
     - name: Authenticate to crates.io
