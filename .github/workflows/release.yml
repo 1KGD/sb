@@ -36,6 +36,7 @@ jobs:
     runs-on: ${{matrix.os}}
     needs: bump
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     env:
@@ -45,7 +46,7 @@ jobs:
       - name: Get latest commit
         run: git pull
       - name: Build binary
-        run: cargo build --release --features native-release
+        run: cargo build --release --features native_release
       - name: Upload artifact
         uses: actions/upload-artifact@v7.0.1
         with:
