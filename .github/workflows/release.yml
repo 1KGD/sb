@@ -67,10 +67,13 @@ jobs:
         include:
           - os: ubuntu-latest
             filestub: starbloom-linux
+            filesuffix: ""
           - os: macos-latest
             filestub: macos
+            filesuffix: ""
           - os: windows-latest
             filestub: windows
+            filesuffix: ".exe"
     permissions:
       contents: write
     steps:
@@ -83,7 +86,7 @@ jobs:
         uses: softprops/action-gh-release@v3.0.2
         with:
           tag_name: ${{ needs.bump.outputs.tag }}
-          files: ./target
+          files: ./target/starbloom/release/starbloom${{matrix.filesuffix}}
   
   publish:
     runs-on: ubuntu-latest
