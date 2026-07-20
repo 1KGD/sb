@@ -75,17 +75,22 @@ jobs:
             filesuffix: ".exe"
     permissions:
       contents: write
+    env:
+      INITIAL_BIN_PATH: ./target/release/starbloom${{matrix.filesuffix}}
+      BIN_PATH: ./target/release/starbloom_${{matrix.filestub}}${{matrix.filesuffix}}
     steps:
       - uses: actions/checkout@v4
       - name: Get latest commit
         run: git pull
       - name: Build binary
         run: cargo build --release --features native_release
+      - name: Rename binary
+        run: mv ${{env.INITIAL_BIN_PATH}} ${{env.BIN_PATH}}
       - name: Upload binary
         uses: softprops/action-gh-release@v3.0.2
         with:
           tag_name: ${{ needs.bump.outputs.tag }}
-          files: ./target/release/starbloom${{matrix.filesuffix}}
+          files: ${{ env.BIN_PATH }}
           draft: true
 
   publish-release:
