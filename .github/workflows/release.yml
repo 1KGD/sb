@@ -73,8 +73,6 @@ jobs:
             filestub: windows
     permissions:
       contents: write
-    env:
-      CARGO_TARGET_DIR: ./dist
     steps:
       - uses: actions/checkout@v4
       - name: Get latest commit
@@ -85,7 +83,7 @@ jobs:
         uses: softprops/action-gh-release@v3.0.2
         with:
           tag_name: ${{ needs.bump.outputs.tag }}
-          files: ${{ env.CARGO_TARGET_DIR }}
+          files: ./target
   
   publish:
     runs-on: ubuntu-latest
