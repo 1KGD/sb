@@ -1,5 +1,5 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
+use glam::prelude::*;
 
 use starbloom_base::*;
 use starbloom_camera::*;
@@ -23,38 +23,19 @@ pub struct PlayerPlugin();
 
 impl Plugin for PlayerPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
-        schedule.add_systems(update_local_player.before(prepare_camera));
-        schedule.add_systems(
-            render_players
-                .after(render_chunks)
-                .before(prepare_ui_camera),
-        );
-        schedule.add_systems(
-            render_player_names
-                .after(render_players)
-                .before(prepare_ui_camera),
-        );
+        schedule.add_systems(update_local_player);
+        schedule.add_systems(render_players.after(render_chunks));
+        schedule.add_systems(render_player_names.after(render_players));
         world.spawn(LocalPlayer());
     }
 }
 
 fn render_players(query: Query<&Position, With<Player>>) {
-    for position in query {
-        draw_rectangle(position.x - 10., position.y - 10., 20., 20., BLACK);
-    }
+    for position in query {}
 }
 
 fn render_player_names(query: Query<(&Position, &Player), Without<LocalPlayer>>) {
-    for (position, player) in query {
-        let dims = measure_text(&player.name, None, PLAYER_NAME_FNT_SIZE, 1.);
-        draw_text(
-            &player.name,
-            position.x - dims.width / 2.,
-            position.y - 15.,
-            PLAYER_NAME_FNT_SIZE as f32,
-            WHITE,
-        );
-    }
+    for (position, player) in query {}
 }
 
 fn update_local_player(
@@ -64,7 +45,7 @@ fn update_local_player(
     if let Ok(mut position) = query.single_mut() {
         let mut motion: Vec2 = Vec2::ZERO;
 
-        if is_key_down(KeyCode::Down) {
+        /*if is_key_down(KeyCode::Down) {
             motion.y += 1.;
         }
 
@@ -78,13 +59,13 @@ fn update_local_player(
 
         if is_key_down(KeyCode::Right) {
             motion.x += 1.;
-        }
+        }*/
 
         let pos: Vec2 = position.as_vec2();
 
         // Don't use an expensive square root if you don't need it.
         if motion.distance_squared(Vec2::ZERO) != 0. {
-            position.from_vec2(pos + motion.normalize() * PLAYER_SPEED * get_frame_time());
+            position.from_vec2(pos + motion.normalize() * PLAYER_SPEED /* * get_frame_time()*/);
         }
         let old_pos: Vec2 = camera.position.clone();
 

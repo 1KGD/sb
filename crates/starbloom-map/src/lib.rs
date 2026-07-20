@@ -17,7 +17,6 @@ impl Plugin for MapPlugin {
         ChunkloaderPlugin::create(world, schedule);
 
         world.insert_resource(TileRegestry::new());
-        schedule.add_systems(render_chunks.after(prepare_camera));
     }
 }
 

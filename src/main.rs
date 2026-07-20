@@ -41,15 +41,12 @@ fn main() {
 
     let (mut handle, thread) = raylib::init()
         .fullscreen()
-        .title(format!("STARBLOOM v{}", VERSION))
+        .title(&format!("STARBLOOM v{}", VERSION))
         .build();
 
-    world.insert_non_send(RenderContext::default());
+    world.insert_resource(RenderContext(handle));
 
-    loop {
-        let mut ctx = world.non_send_mut::<RenderContext>();
-        ctx.as_mut().drawer = Some(handle.begin_drawing(&thread));
+    while true {
         schedule.run(&mut world);
-        ctx.as_mut().drawer = None;
     }
 }

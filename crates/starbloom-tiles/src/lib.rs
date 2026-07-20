@@ -1,5 +1,4 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
 
 pub const TILE_SIZE: f32 = 16.;
 
@@ -34,7 +33,7 @@ impl TileRegestry {
         if self.ids.values().find(|v| **v == id).is_none() {
             self.ids.insert(self.ids.len() as TileRepr, id);
         }
-        info!("Regestered tile '{}'", id);
+        println!("Regestered tile '{}'", id);
     }
 
     pub fn get_tile_by_idx(&self, idx: &TileRepr) -> &Tile {

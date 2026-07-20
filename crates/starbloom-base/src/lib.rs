@@ -8,10 +8,8 @@ pub trait Plugin {
     fn create(world: &mut World, schedule: &mut Schedule);
 }
 
-#[derive(Default)]
-pub struct RenderContext<'a> {
-    pub drawer: Option<RaylibDrawHandle<'a>>,
-}
+#[derive(Resource)]
+pub struct RenderContext(pub RaylibHandle);
 
 #[derive(Default, Component)]
 pub struct Position {

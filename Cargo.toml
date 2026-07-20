@@ -38,6 +38,7 @@ repository = "https://github.com/1kgd/sb"
 publish = true
 
 [dependencies]
+bevy_ecs.workspace = true
 glam = { workspace = true }
 raylib = { workspace = true }
 starbloom-base = { workspace = true }

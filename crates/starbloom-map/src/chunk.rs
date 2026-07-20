@@ -1,6 +1,4 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
-
 use starbloom_tiles::*;
 
 pub const CHUNK_DIM: usize = 16;
@@ -30,36 +28,11 @@ impl Chunk {
                 if !tile.renderable {
                     continue;
                 }
-                draw_rectangle(
-                    self.x as f32 * CHUNK_SIZE + x as f32 * TILE_SIZE,
-                    self.y as f32 * CHUNK_SIZE + y as f32 * TILE_SIZE,
-                    TILE_SIZE,
-                    TILE_SIZE,
-                    GREEN,
-                );
             }
         }
-
-        let dim = measure_text(format!("{}, {}", self.x, self.y), None, 20, 1.);
-        draw_text(
-            format!("{}, {}", self.x, self.y),
-            self.x as f32 * CHUNK_SIZE,
-            self.y as f32 * CHUNK_SIZE + dim.height,
-            20.,
-            BLACK,
-        );
     }
 
     pub fn get(&self, x: usize, y: usize) -> TileRepr {
         self.tiles[x][y]
-    }
-
-    pub fn get_bounding_rect(&self) -> Rect {
-        Rect::new(
-            self.x as f32 * CHUNK_SIZE,
-            self.y as f32 * CHUNK_SIZE,
-            CHUNK_SIZE,
-            CHUNK_SIZE,
-        )
     }
 }
