@@ -29,7 +29,7 @@ jobs:
     permissions:
       contents: write
     outputs:
-      tag: ${{steps.version.outputs.version}}
+      tag: ${{steps.tag.outputs.tag}}
     steps:
     - uses: actions/checkout@v4
     - name: Config git
@@ -39,7 +39,7 @@ jobs:
     - name: BUMP!
       run: cargo ws version ${{inputs.type}} --no-individual-tags -y
     - name: Export version
-      run: echo "version=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
+      run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
       id: tag
 
   make-release:
@@ -52,7 +52,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v3.0.2
         with:
-          tag_name: v${{ needs.bump.outputs.tag }}
+          tag_name: ${{ needs.bump.outputs.tag }}
           draft: false
           prerelease: ${{ inputs.prerelease }}
           generate_release_notes: true
@@ -71,8 +71,10 @@ jobs:
             filestub: macos
           - os: windows-latest
             filestub: windows
+    permissions:
+      contents: write
     env:
-      CARGO_TARGET_DIR: ./out
+      CARGO_TARGET_DIR: ./dist
     steps:
       - uses: actions/checkout@v4
       - name: Get latest commit
@@ -82,7 +84,7 @@ jobs:
       - name: Upload binary
         uses: softprops/action-gh-release@v3.0.2
         with:
-          tag_name: v${{ needs.bump.outputs.tag }}
+          tag_name: ${{ needs.bump.outputs.tag }}
           files: ${{ env.CARGO_TARGET_DIR }}
   
   publish:
