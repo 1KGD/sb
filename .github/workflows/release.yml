@@ -31,7 +31,7 @@ jobs:
     - name: Install cargo-workspaces
       run: cargo install cargo-workspaces
     - name: BUMP!
-      run: cargo ws version patch -y
+      run: cargo ws version ${{inputs.type}} -y
 
   binary:
     runs-on: ${{matrix.os}}
