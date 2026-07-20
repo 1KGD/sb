@@ -1,4 +1,4 @@
-name: Rust
+name: Release
 
 on:
   workflow_dispatch:
@@ -10,6 +10,7 @@ jobs:
   build:
     permissions:
       contents: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
