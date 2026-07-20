@@ -7,3 +7,5 @@ edition.workspace = true
 
 [dependencies]
 bevy_ecs = { workspace = true }
+glam = "0.33.2"
+raylib.workspace = true

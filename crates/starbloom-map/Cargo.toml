@@ -7,6 +7,7 @@ edition.workspace = true
 
 [dependencies]
 bevy_ecs = { workspace = true }
+raylib.workspace = true
 starbloom-base = { workspace = true }
 starbloom-camera = { workspace = true }
 starbloom-tiles = { workspace = true }

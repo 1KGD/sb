@@ -8,4 +8,5 @@ edition.workspace = true
 [dependencies]
 bevy_ecs = { workspace = true }
 noise = { workspace = true }
+raylib.workspace = true
 starbloom-base = { workspace = true }
