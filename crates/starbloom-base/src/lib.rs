@@ -1,6 +1,8 @@
 use bevy_ecs::prelude::*;
 use macroquad::prelude::*;
 
+pub const VERSION: &'static str = env!("CARGO_PKG_VERSION");
+
 pub trait Plugin {
     fn create(world: &mut World, schedule: &mut Schedule);
 }

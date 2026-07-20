@@ -1,5 +1,5 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
+use raylib::prelude::*;
 
 use starbloom_base::*;
 use starbloom_camera::*;
@@ -27,7 +27,7 @@ impl Plugin for MainPlugin {
     }
 }
 
-async fn mainloop() {
+fn mainloop() {
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
 
@@ -48,12 +48,13 @@ async fn mainloop() {
     }
 }
 
-#[macroquad::main("Starbloom")]
-async fn main() {
-    set_fullscreen(true);
+fn main() {
+    let (mut rl, thread) = raylib::init();
+    
+    println!("STARBLOOM v{}", VERSION);
 
     #[cfg(not(feature = "skip_intro"))]
     starbloom_intro::main().await;
 
-    mainloop().await;
+    while !r
 }

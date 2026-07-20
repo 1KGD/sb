@@ -1,8 +1,8 @@
 test:
-	cargo run --features native_dev
+	cargo run --features dev
 
 test-web:
-	cargo build --features web_dev --target wasm32-unknown-unknown
+	cargo build --features web,dev --target wasm32-unknown-unknown
 	basic-http-server
 
 fmt:
@@ -12,16 +12,16 @@ clean:
 	cargo clean
 
 build:
-	cargo build --release --features native_release
+	cargo build --release
 
 build-web:
-	cargo build --profile wasm-release --features web_release --target wasm32-unknown-unknown
+	cargo build --profile wasm-release --features web --target wasm32-unknown-unknown
 
 build-apk:
-	sudo docker run --rm -v $(pwd):/root/src: -w /root/src --name=quad-apk notfl3/cargo-apk cargo quad-apk build --features mobile_release
+	sudo docker run --rm -v $(pwd):/root/src: -w /root/src --name=quad-apk notfl3/cargo-apk cargo quad-apk build --features mobile
 
 install:
-	cargo install --path . --features native_release
+	cargo install --path .
 
 test-docs:
 	sphinx-autobuild -a -E --host 0.0.0.0 docs docs-out

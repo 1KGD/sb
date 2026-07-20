@@ -7,4 +7,3 @@ edition.workspace = true
 
 [dependencies]
 bevy_ecs = { workspace = true }
-macroquad = { workspace = true }

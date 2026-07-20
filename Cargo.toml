@@ -5,8 +5,7 @@ license = "MIT"
 edition = "2024"
 
 [workspace.dependencies]
-bevy_ecs = { version = "0.19", default-features = false }
-macroquad = "0.4.15"
+bevy_ecs = { version = "0.19", default-features = false, features = ["debug"] }
 noise = "0.9.0"
 starbloom-intro = { version = "0.5.0", path = "crates/starbloom-intro" }
 starbloom-map = { version = "0.5.0", path = "crates/starbloom-map" }
@@ -37,8 +36,7 @@ repository = "https://github.com/1kgd/sb"
 publish = true
 
 [dependencies]
-bevy_ecs = { workspace = true, features = ["debug"] }
-macroquad = { workspace = true }
+raylib = "6.0.0"
 starbloom-base = { workspace = true }
 starbloom-camera = { workspace = true }
 starbloom-intro = { workspace = true }
@@ -54,22 +52,8 @@ mobile = []
 
 dev = ["skip_intro", "show_fps"]
 
-native_dev = ["dev"]
-web_dev = ["dev", "web"]
-mobile_dev = ["dev", "mobile"]
-
-release = []
-
-native_release = ["release"]
-web_release = ["release", "web"]
-mobile_release = ["release", "mobile"]
-
 [profile.dev]
 opt-level = 1
 
 [profile.dev.package."*"]
 opt-level = 3
-
-[profile.wasm-release]
-inherits = "release"
-incremental = true
