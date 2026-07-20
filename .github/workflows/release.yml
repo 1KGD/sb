@@ -5,6 +5,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  CARGO_TARGET_DIR: ./out
 
 jobs:
   #todo: cargo test beforehand
@@ -23,12 +24,22 @@ jobs:
       run: cargo ws version patch -y
 
   binary:
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
     needs: bump
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v4
-      - name: Release binary
-        uses: rust-build/rust-build.action@v1.4.5
+      - name: Get latest commit
+        run: git pull
+      - name: Build binary
+        run: cargo build --release --features native-release
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ${{matrix.os}}
+          path: ${{env.CARGO_TARGET_DIR}}
   
   publish:
     runs-on: ubuntu-latest
