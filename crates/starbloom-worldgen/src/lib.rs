@@ -30,5 +30,4 @@ impl WorldgenProvider {
             biomes: std::collections::HashMap::new(),
         }
     }
-
 }

@@ -1,10 +1,16 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
+use glam::prelude::*;
+use raylib::prelude::*;
 
 pub const VERSION: &'static str = env!("CARGO_PKG_VERSION");
 
 pub trait Plugin {
     fn create(world: &mut World, schedule: &mut Schedule);
+}
+
+#[derive(Default)]
+pub struct RenderContext<'a> {
+    pub drawer: Option<RaylibDrawHandle<'a>>,
 }
 
 #[derive(Default, Component)]

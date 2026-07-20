@@ -27,7 +27,9 @@ impl Plugin for MainPlugin {
     }
 }
 
-fn mainloop() {
+fn main() {
+    println!("STARBLOOM v{}", VERSION);
+
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
 
@@ -37,24 +39,17 @@ fn mainloop() {
     PlayerPlugin::create(&mut world, &mut schedule);
     MainPlugin::create(&mut world, &mut schedule);
 
+    let (mut handle, thread) = raylib::init()
+        .fullscreen()
+        .title(format!("STARBLOOM v{}", VERSION))
+        .build();
+
+    world.insert_non_send(RenderContext::default());
+
     loop {
-        clear_background(BLUE);
+        let mut ctx = world.non_send_mut::<RenderContext>();
+        ctx.as_mut().drawer = Some(handle.begin_drawing(&thread));
         schedule.run(&mut world);
-
-        #[cfg(feature = "show_fps")]
-        draw_fps();
-
-        next_frame().await;
+        ctx.as_mut().drawer = None;
     }
-}
-
-fn main() {
-    let (mut rl, thread) = raylib::init();
-    
-    println!("STARBLOOM v{}", VERSION);
-
-    #[cfg(not(feature = "skip_intro"))]
-    starbloom_intro::main().await;
-
-    while !r
 }
