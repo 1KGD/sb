@@ -30,4 +30,4 @@ build-docs:
 	sphinx-build docs docs-out
 
 publish:
-	gh workspace run release.yml
+	gh workflow run release.yml
