@@ -112,6 +112,7 @@ jobs:
         with:
           tag_name: ${{ needs.bump.outputs.tag }}
           body: ${{steps.changelog.outputs.changelog}}
+          draft: true
   
   publish:
     runs-on: ubuntu-latest
