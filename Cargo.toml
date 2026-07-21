@@ -13,7 +13,7 @@ starbloom-worldgen = { version = "0.5.0", path = "crates/starbloom-worldgen" }
 starbloom-camera = { version = "0.5.0", path = "crates/starbloom-camera" }
 starbloom-tiles = { version = "0.5.0", path = "crates/starbloom-tiles" }
 starbloom-base = { version = "0.5.0", path = "crates/starbloom-base" }
-raylib = "6.0.0"
+raylib = {package="sola-raylib", version="6"}
 glam = "0.33.2"
 
 [workspace]
@@ -39,8 +39,8 @@ publish = true
 
 [dependencies]
 bevy_ecs.workspace = true
-glam = { workspace = true }
-raylib = { workspace = true }
+glam.workspace = true 
+raylib.workspace = true
 starbloom-base = { workspace = true }
 starbloom-camera = { workspace = true }
 starbloom-intro = { workspace = true }
