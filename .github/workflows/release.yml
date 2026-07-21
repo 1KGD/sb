@@ -105,7 +105,7 @@ jobs:
       - name: Write changelog
         run: git-cliff -o CHANGELOG.md
       - name: Store changelog
-        run: echo "changelog=$(cat CHANGELOG.md)" >> $GITHUB_OUTPUT
+        run: echo "changelog='$(cat CHANGELOG.md)'" >> $GITHUB_OUTPUT
         id: changelog
       - name: Publish release
         uses: softprops/action-gh-release@v3.0.2
