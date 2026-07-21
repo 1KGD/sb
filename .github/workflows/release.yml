@@ -105,15 +105,17 @@ jobs:
       - name: Write changelog
         run: git-cliff -o CHANGELOG.md
       - name: Read changelog
-        uses: andstor/file-reader-action@v1
         id: changelog
-        with:
-          path: "CHANGELOG.md"
+        run: |
+          changelog=$(cat ./CHANGELOG.md)
+          echo "file_content<<EOF" >> $GITHUB_OUTPUT
+          echo "$CONTENT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
       - name: Publish release
         uses: softprops/action-gh-release@v3.0.2
         with:
           tag_name: ${{ needs.bump.outputs.tag }}
-          body: ${{steps.changelog.outputs.contents}}
+          body: ${{steps.changelog.outputs.changelog}}
           draft: true
   
   publish:
