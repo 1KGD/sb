@@ -104,14 +104,16 @@ jobs:
         run: npm i -g git-cliff
       - name: Write changelog
         run: git-cliff -o CHANGELOG.md
-      - name: Store changelog
-        run: echo "changelog='$(cat CHANGELOG.md)'" >> $GITHUB_OUTPUT
+      - name: Read changelog
+        uses: jwils/read-file-action@v1.0.0
         id: changelog
+        with:
+          path: 'CHANGELOG.md'
       - name: Publish release
         uses: softprops/action-gh-release@v3.0.2
         with:
           tag_name: ${{ needs.bump.outputs.tag }}
-          body: ${{steps.changelog.outputs.changelog}}
+          body: ${{steps.changelog.outputs.content}}
           draft: true
   
   publish:
