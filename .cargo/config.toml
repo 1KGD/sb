@@ -1,9 +1,0 @@
-[target.wasm32-unknown-emscripten]
-rustflags = [
-    "-C", "link-arg=-sUSE_GLFW=3",
-    "-C", "link-arg=-sALLOW_MEMORY_GROWTH=1",
-    "-C", "link-arg=-sASYNCIFY=1",
-    "-C", "link-arg=-sFORCE_FILESYSTEM=1",
-    "-C", "link-arg=-sSUPPORT_LONGJMP=wasm",
-    "-C", "link-arg=-sEXPORTED_RUNTIME_METHODS=['ccall','wasmMemory','HEAPU8','HEAP32','HEAPF32']",
-]
