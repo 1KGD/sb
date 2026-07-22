@@ -1,3 +1,2 @@
 sphinx-book-theme
 myst-parser
-sphinx-tippy
