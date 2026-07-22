@@ -9,6 +9,9 @@ The end goal for this game is "A factory building farming game". For a full brea
 
 # Installing
 
+### Prebuilt Files
+Prebuilt files for windows, macos, and linux (x86 only; Sorry, arm) can be grabbed from the [github releases](https://github.com/1KGD/sb/releases). These should work out-of-the-box.
+
 ### Cargo
 To install the executable "starbloom" command, first [install rustup](https://rust-lang.org/learn/get-started). Once you have done that, it is as easy as:
 
@@ -17,6 +20,9 @@ cargo install starbloom
 ```
 
 Then, run the `starbloom` command to launch the game.
+
+### Build-it-yourself
+[TODO: get builds working in the first place]
 
 # Versions
 This project tries to follow SemVer to the best of it's ablities:
