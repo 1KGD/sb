@@ -1,5 +1,5 @@
 use bevy_ecs::prelude::*;
-use egor::app::*;
+use egor::{app::*, render::*};
 
 use starbloom_base::*;
 use starbloom_camera::*;
@@ -38,7 +38,8 @@ pub fn main() {
     PlayerPlugin::create(&mut world, &mut schedule);
     MainPlugin::create(&mut world, &mut schedule);
 
-    App::new().title("STARBLOOM").run(|ctx| {
-        ctx.gfx.rect();
+    App::new().title("STARBLOOM").run(move |ctx: &mut FrameContext<'_>| {
+        ctx.gfx.clear(Color::GREEN);
+        schedule.run(&mut world);
     });
 }
