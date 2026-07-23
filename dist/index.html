@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    
+<script type="module">
+import init, * as bindings from '/starbloom-6fc1dd674daaa3ca.js';
+const wasm = await init({ module_or_path: '/starbloom-6fc1dd674daaa3ca_bg.wasm' });
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  <link rel="modulepreload" href="/starbloom-6fc1dd674daaa3ca.js" crossorigin="anonymous" integrity="sha384-1R4GQSqVW79iDi3oQ3rVvFe3MrIYyPpaqTN2jkUvUm3dPK9/6vW1o1LtK0KnQgvF"><link rel="preload" href="/starbloom-6fc1dd674daaa3ca_bg.wasm" crossorigin="anonymous" integrity="sha384-JdfEKb2A68qfodOtsyW4guBzurM9RsliRYNvcJ6a724T3dVGzql2tdtX1fdYMbNB" as="fetch" type="application/wasm"></head>
+</html>

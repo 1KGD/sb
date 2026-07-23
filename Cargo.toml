@@ -23,7 +23,7 @@ members = [
     "crates/starbloom-intro",
     "crates/starbloom-map",
     "crates/starbloom-tiles",
-    "crates/starbloom-worldgen"
+    "crates/starbloom-worldgen",
 ]
 
 [package]
@@ -36,13 +36,10 @@ homepage = "https://sb.readthedocs.io"
 repository = "https://github.com/1kgd/sb"
 publish = true
 
-[lib]
-crate-type = ["cdylib", "rlib"]
-
 [dependencies]
 bevy_ecs.workspace = true
-egor = "0.10.0"
-glam.workspace = true 
+egor = { version = "0.10.0", features = ["webgl", "log", "ui"] }
+glam.workspace = true
 starbloom-base = { workspace = true }
 starbloom-camera = { workspace = true }
 starbloom-intro = { workspace = true }

@@ -1,6 +1,7 @@
 use bevy_ecs::prelude::*;
 use glam::prelude::*;
-use raylib::prelude::*;
+use egor::app::*;
+use egor::render::*;
 
 pub const VERSION: &'static str = env!("CARGO_PKG_VERSION");
 
@@ -8,8 +9,7 @@ pub trait Plugin {
     fn create(world: &mut World, schedule: &mut Schedule);
 }
 
-#[derive(Resource)]
-pub struct RenderContext(pub RaylibHandle);
+pub struct GfxContext<'a>(pub Graphics<'a>);
 
 #[derive(Default, Component)]
 pub struct Position {

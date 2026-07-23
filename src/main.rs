@@ -1,3 +1,7 @@
+mod core;
+mod player;
+
+egor::main!(main);
 fn main() {
-    println!("hello, world!");
+    crate::core::main();
 }
