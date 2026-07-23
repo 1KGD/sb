@@ -1,15 +1,14 @@
 use bevy_ecs::prelude::*;
 use glam::prelude::*;
-use egor::app::*;
-use egor::render::*;
+
+pub mod prelude;
+mod render;
 
 pub const VERSION: &'static str = env!("CARGO_PKG_VERSION");
 
 pub trait Plugin {
     fn create(world: &mut World, schedule: &mut Schedule);
 }
-
-pub struct GfxContext<'a>(pub Graphics<'a>);
 
 #[derive(Default, Component)]
 pub struct Position {
