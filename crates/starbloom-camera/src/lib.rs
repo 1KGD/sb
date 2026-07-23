@@ -1,7 +1,7 @@
 use bevy_ecs::prelude::*;
-use glam::prelude::*;
+use egor::math::*;
 
-use starbloom_base::*;
+use starbloom_base::prelude::*;
 
 pub struct CameraPlugin();
 

@@ -1,5 +1,5 @@
 use bevy_ecs::prelude::*;
-use glam::prelude::*;
+use egor::math::*;
 
 pub mod prelude;
 mod render;

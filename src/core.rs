@@ -1,5 +1,5 @@
 use bevy_ecs::prelude::*;
-use egor::{app::*, render::*};
+use egor::{app::*, input::*, render::*};
 
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
@@ -8,7 +8,6 @@ use starbloom_tiles::*;
 use starbloom_worldgen::*;
 
 use crate::player::*;
-
 struct MainPlugin();
 
 impl Plugin for MainPlugin {
@@ -40,14 +39,18 @@ pub fn main() {
 
     world.insert_non_send(GfxCmds::new());
 
-    App::new().title("STARBLOOM").run(move |ctx| {
-        ctx.gfx.clear(Color::GREEN);
-        schedule.run(&mut world);
+    App::new()
+        .title("STARBLOOM")
+        .run(move |ctx: &mut FrameContext<'_>| {
+            ctx.gfx.clear(Color::GREEN);
+            schedule.run(&mut world);
 
-        let mut cmds = world.get_non_send_mut::<GfxCmds>().unwrap();
-        cmds.apply(&mut ctx.gfx);
+            world
+                .get_non_send_mut::<GfxCmds>()
+                .unwrap()
+                .apply(&mut ctx.gfx);
 
-        #[cfg(feature = "show_fps")]
-        ctx.gfx.text(&format!("FPS: {}", ctx.timer.fps));
-    });
+            #[cfg(feature = "show_fps")]
+            ctx.gfx.text(&format!("FPS: {}", ctx.timer.fps));
+        });
 }

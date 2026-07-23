@@ -1,7 +1,7 @@
 use bevy_ecs::prelude::*;
 use noise::Simplex;
 
-use starbloom_base::*;
+use starbloom_base::prelude::*;
 
 mod biome;
 
