@@ -6,6 +6,7 @@ use egor::render::*;
 pub enum RenderCmd {
     Fill(Color),
     PositionedText(String, Vec2),
+    Rect(Vec2, Vec2),
 }
 
 pub struct GfxCmds {
@@ -32,6 +33,9 @@ impl GfxCmds {
                 }
                 RenderCmd::PositionedText(text, pos) => {
                     gfx.text(&text).at(pos);
+                }
+                RenderCmd::Rect(pos, size) => {
+                    gfx.rect().at(pos);
                 }
             }
         }

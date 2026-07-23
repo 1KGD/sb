@@ -52,7 +52,7 @@ pub fn main() {
                 .unwrap()
                 .update(ctx.input);
 
-            ctx.gfx.clear(Color::GREEN);
+            ctx.gfx.clear(Color::BLUE);
             schedule.run(&mut world);
 
             world
