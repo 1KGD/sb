@@ -6,6 +6,7 @@ edition = "2024"
 
 [workspace.dependencies]
 bevy_ecs = { version = "0.19", default-features = false, features = ["debug"] }
+egor = { version = "0.10.0", features = ["webgl", "log", "ui"] }
 noise = "0.9.0"
 starbloom-intro = { version = "0.5.0", path = "crates/starbloom-intro" }
 starbloom-map = { version = "0.5.0", path = "crates/starbloom-map" }
@@ -37,7 +38,7 @@ publish = true
 
 [dependencies]
 bevy_ecs.workspace = true
-egor = { version = "0.10.0", features = ["webgl", "log", "ui"] }
+egor = { workspace = true }
 starbloom-base = { workspace = true }
 starbloom-camera = { workspace = true }
 starbloom-intro = { workspace = true }

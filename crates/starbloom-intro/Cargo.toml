@@ -6,5 +6,5 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-egor = "0.10.0"
+egor = { workspace = true }
 starbloom-base = { workspace = true }

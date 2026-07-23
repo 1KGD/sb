@@ -7,4 +7,4 @@ edition.workspace = true
 
 [dependencies]
 bevy_ecs = { workspace = true }
-egor = "0.10.0"
+egor = { workspace = true }
