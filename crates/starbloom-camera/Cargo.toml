@@ -8,4 +8,5 @@ edition.workspace = true
 [dependencies]
 bevy_ecs = { workspace = true }
 egor = { workspace = true }
+egor_glue = { workspace = true }
 starbloom-base = { workspace = true }

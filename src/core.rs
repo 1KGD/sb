@@ -1,5 +1,6 @@
 use bevy_ecs::prelude::*;
-use egor::{app::*, input::*, render::*};
+use egor::{app::*, render::*};
+use log::*;
 
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
@@ -24,9 +25,12 @@ impl Plugin for MainPlugin {
     }
 }
 
+#[cfg(not(target_arch = "wasm32"))]
 egor::main!(main);
 pub fn main() {
-    println!("STARBLOOM v{}", VERSION);
+    wasm_logger::init(wasm_logger::Config::default());
+
+    info!("STARBLOOM v{}", VERSION);
 
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
@@ -38,10 +42,16 @@ pub fn main() {
     MainPlugin::create(&mut world, &mut schedule);
 
     world.insert_non_send(GfxCmds::new());
+    world.insert_resource(InputCtx::default());
 
     App::new()
         .title("STARBLOOM")
         .run(move |ctx: &mut FrameContext<'_>| {
+            world
+                .get_resource_mut::<InputCtx>()
+                .unwrap()
+                .update(ctx.input);
+
             ctx.gfx.clear(Color::GREEN);
             schedule.run(&mut world);
 

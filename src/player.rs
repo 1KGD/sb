@@ -5,7 +5,7 @@ use starbloom_base::prelude::*;
 use starbloom_camera::*;
 use starbloom_map::*;
 
-const PLAYER_SPEED: f32 = 200.;
+const PLAYER_SPEED: f32 = 2.;
 
 const PLAYER_NAME_FNT_SIZE: u16 = 20;
 
@@ -36,20 +36,21 @@ fn render_players(query: Query<&Position, With<Player>>) {
 
 fn render_player_names(
     query: Query<(&Position, &Player), Without<LocalPlayer>>,
+    main_camera: Res<MainCamera>,
     mut gfx: NonSendMut<GfxCmds>,
 ) {
     for (position, player) in query {
         gfx.insert(RenderCmd::PositionedText(
             player.name.to_owned(),
-            position.as_vec2(),
+            main_camera.cam.world_to_screen(position.as_vec2()),
         ));
     }
 }
 
 fn update_local_player(
     mut query: Query<&mut Position, With<LocalPlayer>>,
-    mut camera: ResMut<MainCamera>,
-    input: NonSend<Input>,
+    mut main_camera: ResMut<MainCamera>,
+    input: Res<InputCtx>,
 ) {
     if let Ok(mut position) = query.single_mut() {
         let mut motion: Vec2 = Vec2::ZERO;
@@ -78,8 +79,7 @@ fn update_local_player(
                 pos + motion.normalize() * PLAYER_SPEED, /* * get_frame_time()*/
             );
         }
-        let old_pos: Vec2 = camera.position.clone();
 
-        camera.position += (position.as_vec2() - old_pos) / 10.;
+        main_camera.cam.target(position.as_vec2());
     }
 }

@@ -6,7 +6,7 @@ edition = "2024"
 
 [workspace.dependencies]
 bevy_ecs = { version = "0.19", default-features = false, features = ["debug"] }
-egor = { version = "0.10.0", features = ["webgl", "log", "ui"] }
+egor = { version = "0.10.0", features = ["webgl", "ui"] }
 noise = "0.9.0"
 starbloom-intro = { version = "0.5.0", path = "crates/starbloom-intro" }
 starbloom-map = { version = "0.5.0", path = "crates/starbloom-map" }
@@ -14,6 +14,8 @@ starbloom-worldgen = { version = "0.5.0", path = "crates/starbloom-worldgen" }
 starbloom-camera = { version = "0.5.0", path = "crates/starbloom-camera" }
 starbloom-tiles = { version = "0.5.0", path = "crates/starbloom-tiles" }
 starbloom-base = { version = "0.5.0", path = "crates/starbloom-base" }
+log = "0.4.33"
+egor_glue = "0.10.0"
 
 [workspace]
 resolver = "3"
@@ -39,12 +41,16 @@ publish = true
 [dependencies]
 bevy_ecs.workspace = true
 egor = { workspace = true }
+egor_glue = { workspace = true }
+log = { workspace = true }
 starbloom-base = { workspace = true }
 starbloom-camera = { workspace = true }
 starbloom-intro = { workspace = true }
 starbloom-map = { workspace = true }
 starbloom-tiles = { workspace = true }
 starbloom-worldgen = { workspace = true }
+wasm-logger = "0.2.0"
+cosmic-text = { version = "*", features = ["wasm-web"] }
 
 [features]
 skip_intro = []

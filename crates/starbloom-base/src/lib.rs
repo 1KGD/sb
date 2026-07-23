@@ -1,6 +1,7 @@
 use bevy_ecs::prelude::*;
 use egor::math::*;
 
+pub mod input;
 pub mod prelude;
 mod render;
 

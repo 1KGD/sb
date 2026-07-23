@@ -1,5 +1,5 @@
 use bevy_ecs::prelude::*;
-use egor::math::*;
+use egor_glue::camera::*;
 
 use starbloom_base::prelude::*;
 
@@ -13,5 +13,5 @@ impl Plugin for CameraPlugin {
 
 #[derive(Resource, Default)]
 pub struct MainCamera {
-    pub position: Vec2,
+    pub cam: Camera,
 }
