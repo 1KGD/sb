@@ -1,6 +1,7 @@
 extensions = [
   "sphinx.ext.todo",
   "myst_parser",
+    "sphinx_new_tab_link"
 ]
 
 myst_enable_extensions = [
@@ -14,5 +15,7 @@ project = "STARBLOOM"
 language = "en"
 copyright = "2026-%Y John Schiefelebein"
 show_authors = False
+
+new_tab_link_show_external_link_icon = True
 
 html_theme = "sphinx_book_theme"
