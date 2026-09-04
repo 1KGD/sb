@@ -28,7 +28,10 @@ impl Plugin for MainPlugin {
 #[cfg(not(target_arch = "wasm32"))]
 egor::main!(main);
 pub fn main() {
+    #[cfg(target_arch = "wasm32")]
     wasm_logger::init(wasm_logger::Config::default());
+    #[cfg(not(target_arch = "wasm32"))]
+    env_logger::builder().format_timestamp(None).init();
 
     info!("STARBLOOM v{}", VERSION);
 
@@ -43,6 +46,8 @@ pub fn main() {
 
     world.insert_non_send(GfxCmds::new());
     world.insert_resource(InputCtx::default());
+
+    //wgpu::Limits::downlevel_webgl2_defaults();
 
     App::new()
         .title("STARBLOOM")

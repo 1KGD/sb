@@ -1,4 +1,5 @@
 use bevy_ecs::prelude::*;
+use egor::app::*;
 use egor::math::*;
 use egor::app::*;
 use glam::prelude::*;

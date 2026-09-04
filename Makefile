@@ -1,9 +1,8 @@
 test:
-	cargo run --features dev
+	RUST_LOG=starbloom=INFO cargo run --features dev
 
 test-web:
-	cargo build --features web,dev --target wasm32-unknown-unknown
-	basic-http-server
+	trunk build --features web,dev
 
 fmt:
 	cargo fmt --all
@@ -15,7 +14,7 @@ build:
 	cargo build --release
 
 build-web:
-	cargo build --features web --target wasm32-unknown-emscripten
+	trunk build --features web
 
 build-apk:
 	sudo docker run --rm -v $(pwd):/root/src: -w /root/src --name=quad-apk notfl3/cargo-apk cargo quad-apk build --features mobile

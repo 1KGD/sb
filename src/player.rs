@@ -30,9 +30,16 @@ impl Plugin for PlayerPlugin {
     }
 }
 
-fn render_players(query: Query<&Position, With<Player>>, main_camera: Res<MainCamera>, mut gfx: NonSendMut<GfxCmds>) {
+fn render_players(
+    query: Query<&Position, With<Player>>,
+    main_camera: Res<MainCamera>,
+    mut gfx: NonSendMut<GfxCmds>,
+) {
     for position in query {
-        gfx.insert(RenderCmd::Rect(main_camera.cam.world_to_screen(position.as_vec2()), Vec2::ZERO));
+        gfx.insert(RenderCmd::Rect(
+            main_camera.cam.world_to_screen(position.as_vec2()),
+            Vec2::ZERO,
+        ));
     }
 }
 
@@ -82,6 +89,8 @@ fn update_local_player(
             );
         }
 
-        main_camera.cam.center(position.as_vec2(), Vec2::new(100.,100.));
+        main_camera
+            .cam
+            .center(position.as_vec2(), Vec2::new(100., 100.));
     }
 }
