@@ -83,7 +83,7 @@ jobs:
       - name: Get latest commit
         run: git pull
       - name: Build binary
-        run: cargo build --release --features native_release
+        run: cargo build --release
       - name: Rename binary
         run: mv ${{env.INITIAL_BIN_PATH}} ${{env.BIN_PATH}}
       - name: Upload binary
