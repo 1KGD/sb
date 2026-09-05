@@ -29,9 +29,9 @@ impl Plugin for MainPlugin {
 egor::main!(main);
 pub fn main() {
     #[cfg(target_arch = "wasm32")]
-    wasm_logger::init(wasm_logger::Config::default());
+    wasm_logger::init(wasm_logger::Config::default().module_prefix("starbloom"));
     #[cfg(not(target_arch = "wasm32"))]
-    env_logger::builder().format_timestamp(None).init();
+    env_logger::builder().format_timestamp(None).filter(Some("starbloom"), LevelFilter::Info).init();
 
     info!("STARBLOOM v{}", VERSION);
 
