@@ -1,5 +1,13 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
+use egor::app::*;
+use egor::math::*;
+use egor::app::*;
+
+pub mod input;
+pub mod prelude;
+mod render;
+
+pub const VERSION: &'static str = env!("CARGO_PKG_VERSION");
 
 pub trait Plugin {
     fn create(world: &mut World, schedule: &mut Schedule);

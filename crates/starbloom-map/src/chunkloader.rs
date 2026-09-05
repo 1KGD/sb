@@ -1,5 +1,4 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
 
 use starbloom_base::*;
 use starbloom_camera::*;
@@ -20,16 +19,4 @@ fn chunkloading_task(
     query: Query<(Entity, &Chunk)>,
     camera: Res<MainCamera>,
 ) {
-    let bounds: Rect = Rect::new(
-        camera.position.x - screen_width() / 2.,
-        camera.position.y - screen_height() / 2.,
-        screen_width(),
-        screen_height(),
-    );
-
-    for (entity, chunk) in query {
-        if !bounds.overlaps(&chunk.get_bounding_rect()) {
-            commands.entity(entity).despawn();
-        }
-    }
 }
