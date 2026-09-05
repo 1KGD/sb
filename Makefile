@@ -2,7 +2,7 @@ test:
 	RUST_LOG=starbloom=INFO cargo run --features dev
 
 test-web:
-	trunk build --features web,dev
+	trunk serve -a 0.0.0.0 --features web,dev
 
 fmt:
 	cargo fmt --all
