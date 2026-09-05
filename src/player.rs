@@ -1,5 +1,5 @@
 use bevy_ecs::prelude::*;
-use egor::{input::*, math::*};
+use egor::{input::*, math::*, render::*};
 
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
@@ -36,10 +36,9 @@ fn render_players(
     mut gfx: NonSendMut<GfxCmds>,
 ) {
     for position in query {
-        gfx.insert(RenderCmd::Rect(
-            main_camera.cam.world_to_screen(position.as_vec2()),
-            Vec2::ZERO,
-        ));
+        gfx.draw(Box::new(|gfx: &mut Graphics<'_>| {
+	    gfx.rect();
+	}));
     }
 }
 
@@ -49,10 +48,10 @@ fn render_player_names(
     mut gfx: NonSendMut<GfxCmds>,
 ) {
     for (position, player) in query {
-        gfx.insert(RenderCmd::PositionedText(
-            player.name.to_owned(),
-            main_camera.cam.world_to_screen(position.as_vec2()),
-        ));
+	let name = player.name.clone();
+        gfx.draw(Box::new(move |gfx: &mut Graphics<'_>| {
+	    gfx.text(&name);
+	}));
     }
 }
 
