@@ -86,6 +86,12 @@ jobs:
         run: cargo build --release
       - name: Rename binary
         run: mv ${{env.INITIAL_BIN_PATH}} ${{env.BIN_PATH}}
+      - name: Setup butler
+        uses: remarkablegames/setup-butler@v3
+      - name: Upload to itch.io
+        run: butler push ${{ env.BIN_PATH }} mrmcscreamypant/starbloom:${{ matrix.filestub }}
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
       - name: Upload binary
         uses: softprops/action-gh-release@v3.0.2
         with:
@@ -104,21 +110,23 @@ jobs:
         run: npm i -g git-cliff
       - name: Write changelog
         run: git-cliff -o CHANGELOG.md
+      - name: debug
+        run: cat ./CHANGELOG.md
       - name: Read changelog
         id: changelog
         run: |
-          changelog=$(cat ./CHANGELOG.md)
+          CHANGELOG=$(cat ./CHANGELOG.md)
           echo "file_content<<EOF" >> $GITHUB_OUTPUT
-          echo "$CONTENT" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
       - name: Publish release
         uses: softprops/action-gh-release@v3.0.2
         with:
           tag_name: ${{ needs.bump.outputs.tag }}
           body: ${{steps.changelog.outputs.changelog}}
-          draft: true
+          draft: false
   
-  publish:
+  publish-cargo:
     runs-on: ubuntu-latest
     needs: bump
     permissions:
