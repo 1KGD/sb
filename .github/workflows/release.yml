@@ -118,9 +118,8 @@ jobs:
       - name: Read changelog
         id: changelog
         run: |
-          CHANGELOG=$(cat ./CHANGELOG.md)
-          echo "file_content<<EOF" >> $GITHUB_OUTPUT
-          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo cat ./CHANGELOG.md >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
       - name: Publish release
         uses: softprops/action-gh-release@v3.0.2
