@@ -21,6 +21,11 @@ on:
 env:
   CARGO_TERM_COLOR: always
 
+concurrency:
+  group: "publish"
+  cancel-in-progress: false
+
+
 jobs:
   #todo: cargo test beforehand
 
@@ -148,10 +153,16 @@ jobs:
         run: trunk build --release --features web
       - name: Setup butler
         uses: remarkablegames/setup-butler@v3
-      - name: Deploy to gh pages
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: dist
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
       - name: Upload to itch.io
         run: butler push dist mrmcscreamypant/starbloom:web --userversion ${{ needs.bump.outputs.tag }}
         env:
