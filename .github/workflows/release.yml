@@ -143,6 +143,8 @@ jobs:
         run: rustup target add wasm32-unknown-unknown
       - name: Build
         run: trunk build --release --features web
+      - name: Setup butler
+        uses: remarkablegames/setup-butler@v3
       - name: Upload to itch.io
         run: butler push dist mrmcscreamypant/starbloom:web --userversion ${{ needs.bump.outputs.tag }}
         env:
