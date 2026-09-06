@@ -37,7 +37,7 @@ jobs:
     - name: Install cargo-workspaces
       run: cargo install cargo-workspaces
     - name: BUMP!
-      run: cargo ws version ${{inputs.type}} --no-individual-tags -y
+      run: cargo ws version ${{inputs.type}} --no-individual-tags -y --tag-prefix
     - name: Export version
       run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
       id: tag
@@ -92,7 +92,7 @@ jobs:
       - name: Setup butler
         uses: remarkablegames/setup-butler@v3
       - name: Upload to itch.io
-        run: butler push ${{ env.BIN_PATH }} mrmcscreamypant/starbloom:${{ matrix.filestub }} --userversion ${{needs.bump.outputs.tag}}
+        run: butler push ${{ env.BIN_PATH }} mrmcscreamypant/starbloom:${{ matrix.butler-tag }} --userversion ${{ needs.bump.outputs.tag }}
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
       - name: Upload binary
