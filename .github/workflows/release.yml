@@ -144,6 +144,8 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+      - name: Get latest version
+        run: git pull
       - name: Install cargo-binstall
         uses: cargo-bins/cargo-binstall@main
       - name: Install trunk
