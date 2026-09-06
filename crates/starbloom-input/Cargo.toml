@@ -1,0 +1,9 @@
+[package]
+name = "starbloom-input"
+description = "sub-package for starbloom"
+license.workspace = true
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+starbloom-base = { workspace = true }
