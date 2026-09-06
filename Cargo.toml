@@ -61,6 +61,9 @@ mobile = []
 
 dev = ["skip_intro", "show_fps"]
 
+[lib]
+crate-type = ["cdylib", "rlib"]
+
 [profile.dev]
 opt-level = 1
 
