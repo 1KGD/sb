@@ -145,6 +145,10 @@ jobs:
         run: trunk build --release --features web
       - name: Setup butler
         uses: remarkablegames/setup-butler@v3
+      - name: Deploy to gh pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
       - name: Upload to itch.io
         run: butler push dist mrmcscreamypant/starbloom:web --userversion ${{ needs.bump.outputs.tag }}
         env:
