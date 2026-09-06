@@ -10,6 +10,8 @@ The end goal for this game is "A factory building farming game". For a full brea
 # Installing
 
 ### Prebuilt Files
+[![Release](https://github.com/1KGD/sb/actions/workflows/release.yml/badge.svg)](https://github.com/1KGD/sb/actions/workflows/release.yml)
+
 Prebuilt files for windows, macos, and linux (x86 only; Sorry, arm) can be grabbed from the [github releases](https://github.com/1KGD/sb/releases). These should work out-of-the-box.
 
 ### Cargo
