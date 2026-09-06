@@ -1,7 +1,5 @@
 use std::collections::vec_deque::VecDeque;
 
-use bevy_ecs::prelude::*;
-use egor::math::*;
 use egor::render::*;
 
 type RenderCmd = Box<dyn FnOnce(&mut Graphics<'_>)>;

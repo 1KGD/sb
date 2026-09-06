@@ -1,6 +1,4 @@
 use bevy_ecs::prelude::*;
-use egor::app::*;
-use egor::app::*;
 use egor::math::*;
 
 pub mod input;

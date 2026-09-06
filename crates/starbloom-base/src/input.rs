@@ -2,7 +2,6 @@ use std::collections::hash_map::HashMap;
 
 use bevy_ecs::prelude::*;
 use egor::input::*;
-use log::*;
 
 const TRACKED_KEYS: [KeyCode; 4] = [
     KeyCode::ArrowUp,

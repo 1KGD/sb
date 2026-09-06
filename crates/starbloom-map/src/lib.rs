@@ -1,5 +1,4 @@
 use bevy_ecs::prelude::*;
-use egor::render::*;
 
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
