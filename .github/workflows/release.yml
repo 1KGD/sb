@@ -66,12 +66,15 @@ jobs:
         include:
           - os: ubuntu-latest
             filestub: linux
+            butler-tag: linux
             filesuffix:
           - os: macos-latest
             filestub: macos
+            butler-tag: mac
             filesuffix:
           - os: windows-latest
             filestub: windows
+            butler-tag: win
             filesuffix: ".exe"
     permissions:
       contents: write
@@ -89,7 +92,7 @@ jobs:
       - name: Setup butler
         uses: remarkablegames/setup-butler@v3
       - name: Upload to itch.io
-        run: butler push ${{ env.BIN_PATH }} mrmcscreamypant/starbloom:${{ matrix.filestub }}
+        run: butler push ${{ env.BIN_PATH }} mrmcscreamypant/starbloom:${{ matrix.filestub }} --userversion ${{needs.bump.outputs.tag}}
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
       - name: Upload binary
