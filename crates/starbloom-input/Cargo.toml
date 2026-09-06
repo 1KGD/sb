@@ -6,4 +6,7 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-starbloom-base = { workspace = true }
+starbloom-base.workspace = true
+
+[features]
+mobile = []

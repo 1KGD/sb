@@ -11,12 +11,13 @@ egor = { version = "0.10.0", default-features = false, features = [
     "ui",
 ] }
 noise = "0.9.0"
-starbloom-intro = { version = "0.5.0", path = "crates/starbloom-intro" }
-starbloom-map = { version = "0.5.0", path = "crates/starbloom-map" }
-starbloom-worldgen = { version = "0.5.0", path = "crates/starbloom-worldgen" }
-starbloom-camera = { version = "0.5.0", path = "crates/starbloom-camera" }
-starbloom-tiles = { version = "0.5.0", path = "crates/starbloom-tiles" }
-starbloom-base = { version = "0.5.0", path = "crates/starbloom-base" }
+starbloom-intro = { version = "^0", path = "crates/starbloom-intro" }
+starbloom-map = { version = "^0", path = "crates/starbloom-map" }
+starbloom-worldgen = { version = "^0", path = "crates/starbloom-worldgen" }
+starbloom-camera = { version = "^0", path = "crates/starbloom-camera" }
+starbloom-tiles = { version = "^0", path = "crates/starbloom-tiles" }
+starbloom-base = { version = "^0", path = "crates/starbloom-base" }
+starbloom-input = { version = "^0", path = "crates/starbloom-input" }
 log = "0.4.33"
 egor_glue = "0.10.0"
 
@@ -24,7 +25,8 @@ egor_glue = "0.10.0"
 resolver = "3"
 members = [
     "crates/starbloom-base",
-    "crates/starbloom-camera", "crates/starbloom-input",
+    "crates/starbloom-camera",
+    "crates/starbloom-input",
     "crates/starbloom-intro",
     "crates/starbloom-map",
     "crates/starbloom-tiles",
@@ -43,15 +45,16 @@ publish = true
 
 [dependencies]
 bevy_ecs.workspace = true
-egor = { workspace = true }
-egor_glue = { workspace = true }
-log = { workspace = true }
-starbloom-base = { workspace = true }
-starbloom-camera = { workspace = true }
-starbloom-intro = { workspace = true }
-starbloom-map = { workspace = true }
-starbloom-tiles = { workspace = true }
-starbloom-worldgen = { workspace = true }
+egor.workspace = true
+egor_glue.workspace = true
+log.workspace = true
+starbloom-base.workspace = true
+starbloom-camera.workspace = true
+starbloom-intro.workspace = true
+starbloom-map.workspace = true
+starbloom-tiles.workspace = true
+starbloom-worldgen.workspace = true
+starbloom-input.workspace = true
 wasm-logger = "0.2.0"
 cosmic-text = { version = "0.19.0", features = ["wasm-web"] }
 env_logger = "0.11.11"
@@ -60,7 +63,7 @@ env_logger = "0.11.11"
 skip_intro = []
 show_fps = []
 web = []
-mobile = []
+mobile = ["starbloom-input/mobile"]
 
 dev = ["skip_intro", "show_fps"]
 

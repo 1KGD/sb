@@ -6,7 +6,7 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-bevy_ecs = { workspace = true }
-egor = { workspace = true }
+bevy_ecs.workspace = true
+egor.workspace = true
 glam = "0.33.2"
-log = { workspace = true }
+log.workspace = true
