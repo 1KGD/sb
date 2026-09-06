@@ -1,8 +1,10 @@
 [package]
 name = "starbloom-intro"
-version = "0.1.0"
-edition = "2024"
+description = "sub-package for starbloom"
+license.workspace = true
+version.workspace = true
+edition.workspace = true
 
 [dependencies]
-macroquad = "0.4.15"
-starbloom-base = { version = "0.1.0", path = "../starbloom-base" }
+egor = { workspace = true }
+starbloom-base = { workspace = true }

@@ -1,6 +1,9 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
+use egor::math::*;
+use egor::render::*;
 
+use starbloom_base::prelude::*;
+use starbloom_camera::*;
 use starbloom_tiles::*;
 
 pub const CHUNK_DIM: usize = 16;
@@ -23,43 +26,29 @@ impl Chunk {
         }
     }
 
-    pub fn render(&self, tile_regestry: &TileRegestry) {
+    pub fn render(
+        &self,
+        gfx: &mut NonSendMut<GfxCmds>,
+        main_camera: &Res<MainCamera>,
+        tile_regestry: &TileRegestry,
+    ) {
         for (x, row) in self.tiles.iter().enumerate() {
             for (y, tile_idx) in row.iter().enumerate() {
                 let tile = tile_regestry.get_tile_by_idx(tile_idx);
                 if !tile.renderable {
                     continue;
                 }
-                draw_rectangle(
-                    self.x as f32 * CHUNK_SIZE + x as f32 * TILE_SIZE,
-                    self.y as f32 * CHUNK_SIZE + y as f32 * TILE_SIZE,
-                    TILE_SIZE,
-                    TILE_SIZE,
-                    GREEN,
-                );
+                let pos = main_camera
+                    .cam
+                    .world_to_screen(vec2(x as f32, y as f32) * TILE_SIZE);
+                gfx.draw(Box::new(move |gfx: &mut Graphics<'_>| {
+                    gfx.rect().size(vec2(TILE_SIZE, TILE_SIZE)).at(pos);
+                }));
             }
         }
-
-        let dim = measure_text(format!("{}, {}", self.x, self.y), None, 20, 1.);
-        draw_text(
-            format!("{}, {}", self.x, self.y),
-            self.x as f32 * CHUNK_SIZE,
-            self.y as f32 * CHUNK_SIZE + dim.height,
-            20.,
-            BLACK,
-        );
     }
 
     pub fn get(&self, x: usize, y: usize) -> TileRepr {
         self.tiles[x][y]
-    }
-
-    pub fn get_bounding_rect(&self) -> Rect {
-        Rect::new(
-            self.x as f32 * CHUNK_SIZE,
-            self.y as f32 * CHUNK_SIZE,
-            CHUNK_SIZE,
-            CHUNK_SIZE,
-        )
     }
 }

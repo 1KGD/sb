@@ -13,7 +13,7 @@ myst_enable_extensions = [
 
 project = "STARBLOOM"
 language = "en"
-copyright = "2026-%Y John Schiefelebein"
+copyright = "2026-%Y John Schiefelbein"
 show_authors = False
 
 new_tab_link_show_external_link_icon = True

@@ -1,3 +1,1 @@
-pub struct Biome {
-
-}
+pub struct Biome {}

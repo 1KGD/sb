@@ -1,8 +1,7 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
 use noise::Simplex;
 
-use starbloom_base::*;
+use starbloom_base::prelude::*;
 
 mod biome;
 
@@ -24,11 +23,9 @@ pub struct WorldgenProvider {
 
 impl WorldgenProvider {
     fn new(seed: u64) -> Self {
-        rand::srand(seed);
         Self {
-            biome_noise: Simplex::new(rand::rand()),
+            biome_noise: Simplex::new(0),
             biomes: std::collections::HashMap::new(),
         }
     }
-
 }

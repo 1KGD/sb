@@ -1,11 +1,11 @@
 use bevy_ecs::prelude::*;
-use macroquad::prelude::*;
+use egor::{input::*, math::*, render::*};
 
-use starbloom_base::*;
+use starbloom_base::prelude::*;
 use starbloom_camera::*;
 use starbloom_map::*;
 
-const PLAYER_SPEED: f32 = 200.;
+const PLAYER_SPEED: f32 = 2.;
 
 const PLAYER_NAME_FNT_SIZE: u16 = 20;
 
@@ -23,60 +23,61 @@ pub struct PlayerPlugin();
 
 impl Plugin for PlayerPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
-        schedule.add_systems(update_local_player.before(prepare_camera));
-        schedule.add_systems(
-            render_players
-                .after(render_chunks)
-                .before(prepare_ui_camera),
-        );
-        schedule.add_systems(
-            render_player_names
-                .after(render_players)
-                .before(prepare_ui_camera),
-        );
+        schedule.add_systems(update_local_player);
+        schedule.add_systems(render_players.after(render_chunks));
+        schedule.add_systems(render_player_names.after(render_players));
         world.spawn(LocalPlayer());
     }
 }
 
-fn render_players(query: Query<&Position, With<Player>>) {
+fn render_players(
+    query: Query<&Position, With<Player>>,
+    main_camera: Res<MainCamera>,
+    mut gfx: NonSendMut<GfxCmds>,
+) {
     for position in query {
-        draw_rectangle(position.x - 10., position.y - 10., 20., 20., BLACK);
+        let position = main_camera.cam.world_to_screen(position.as_vec2());
+        gfx.draw(Box::new(move |gfx: &mut Graphics<'_>| {
+            gfx.rect().at(position).color(Color::RED);
+        }));
     }
 }
 
-fn render_player_names(query: Query<(&Position, &Player), Without<LocalPlayer>>) {
+fn render_player_names(
+    query: Query<(&Position, &Player), Without<LocalPlayer>>,
+    main_camera: Res<MainCamera>,
+    mut gfx: NonSendMut<GfxCmds>,
+) {
     for (position, player) in query {
-        let dims = measure_text(&player.name, None, PLAYER_NAME_FNT_SIZE, 1.);
-        draw_text(
-            &player.name,
-            position.x - dims.width / 2.,
-            position.y - 15.,
-            PLAYER_NAME_FNT_SIZE as f32,
-            WHITE,
-        );
+        let position = main_camera.cam.world_to_screen(position.as_vec2());
+        let name = player.name.clone();
+        gfx.draw(Box::new(move |gfx: &mut Graphics<'_>| {
+            gfx.text(&name).at(position);
+        }));
     }
 }
 
 fn update_local_player(
     mut query: Query<&mut Position, With<LocalPlayer>>,
-    mut camera: ResMut<MainCamera>,
+    mut main_camera: ResMut<MainCamera>,
+    input: Res<InputCtx>,
 ) {
     if let Ok(mut position) = query.single_mut() {
         let mut motion: Vec2 = Vec2::ZERO;
 
-        if is_key_down(KeyCode::Down) {
+        if input.key_held(KeyCode::ArrowDown) {
             motion.y += 1.;
         }
 
-        if is_key_down(KeyCode::Up) {
+        if input.key_held(KeyCode::ArrowUp) {
             motion.y -= 1.;
         }
 
-        if is_key_down(KeyCode::Left) {
+        if input.key_held(KeyCode::ArrowLeft) {
             motion.x -= 1.;
         }
 
-        if is_key_down(KeyCode::Right) {
+        if input.key_held(KeyCode::ArrowRight) {
             motion.x += 1.;
         }
 
@@ -84,10 +85,13 @@ fn update_local_player(
 
         // Don't use an expensive square root if you don't need it.
         if motion.distance_squared(Vec2::ZERO) != 0. {
-            position.from_vec2(pos + motion.normalize() * PLAYER_SPEED * get_frame_time());
+            position.from_vec2(
+                pos + motion.normalize() * PLAYER_SPEED, /* * get_frame_time()*/
+            );
         }
-        let old_pos: Vec2 = camera.position.clone();
 
-        camera.position += (position.as_vec2() - old_pos) / 10.;
+        main_camera
+            .cam
+            .center(position.as_vec2(), Vec2::new(100., 100.));
     }
 }
