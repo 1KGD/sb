@@ -7,10 +7,11 @@
     - [ ] Spritesheet (animated) rendering
     - [ ] Ui rendering (almost certanly in `starbloom-ui`)
       - [ ] `egui`? (`egor` has built-in support). Or a custom UI implementation (more work, but also more stylistic control).
-- [ ] Mobile support
+- [ ] Mobile support (`starbloom-mobile`)
     - [ ] `egor` lacks multitouch support?
     - [ ] Virtual joystick, buttons
   - [ ] Native mobile (android, almost certainly no IOS)
-  - [ ] Web mobile
-- [ ] Controller support
-  - [ ] No native controller support for `egor`, find useful library (what does `bevy` use?)
+  - [ ] Web mobile (with `gilrs`)
+- [ ] Controller support using `gilrs`
+  - [ ] Integrate into input abstraction utils in `starbloom-base`
+  - [ ] Leave out of native mobile builds, as `gilrs` does not support it
