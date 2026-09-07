@@ -116,12 +116,10 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-      - name: Get latest version
-        run: git pull
       - name: Install git-cliff
         run: npm i -g git-cliff
       - name: Write changelog
-        run: git cliff -l -o CHANGELOG.md
+        run: git cliff -u -o CHANGELOG.md
       - name: debug
         run: cat ./CHANGELOG.md
       - name: Read changelog
