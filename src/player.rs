@@ -3,6 +3,7 @@ use egor::{input::*, math::*, render::*};
 
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
+use starbloom_input::prelude::*;
 use starbloom_map::*;
 
 const PLAYER_SPEED: f32 = 2.;

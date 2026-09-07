@@ -4,6 +4,7 @@ use log::*;
 
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
+use starbloom_input::prelude::*;
 use starbloom_map::*;
 use starbloom_tiles::*;
 use starbloom_worldgen::*;
@@ -41,6 +42,7 @@ pub fn main() {
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
 
+    InputPlugin::create(&mut world, &mut schedule);
     CameraPlugin::create(&mut world, &mut schedule);
     MapPlugin::create(&mut world, &mut schedule);
     WorldgenPlugin::create(&mut world, &mut schedule);
@@ -48,9 +50,6 @@ pub fn main() {
     MainPlugin::create(&mut world, &mut schedule);
 
     world.insert_non_send(GfxCmds::new());
-    world.insert_resource(InputCtx::default());
-
-    //wgpu::Limits::downlevel_webgl2_defaults();
 
     App::new()
         .title("STARBLOOM")

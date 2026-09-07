@@ -2,7 +2,6 @@ use bevy_ecs::prelude::*;
 use const_format::concatcp;
 use egor::math::*;
 
-pub mod input;
 pub mod prelude;
 mod render;
 

@@ -7,6 +7,8 @@ edition.workspace = true
 
 [dependencies]
 starbloom-base.workspace = true
+egor.workspace = true
+bevy_ecs.workspace = true
 
 [features]
 mobile = []
