@@ -1,6 +1,6 @@
 # STARBLOOM
-![Version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2F1KGD%2Fsb%2Frefs%2Fheads%2Fmaster%2FCargo.toml&query=%24.workspace.package.version&prefix=v&style=plastic&label=Version)
-![GitHub commits since latest release (branch)](https://img.shields.io/github/commits-since/1kgd/sb/latest/master)
+![GitHub Release](https://img.shields.io/github/v/release/1kgd/sb?style=for-the-badge)
+![GitHub commits since latest release](https://img.shields.io/github/commits-since/1kgd/sb/latest?sort=semver&style=for-the-badge&logo=github)
 
 (rust rewrite)
 
