@@ -1,11 +1,15 @@
 use bevy_ecs::prelude::*;
+use const_format::concatcp;
 use egor::math::*;
 
 pub mod input;
 pub mod prelude;
 mod render;
 
-pub const VERSION: &'static str = env!("CARGO_PKG_VERSION");
+pub const VERSION: &'static str = concatcp!(
+    env!("CARGO_PKG_VERSION"),
+    if cfg!(debug_assertions) { "+DEV" } else { "" }
+);
 
 pub trait Plugin {
     fn create(world: &mut World, schedule: &mut Schedule);
