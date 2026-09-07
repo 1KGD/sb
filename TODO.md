@@ -6,7 +6,7 @@
     - [ ] Image rendering
     - [ ] Spritesheet (animated) rendering
     - [ ] Ui rendering (almost certanly in `starbloom-ui`)
-      - [ ] `egui`? (`egor` has built-in support). Or a custom UI implementation (more work, but also more stylistic control).
+      - [ ] Custom, distinct `egui` theme (old windows?).
 - [ ] Mobile support (`starbloom-mobile`)
     - [ ] `egor` lacks multitouch support?
     - [ ] Virtual joystick, buttons
