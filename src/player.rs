@@ -8,7 +8,7 @@ use starbloom_map::*;
 
 const PLAYER_SPEED: f32 = 2.;
 
-const PLAYER_NAME_FNT_SIZE: u16 = 20;
+const PLAYER_NAME_FNT_SIZE: f32 = 20.;
 
 #[derive(Component, Default)]
 #[require(Position)]
@@ -53,7 +53,7 @@ fn render_player_names(
         let position = main_camera.cam.world_to_screen(position.as_vec2());
         let name = player.name.clone();
         gfx.draw(Box::new(move |gfx: &mut Graphics<'_>| {
-            gfx.text(&name).at(position);
+            gfx.text(&name).at(position).size(PLAYER_NAME_FNT_SIZE);
         }));
     }
 }
