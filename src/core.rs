@@ -69,7 +69,7 @@ pub fn main() {
 
             #[cfg(feature = "debug_ui")]
             egui::Window::new("Debug").show(ctx.egui_ctx, |ui| {
-                ui.label(format!("fps: {}", ctx.));
+                ui.label(format!("FPS: {} DELTA: {} FRAME: {}", ctx.timer.fps, ctx.timer.delta, ctx.timer.frame));
             });
         });
 }
