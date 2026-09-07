@@ -122,7 +122,7 @@ jobs:
       - name: Install git-cliff
         run: npm i -g git-cliff
       - name: Write changelog
-        run: git-cliff -o CHANGELOG.md -l
+        run: git cliff -l -o CHANGELOG.md
       - name: debug
         run: cat ./CHANGELOG.md
       - name: Read changelog
