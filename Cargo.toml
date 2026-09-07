@@ -61,11 +61,11 @@ env_logger = "0.11.11"
 
 [features]
 skip_intro = []
-show_fps = []
+debug_ui = []
 web = []
 mobile = ["starbloom-input/mobile"]
 
-dev = ["skip_intro", "show_fps"]
+dev = ["skip_intro", "debug_ui"]
 
 [lib]
 name = "sb"

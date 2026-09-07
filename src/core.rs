@@ -67,11 +67,9 @@ pub fn main() {
                 .unwrap()
                 .apply(&mut ctx.gfx);
 
+            #[cfg(feature = "debug_ui")]
             egui::Window::new("Debug").show(ctx.egui_ctx, |ui| {
-                ui.label("this is a test");
+                ui.label(format!("fps: {}", ctx.));
             });
-
-            #[cfg(feature = "show_fps")]
-            ctx.gfx.text(&format!("FPS: {}", ctx.timer.fps));
         });
 }

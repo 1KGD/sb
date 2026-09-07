@@ -35,7 +35,7 @@ jobs:
     outputs:
       tag: ${{steps.tag.outputs.tag}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Config git
         run: git config user.name github_actions && git config user.email nil
       - name: Install cargo-binstall
@@ -88,7 +88,7 @@ jobs:
       INITIAL_BIN_PATH: ./target/release/starbloom${{matrix.filesuffix}}
       BIN_PATH: ./target/release/starbloom_${{matrix.filestub}}${{matrix.filesuffix}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Get latest commit
         run: git pull
       - name: Build binary
@@ -115,7 +115,9 @@ jobs:
       contents: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - name: Install git-cliff
         run: npm i -g git-cliff
       - name: Write changelog
@@ -143,7 +145,7 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Get latest version
         run: git pull
       - name: Install cargo-binstall
@@ -176,7 +178,7 @@ jobs:
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Get latest commit
         run: git pull
       - name: Authenticate to crates.io
