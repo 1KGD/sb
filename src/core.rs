@@ -26,8 +26,6 @@ impl Plugin for MainPlugin {
     }
 }
 
-#[cfg(not(target_arch = "wasm32"))]
-egor::main!(main);
 pub fn main() {
     #[cfg(target_arch = "wasm32")]
     wasm_logger::init(wasm_logger::Config::default().module_prefix("starbloom"));
@@ -69,7 +67,10 @@ pub fn main() {
 
             #[cfg(feature = "debug_ui")]
             egui::Window::new("Debug").show(ctx.egui_ctx, |ui| {
-                ui.label(format!("FPS: {} DELTA: {} FRAME: {}", ctx.timer.fps, ctx.timer.delta, ctx.timer.frame));
+                ui.label(format!(
+                    "FPS: {}\nDELTA: {}\nFRAME: {}",
+                    ctx.timer.fps, ctx.timer.delta, ctx.timer.frame
+                ));
             });
         });
 }
