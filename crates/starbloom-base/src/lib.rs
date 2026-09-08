@@ -2,6 +2,21 @@ use bevy_ecs::prelude::*;
 use const_format::concatcp;
 use egor::math::*;
 
+pub fn is_mobile_user_agent() -> bool {
+    let user_agent = web_sys::window().and_then(|win| win.navigator().user_agent().ok());
+
+    match user_agent {
+        Some(ua) => {
+            let ua_lower = ua.to_lowercase();
+            ua_lower.contains("mobi")
+                || ua_lower.contains("android")
+                || ua_lower.contains("iphone")
+                || ua_lower.contains("ipad")
+        }
+        None => false,
+    }
+}
+
 pub mod prelude;
 mod render;
 
@@ -9,6 +24,15 @@ pub const VERSION: &'static str = concatcp!(
     env!("CARGO_PKG_VERSION"),
     if cfg!(debug_assertions) { "+DEV" } else { "" }
 );
+
+pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||{
+    cfg!(target_os = "android")
+        || if cfg!(target_arch = "wasm32") {
+            is_mobile_user_agent()
+        } else {
+            false
+        }
+});
 
 pub trait Plugin {
     fn create(world: &mut World, schedule: &mut Schedule);

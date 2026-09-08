@@ -9,5 +9,5 @@ edition.workspace = true
 bevy_ecs.workspace = true
 const_format = "0.2.36"
 egor.workspace = true
-glam = "0.33.2"
 log.workspace = true
+web-sys = { version = "0.3.105", features = ["Window", "Navigator"] }
