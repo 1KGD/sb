@@ -1,7 +1,7 @@
 mod core;
 mod player;
 
-egor::main!(_main);
-pub fn _main() {
+egor::main!(main);
+fn main() {
     crate::core::main();
 }
