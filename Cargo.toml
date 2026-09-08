@@ -62,14 +62,17 @@ env_logger = "0.11.11"
 [features]
 skip_intro = []
 debug_ui = []
-web = []
 mobile = ["starbloom-input/mobile"]
+web = ["mobile"]
+
+mobile_build = ["mobile"]
 
 dev = ["skip_intro", "debug_ui"]
 
 [lib]
 name = "sb"
 crate-type = ["cdylib", "rlib"]
+features = ["mobile_build"]
 
 [[bin]]
 name = "starbloom"
