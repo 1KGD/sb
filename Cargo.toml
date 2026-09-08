@@ -63,9 +63,10 @@ env_logger = "0.11.11"
 skip_intro = []
 debug_ui = []
 mobile = ["starbloom-input/mobile"]
-web = ["mobile"]
+web = ["mobile", "starbloom-input/gilrs"]
 
 mobile_build = ["mobile"]
+desktop_build = ["starbloom-input/gilrs"]
 
 dev = ["skip_intro", "debug_ui"]
 

@@ -9,6 +9,8 @@ edition.workspace = true
 starbloom-base.workspace = true
 egor.workspace = true
 bevy_ecs.workspace = true
+gilrs = "0.11.2"
 
 [features]
 mobile = []
+gilrs = []

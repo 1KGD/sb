@@ -1,5 +1,5 @@
 test:
-	cargo run --features dev
+	cargo run --features desktop_build,dev
 
 test-web:
 	trunk serve -c -a 0.0.0.0 --features web,dev
@@ -15,9 +15,6 @@ build:
 
 build-web:
 	trunk build --features web
-
-build-apk:
-	sudo docker run --rm -v $(pwd):/root/src: -w /root/src --name=quad-apk notfl3/cargo-apk cargo quad-apk build --features mobile
 
 install:
 	cargo install --path .

@@ -92,7 +92,7 @@ jobs:
       - name: Get latest commit
         run: git pull
       - name: Build binary
-        run: cargo build --release
+        run: cargo build --release --features desktop_build
       - name: Rename binary
         run: mv ${{env.INITIAL_BIN_PATH}} ${{env.BIN_PATH}}
       - name: Upload binary
