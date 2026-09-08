@@ -34,7 +34,7 @@ impl TileRegestry {
         if self.ids.values().find(|v| **v == id).is_none() {
             self.ids.insert(self.ids.len() as TileRepr, id);
         }
-        log!(Level::Info, "Regestered tile '{}'", id);
+        debug!("Regestered tile '{}'", id);
     }
 
     pub fn get_tile_by_idx(&self, idx: &TileRepr) -> &Tile {
