@@ -3,12 +3,7 @@ use std::collections::hash_map::HashMap;
 use bevy_ecs::prelude::*;
 use egor::input::*;
 
-const TRACKED_KEYS: [KeyCode; 4] = [
-    KeyCode::ArrowUp,
-    KeyCode::ArrowDown,
-    KeyCode::ArrowLeft,
-    KeyCode::ArrowRight,
-];
+use crate::actions::*;
 
 #[derive(Default, Resource)]
 pub struct InputCtx {
@@ -16,12 +11,17 @@ pub struct InputCtx {
 }
 
 impl InputCtx {
-    pub fn key_held(&self, key: KeyCode) -> bool {
-        *self.key_states.get(&key).unwrap_or(&false)
+    pub fn action_held(&self, action: Action) -> bool {
+        for key in key_mappings_from_action(action).unwrap_or(&vec![]) {
+            if *self.key_states.get(&key).unwrap_or(&false) {
+                return true;
+            }
+        }
+        false
     }
 
     pub fn update(&mut self, input: &Input) {
-        for key in TRACKED_KEYS {
+        for key in all_key_codes() {
             self.key_states.insert(key, input.key_held(key));
         }
     }

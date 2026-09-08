@@ -66,19 +66,19 @@ fn update_local_player(
     if let Ok(mut position) = query.single_mut() {
         let mut motion: Vec2 = Vec2::ZERO;
 
-        if input.key_held(KeyCode::ArrowDown) {
+        if input.action_held(Action::Down) {
             motion.y += 1.;
         }
 
-        if input.key_held(KeyCode::ArrowUp) {
+        if input.action_held(Action::Up) {
             motion.y -= 1.;
         }
 
-        if input.key_held(KeyCode::ArrowLeft) {
+        if input.action_held(Action::Left) {
             motion.x -= 1.;
         }
 
-        if input.key_held(KeyCode::ArrowRight) {
+        if input.action_held(Action::Right) {
             motion.x += 1.;
         }
 

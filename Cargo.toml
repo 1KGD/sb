@@ -73,7 +73,6 @@ dev = ["skip_intro", "debug_ui"]
 [lib]
 name = "sb"
 crate-type = ["cdylib", "rlib"]
-features = ["mobile_build"]
 
 [[bin]]
 name = "starbloom"
