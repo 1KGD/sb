@@ -1,28 +1,18 @@
-use std::collections::vec_deque::VecDeque;
+use egor::app::*;
+use log::*;
 
-use egor::render::*;
+pub struct Renderer<'a>(pub *mut &'a mut &'a mut FrameContext<'a>);
 
-type RenderCmd = Box<dyn FnOnce(&mut Graphics<'_>)>;
-
-pub struct GfxCmds {
-    buffer: VecDeque<RenderCmd>,
-}
-
-impl GfxCmds {
+impl<'a> Renderer<'a> {
     pub fn new() -> Self {
-        Self {
-            buffer: VecDeque::new(),
-        }
+        Self(std::ptr::null_mut())
     }
 
-    pub fn draw(&mut self, cmd: RenderCmd) -> &mut Self {
-        self.buffer.push_back(cmd);
-        self
-    }
-
-    pub fn apply(&mut self, gfx: &mut Graphics<'_>) {
-        while let Some(cmd) = self.buffer.pop_front() {
-            cmd(gfx);
+    pub fn ctx(&mut self) -> Option<Box<&'a mut &'a mut FrameContext<'a>>> {
+        if self.0.is_null() {
+            error!("Expired FrameContext");
+            return None;
         }
+        Some(unsafe { Box::from_raw(self.0) })
     }
 }

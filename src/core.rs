@@ -48,23 +48,21 @@ pub fn main() {
     PlayerPlugin::create(&mut world, &mut schedule);
     MainPlugin::create(&mut world, &mut schedule);
 
-    world.insert_non_send(GfxCmds::new());
+    world.insert_non_send(Renderer::new());
 
     App::new()
         .title("STARBLOOM")
-        .run(move |ctx: &mut FrameContext<'_>| {
+        .run(move |mut ctx: &mut FrameContext<'_>| {
+            world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = [&mut ctx].as_mut_ptr() as *mut &mut &mut FrameContext;
             world
                 .get_resource_mut::<InputCtx>()
                 .unwrap()
                 .update(ctx.input);
 
-            ctx.gfx.clear(Color::BLUE);
+            world.get_non_send_mut::<Renderer<'_>>().unwrap().ctx().unwrap().gfx.clear(Color::BLUE);
+            warn!("here");
             schedule.run(&mut world);
-
-            world
-                .get_non_send_mut::<GfxCmds>()
-                .unwrap()
-                .apply(&mut ctx.gfx);
+            warn!("Uhhhhhhh");
 
             #[cfg(feature = "debug_ui")]
             egui::Window::new("Debug").show(ctx.egui_ctx, |ui| {

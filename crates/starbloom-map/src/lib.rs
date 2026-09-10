@@ -24,9 +24,9 @@ pub fn render_chunks(
     query: Query<&Chunk>,
     tile_regestry: Res<TileRegestry>,
     main_camera: Res<MainCamera>,
-    mut gfx: NonSendMut<GfxCmds>,
+    mut renderer: NonSendMut<Renderer>,
 ) {
     for chunk in &query {
-        chunk.render(&mut gfx, &main_camera, &tile_regestry);
+        //chunk.render(&mut renderer, &main_camera, &tile_regestry);
     }
 }
