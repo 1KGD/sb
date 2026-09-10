@@ -53,7 +53,7 @@ pub fn main() {
     App::new()
         .title("STARBLOOM")
         .run(move |mut ctx: &mut FrameContext<'_>| {
-            world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = [&mut ctx].as_mut_ptr() as *mut &mut &mut FrameContext;
+            world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = [&mut ctx].as_mut_ptr() as *mut &mut &mut FrameContext; // I DON'T WANT TO TALK ABOUT IT, OK?
             world
                 .get_resource_mut::<InputCtx>()
                 .unwrap()
