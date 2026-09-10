@@ -1,6 +1,6 @@
 use bevy_ecs::prelude::*;
 use egor::math::*;
-use egor::render::*;
+use log::*;
 
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
@@ -28,22 +28,22 @@ impl Chunk {
 
     pub fn render(
         &self,
-        gfx: &mut NonSendMut<GfxCmds>,
+        renderer: &mut NonSendMut<Renderer>,
         main_camera: &Res<MainCamera>,
         tile_regestry: &TileRegestry,
     ) {
-        for (x, row) in self.tiles.iter().enumerate() {
-            for (y, tile_idx) in row.iter().enumerate() {
-                let tile = tile_regestry.get_tile_by_idx(tile_idx);
-                if !tile.renderable {
-                    continue;
+        if let Some(ctx) = renderer.ctx() {
+            for (x, row) in self.tiles.iter().enumerate() {
+                for (y, tile_idx) in row.iter().enumerate() {
+                    let tile = tile_regestry.get_tile_by_idx(tile_idx);
+                    if !tile.renderable {
+                        continue;
+                    }
+                    let pos = main_camera
+                        .cam
+                        .world_to_screen(vec2(x as f32, y as f32) * TILE_SIZE);
+                    ctx.gfx.rect().size(vec2(TILE_SIZE, TILE_SIZE)).at(pos);
                 }
-                let pos = main_camera
-                    .cam
-                    .world_to_screen(vec2(x as f32, y as f32) * TILE_SIZE);
-                gfx.draw(Box::new(move |gfx: &mut Graphics<'_>| {
-                    gfx.rect().size(vec2(TILE_SIZE, TILE_SIZE)).at(pos);
-                }));
             }
         }
     }

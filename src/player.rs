@@ -1,5 +1,5 @@
 use bevy_ecs::prelude::*;
-use egor::{input::*, math::*, render::*};
+use egor::{math::*, render::*};
 
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
@@ -34,27 +34,27 @@ impl Plugin for PlayerPlugin {
 fn render_players(
     query: Query<&Position, With<Player>>,
     main_camera: Res<MainCamera>,
-    mut gfx: NonSendMut<GfxCmds>,
+    mut renderer: NonSendMut<Renderer>,
 ) {
-    for position in query {
-        let position = main_camera.cam.world_to_screen(position.as_vec2());
-        gfx.draw(Box::new(move |gfx: &mut Graphics<'_>| {
-            gfx.rect().at(position).color(Color::RED);
-        }));
+    if let Some(ctx) = renderer.ctx() {
+        for position in query {
+            let position = main_camera.cam.world_to_screen(position.as_vec2());
+            ctx.gfx.rect().at(position).color(Color::RED);
+        }
     }
 }
 
 fn render_player_names(
     query: Query<(&Position, &Player), Without<LocalPlayer>>,
     main_camera: Res<MainCamera>,
-    mut gfx: NonSendMut<GfxCmds>,
+    mut renderer: NonSendMut<Renderer>,
 ) {
-    for (position, player) in query {
-        let position = main_camera.cam.world_to_screen(position.as_vec2());
-        let name = player.name.clone();
-        gfx.draw(Box::new(move |gfx: &mut Graphics<'_>| {
-            gfx.text(&name).at(position).size(PLAYER_NAME_FNT_SIZE);
-        }));
+    if let Some(mut ctx) = renderer.ctx() {
+        for (position, player) in query {
+            let position = main_camera.cam.world_to_screen(position.as_vec2());
+            let name = player.name.clone();
+            ctx.gfx.text(&name).at(position).size(PLAYER_NAME_FNT_SIZE);
+        }
     }
 }
 
