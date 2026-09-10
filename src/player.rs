@@ -39,7 +39,7 @@ fn render_players(
     if let Some(ctx) = renderer.ctx() {
         for position in query {
             let position = main_camera.cam.world_to_screen(position.as_vec2());
-            ctx.gfx.rect().at(position).color(Color::RED);
+            ctx.gfx.rect().anchor(Anchor::Center).at(position).color(Color::RED);
         }
     }
 }
