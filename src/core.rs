@@ -60,9 +60,7 @@ pub fn main() {
                 .update(ctx.input);
 
             world.get_non_send_mut::<Renderer<'_>>().unwrap().ctx().unwrap().gfx.clear(Color::BLUE);
-            warn!("here");
             schedule.run(&mut world);
-            warn!("Uhhhhhhh");
 
             #[cfg(feature = "debug_ui")]
             egui::Window::new("Debug").show(ctx.egui_ctx, |ui| {
