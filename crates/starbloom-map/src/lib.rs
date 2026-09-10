@@ -27,6 +27,6 @@ pub fn render_chunks(
     mut renderer: NonSendMut<Renderer>,
 ) {
     for chunk in &query {
-        //chunk.render(&mut renderer, &main_camera, &tile_regestry);
+        chunk.render(&mut renderer, &main_camera, &tile_regestry);
     }
 }
