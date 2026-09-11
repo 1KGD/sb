@@ -17,7 +17,7 @@ impl Plugin for MainPlugin {
         regestry.regester("starbloom:debug", Tile::declare(true));
 
         world.spawn(RemotePlayer {
-            name: "guest".to_owned(),
+            name: "Guest".to_owned(),
         });
     }
 }
@@ -46,9 +46,8 @@ pub fn main() {
 
     world.insert_non_send(Renderer::new());
 
-    App::new()
-        .title("STARBLOOM")
-        .run(move |mut ctx: &mut FrameContext<'_>| {
+    App::new().title(&format!("STARBOOM v{}", VERSION)).run(
+        move |mut ctx: &mut FrameContext<'_>| {
             world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
                 [&mut ctx].as_mut_ptr() as *mut &mut &mut FrameContext; // I DON'T WANT TO TALK ABOUT IT, OK?
             world
@@ -72,5 +71,6 @@ pub fn main() {
                     ctx.timer.fps, ctx.timer.delta, ctx.timer.frame
                 ));
             });
-        });
+        },
+    );
 }
