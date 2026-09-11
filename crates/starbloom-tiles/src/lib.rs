@@ -1,5 +1,4 @@
-use bevy_ecs::prelude::*;
-use log::*;
+use starbloom_base::prelude::*;
 
 pub const TILE_SIZE: f32 = 16.;
 
@@ -28,7 +27,6 @@ impl TileRegestry {
             entries: std::collections::HashMap::new(),
         }
     }
-
     pub fn regester(&mut self, id: &'static str, tile: Tile) {
         self.entries.insert(id, tile);
         if self.ids.values().find(|v| **v == id).is_none() {

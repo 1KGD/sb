@@ -1,6 +1,4 @@
-use bevy_ecs::prelude::*;
-
-use starbloom_base::*;
+use starbloom_base::prelude::*;
 use starbloom_camera::*;
 
 use crate::chunk::*;

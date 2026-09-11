@@ -1,7 +1,3 @@
-use bevy_ecs::prelude::*;
-use egor::math::*;
-use log::*;
-
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
 use starbloom_tiles::*;
@@ -30,7 +26,7 @@ impl Chunk {
         &self,
         renderer: &mut NonSendMut<Renderer>,
         main_camera: &Res<MainCamera>,
-        tile_regestry: &TileRegestry,
+        tile_regestry: &Res<TileRegestry>,
     ) {
         if let Some(ctx) = renderer.ctx() {
             for (x, row) in self.tiles.iter().enumerate() {

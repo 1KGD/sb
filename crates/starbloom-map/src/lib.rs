@@ -1,5 +1,3 @@
-use bevy_ecs::prelude::*;
-
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
 use starbloom_tiles::*;

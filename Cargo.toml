@@ -44,10 +44,9 @@ repository = "https://github.com/1kgd/sb"
 publish = true
 
 [dependencies]
-bevy_ecs.workspace = true
 egor.workspace = true
+bevy_ecs.workspace = true
 egor_glue.workspace = true
-log.workspace = true
 starbloom-base.workspace = true
 starbloom-camera.workspace = true
 starbloom-intro.workspace = true

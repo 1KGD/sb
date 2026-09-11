@@ -1,6 +1,3 @@
-use bevy_ecs::prelude::*;
-use egor::{math::*, render::*};
-
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
 use starbloom_input::prelude::*;

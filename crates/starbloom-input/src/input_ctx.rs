@@ -1,6 +1,6 @@
 use std::collections::hash_map::HashMap;
 
-use bevy_ecs::prelude::*;
+use starbloom_base::prelude::*;
 use egor::input::*;
 
 use crate::actions::*;

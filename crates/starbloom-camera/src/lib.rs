@@ -1,4 +1,3 @@
-use bevy_ecs::prelude::*;
 use egor_glue::camera::*;
 
 use starbloom_base::prelude::*;
