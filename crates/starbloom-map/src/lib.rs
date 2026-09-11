@@ -23,8 +23,9 @@ pub fn render_chunks(
     tile_regestry: Res<TileRegestry>,
     main_camera: Res<MainCamera>,
     mut renderer: NonSendMut<Renderer>,
+    mut assets: ResMut<AssetServer>,
 ) {
     for chunk in &query {
-        chunk.render(&mut renderer, &main_camera, &tile_regestry);
+        chunk.render(&mut renderer, &main_camera, &tile_regestry, &mut assets);
     }
 }

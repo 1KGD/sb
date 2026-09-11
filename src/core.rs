@@ -60,13 +60,13 @@ pub fn main() {
                 .unwrap()
                 .update(ctx.input);
 
-            /*world
-            .get_non_send_mut::<Renderer<'_>>()
-            .unwrap()
-            .ctx()
-            .unwrap()
-            .gfx
-            .clear(Color::BLUE);*/
+            world
+                .get_non_send_mut::<Renderer<'_>>()
+                .unwrap()
+                .ctx()
+                .unwrap()
+                .gfx
+                .clear(Color::BLUE);
 
             schedule.run(&mut world);
 
