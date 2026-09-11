@@ -57,6 +57,7 @@ starbloom-input.workspace = true
 wasm-logger = "0.2.0"
 cosmic-text = { version = "0.19.0", features = ["wasm-web"] }
 env_logger = "0.11.11"
+console_error_panic_hook = "0.1.7"
 
 [features]
 skip_intro = []

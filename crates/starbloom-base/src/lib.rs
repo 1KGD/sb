@@ -2,6 +2,10 @@ use bevy_ecs::prelude::*;
 use const_format::concatcp;
 use egor::math::*;
 
+mod assets;
+pub mod prelude;
+mod render;
+
 pub fn is_mobile_user_agent() -> bool {
     let user_agent = web_sys::window().and_then(|win| win.navigator().user_agent().ok());
 
@@ -16,9 +20,6 @@ pub fn is_mobile_user_agent() -> bool {
         None => false,
     }
 }
-
-pub mod prelude;
-mod render;
 
 pub const VERSION: &'static str = concatcp!(
     env!("CARGO_PKG_VERSION"),

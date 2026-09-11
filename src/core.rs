@@ -24,7 +24,10 @@ impl Plugin for MainPlugin {
 
 pub fn main() {
     #[cfg(target_arch = "wasm32")]
-    wasm_logger::init(wasm_logger::Config::default().module_prefix("starbloom"));
+    {
+        wasm_logger::init(wasm_logger::Config::default().module_prefix("starbloom"));
+        console_error_panic_hook::set_once();
+    }
     #[cfg(not(target_arch = "wasm32"))]
     env_logger::builder()
         .format_timestamp(None)
@@ -36,6 +39,8 @@ pub fn main() {
 
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
+
+    world.insert_resource(AssetServer::default());
 
     InputPlugin::create(&mut world, &mut schedule);
     CameraPlugin::create(&mut world, &mut schedule);
@@ -55,13 +60,14 @@ pub fn main() {
                 .unwrap()
                 .update(ctx.input);
 
-            world
-                .get_non_send_mut::<Renderer<'_>>()
-                .unwrap()
-                .ctx()
-                .unwrap()
-                .gfx
-                .clear(Color::BLUE);
+            /*world
+            .get_non_send_mut::<Renderer<'_>>()
+            .unwrap()
+            .ctx()
+            .unwrap()
+            .gfx
+            .clear(Color::BLUE);*/
+
             schedule.run(&mut world);
 
             #[cfg(feature = "debug_ui")]

@@ -31,16 +31,18 @@ impl Plugin for PlayerPlugin {
         world.spawn(LocalPlayer::default());
     }
 }
-
 fn render_players(
     query: Query<&Position, With<Player>>,
     main_camera: Res<MainCamera>,
     mut renderer: NonSendMut<Renderer>,
+    mut assets: ResMut<AssetServer>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
+    if let Some(mut ctx) = renderer.ctx() {
+        let texture_id = assets.bind_texture(&mut ctx, "player_atlas", include_bytes!("../assets/debug.png"));
         for position in query {
             ctx.gfx
                 .rect()
+                .texture(texture_id)
                 .anchor(Anchor::Center)
                 .at(main_camera.cam.world_to_screen(position.as_vec2()))
                 .color(Color::RED);
