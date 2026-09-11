@@ -38,14 +38,17 @@ fn render_players(
     mut assets: ResMut<AssetServer>,
 ) {
     if let Some(mut ctx) = renderer.ctx() {
-        let texture_id = assets.bind_texture(&mut ctx, "player_atlas", include_bytes!("../assets/debug.png"));
+        let texture_id = assets.bind_texture(
+            &mut ctx,
+            "player_atlas",
+            include_bytes!("../assets/debug.png"),
+        );
         for position in query {
             ctx.gfx
                 .rect()
                 .texture(texture_id)
                 .anchor(Anchor::Center)
-                .at(main_camera.cam.world_to_screen(position.as_vec2()))
-                .color(Color::RED);
+                .at(main_camera.cam.world_to_screen(position.as_vec2()));
         }
     }
 }
