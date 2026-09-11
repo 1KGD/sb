@@ -9,22 +9,26 @@ const PLAYER_NAME_FNT_SIZE: f32 = 20.;
 
 #[derive(Component, Default)]
 #[require(Position)]
-pub struct Player {
-    pub name: String,
-}
+pub struct Player;
 
 #[derive(Component, Default)]
 #[require(Player)]
-pub struct LocalPlayer();
+pub struct LocalPlayer;
 
-pub struct PlayerPlugin();
+#[derive(Component, Default)]
+#[require(Player)]
+pub struct RemotePlayer {
+    pub name: String,
+}
+
+pub struct PlayerPlugin;
 
 impl Plugin for PlayerPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(update_local_player);
         schedule.add_systems(render_players.after(render_chunks));
         schedule.add_systems(render_player_names.after(render_players));
-        world.spawn(LocalPlayer());
+        world.spawn(LocalPlayer::default());
     }
 }
 
@@ -35,26 +39,26 @@ fn render_players(
 ) {
     if let Some(ctx) = renderer.ctx() {
         for position in query {
-            let position = main_camera.cam.world_to_screen(position.as_vec2());
             ctx.gfx
                 .rect()
                 .anchor(Anchor::Center)
-                .at(position)
+                .at(main_camera.cam.world_to_screen(position.as_vec2()))
                 .color(Color::RED);
         }
     }
 }
 
 fn render_player_names(
-    query: Query<(&Position, &Player), Without<LocalPlayer>>,
+    query: Query<(&Position, &RemotePlayer), With<Player>>,
     main_camera: Res<MainCamera>,
     mut renderer: NonSendMut<Renderer>,
 ) {
     if let Some(ctx) = renderer.ctx() {
-        for (position, player) in query {
-            let position = main_camera.cam.world_to_screen(position.as_vec2());
-            let name = player.name.clone();
-            ctx.gfx.text(&name).at(position).size(PLAYER_NAME_FNT_SIZE);
+        for (position, remote) in query {
+            ctx.gfx
+                .text(&remote.name)
+                .at(main_camera.cam.world_to_screen(position.as_vec2()))
+                .size(PLAYER_NAME_FNT_SIZE);
         }
     }
 }

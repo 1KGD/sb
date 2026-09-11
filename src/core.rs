@@ -16,7 +16,7 @@ impl Plugin for MainPlugin {
         regestry.regester("starbloom:air", Tile::declare(false));
         regestry.regester("starbloom:debug", Tile::declare(true));
 
-        world.spawn(Player {
+        world.spawn(RemotePlayer {
             name: "guest".to_owned(),
         });
     }
