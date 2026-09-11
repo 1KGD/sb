@@ -1,7 +1,7 @@
-test:
+run:
 	cargo run --features desktop_build,dev
 
-test-web:
+run-web:
 	trunk serve -c -a 0.0.0.0 --features web,dev
 
 fmt:
