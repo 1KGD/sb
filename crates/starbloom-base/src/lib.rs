@@ -25,7 +25,7 @@ pub const VERSION: &'static str = concatcp!(
     if cfg!(debug_assertions) { "+DEV" } else { "" }
 );
 
-pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(||{
+pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(|| {
     cfg!(target_os = "android")
         || if cfg!(target_arch = "wasm32") {
             is_mobile_user_agent()

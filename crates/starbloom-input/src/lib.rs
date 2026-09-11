@@ -2,8 +2,8 @@ use starbloom_base::prelude::*;
 
 use crate::input_ctx::*;
 
-mod input_ctx;
 mod actions;
+mod input_ctx;
 pub mod prelude;
 
 pub struct InputPlugin();

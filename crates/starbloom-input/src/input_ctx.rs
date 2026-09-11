@@ -1,7 +1,7 @@
 use std::collections::hash_map::HashMap;
 
-use starbloom_base::prelude::*;
 use egor::input::*;
+use starbloom_base::prelude::*;
 
 use crate::actions::*;
 
