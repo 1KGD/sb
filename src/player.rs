@@ -40,8 +40,8 @@ fn render_players(
     if let Some(mut ctx) = renderer.ctx() {
         let texture_id = assets.bind_texture(
             &mut ctx,
-            "player_atlas",
-            include_bytes!("../assets/debug.png"),
+            "player_atlas".to_owned(),
+            include_bytes!("../assets/player.png"),
         );
         for position in query {
             ctx.gfx

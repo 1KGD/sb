@@ -6,17 +6,17 @@ use log::*;
 
 #[derive(Resource, Default)]
 pub struct AssetServer {
-    textures: HashMap<&'static str, usize>,
+    textures: HashMap<String, usize>,
 }
 
 impl AssetServer {
     pub fn bind_texture(
         &mut self,
         ctx: &mut Box<&mut &mut FrameContext>,
-        name: &'static str,
+        name: String,
         data: &[u8],
     ) -> usize {
-        if let Some(id) = self.textures.get(name).map(|id| *id) {
+        if let Some(id) = self.textures.get(&name).map(|id| *id) {
             return id;
         };
         let id: usize = ctx.gfx.load_texture(data);

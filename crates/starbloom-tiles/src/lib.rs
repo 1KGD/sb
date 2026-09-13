@@ -1,16 +1,21 @@
 use starbloom_base::prelude::*;
 
-pub const TILE_SIZE: f32 = 160.;
+pub const TILE_SIZE: f32 = 64.;
 
 pub type TileRepr = u16;
 
+mod grass;
+mod plugin;
+
+pub use crate::plugin::*;
+
 pub struct Tile {
-    pub renderable: bool,
+    pub texture: Option<&'static [u8]>,
 }
 
 impl Tile {
-    pub const fn declare(renderable: bool) -> Self {
-        Self { renderable }
+    pub const fn declare(texture: Option<&'static [u8]>) -> Self {
+        Self { texture }
     }
 }
 

@@ -10,12 +10,6 @@ struct MainPlugin();
 
 impl Plugin for MainPlugin {
     fn create(world: &mut World, _schedule: &mut Schedule) {
-        let mut regestry = world
-            .get_resource_mut::<TileRegestry>()
-            .expect(&"Could not get tile regestry");
-        regestry.regester("starbloom:air", Tile::declare(false));
-        regestry.regester("starbloom:debug", Tile::declare(true));
-
         world.spawn(RemotePlayer {
             name: "Guest".to_owned(),
         });
@@ -45,6 +39,7 @@ pub fn main() {
     InputPlugin::create(&mut world, &mut schedule);
     CameraPlugin::create(&mut world, &mut schedule);
     MapPlugin::create(&mut world, &mut schedule);
+    DefaultTilePlugin::create(&mut world, &mut schedule);
     WorldgenPlugin::create(&mut world, &mut schedule);
     PlayerPlugin::create(&mut world, &mut schedule);
     MainPlugin::create(&mut world, &mut schedule);
@@ -74,7 +69,9 @@ pub fn main() {
             egui::Window::new("Debug").show(ctx.egui_ctx, |ui| {
                 ui.label(format!(
                     "FPS: {}\nDELTA: {}\nFRAME: {}",
-                    ctx.timer.fps, ctx.timer.delta, ctx.timer.frame
+                    ctx.timer.fps,
+                    (ctx.timer.delta * 1000.).round() / 1000.,
+                    ctx.timer.frame
                 ));
             });
         },
