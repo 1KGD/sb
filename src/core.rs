@@ -74,6 +74,8 @@ pub fn main() {
                     ctx.timer.frame
                 ));
             });
+
+            world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut(); // Look, I'm being safe, OK?
         },
     );
 }
