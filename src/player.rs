@@ -38,10 +38,10 @@ fn render_players(
     mut assets: ResMut<AssetServer>,
 ) {
     if let Some(mut ctx) = renderer.ctx() {
-        let texture_id = assets.bind_texture(
+        let texture_id: usize = assets.bind_texture(
             &mut ctx,
             "player_atlas".to_owned(),
-            include_bytes!("../assets/player.png"),
+            include_bytes!("../assets/debug.png"),
         );
         for position in query {
             ctx.gfx
