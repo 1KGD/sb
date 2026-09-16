@@ -1,7 +1,7 @@
-use bevy_ecs::prelude::*;
 use noise::Simplex;
 
 use starbloom_base::prelude::*;
+use starbloom_map::*;
 
 mod biome;
 
@@ -22,10 +22,14 @@ pub struct WorldgenProvider {
 }
 
 impl WorldgenProvider {
-    fn new(seed: u64) -> Self {
+    fn new(seed: u32) -> Self {
         Self {
-            biome_noise: Simplex::new(0),
+            biome_noise: Simplex::new(seed),
             biomes: std::collections::HashMap::new(),
         }
+    }
+
+    pub fn generate_chunk_data(chunk_pos: Vec2) -> [[u16; CHUNK_DIM]; CHUNK_DIM] {
+        [[1; CHUNK_DIM]; CHUNK_DIM]
     }
 }

@@ -9,3 +9,4 @@ edition.workspace = true
 bevy_ecs.workspace = true
 noise.workspace = true
 starbloom-base.workspace = true
+starbloom-map.workspace = true
