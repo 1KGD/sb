@@ -2,7 +2,7 @@ use bevy_ecs::prelude::*;
 use const_format::concatcp;
 use egor::math::*;
 
-mod assets;
+mod bootstrap;
 pub mod prelude;
 mod render;
 

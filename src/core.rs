@@ -35,8 +35,7 @@ pub fn main() {
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
 
-    world.insert_resource(AssetServer::default());
-
+    BootstrapPlugin::create(&mut world, &mut schedule);
     InputPlugin::create(&mut world, &mut schedule);
     CameraPlugin::create(&mut world, &mut schedule);
     MapPlugin::create(&mut world, &mut schedule);

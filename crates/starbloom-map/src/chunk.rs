@@ -25,29 +25,17 @@ impl Chunk {
         renderer: &mut NonSendMut<Renderer>,
         main_camera: &Res<MainCamera>,
         tile_regestry: &Res<TileRegestry>,
-        assets: &mut ResMut<AssetServer>,
     ) {
         if let Some(tiles) = self.tiles {
             if let Some(mut ctx) = renderer.ctx() {
                 for (x, row) in tiles.iter().enumerate() {
                     for (y, tile_idx) in row.iter().enumerate() {
                         let tile = tile_regestry.get_tile_by_idx(tile_idx);
-                        if let Some(texture) = tile.texture {
-                            let texture_id = assets.bind_texture(
-                                &mut ctx,
-                                format!("tile_{}", tile_idx),
-                                texture,
-                            );
-                            let pos = main_camera.cam.world_to_screen(
-                                vec2(x as f32, y as f32) * TILE_SIZE
-                                    + vec2(self.x as f32, self.y as f32) * CHUNK_SIZE,
-                            );
-                            ctx.gfx
-                                .rect()
-                                .size(vec2(TILE_SIZE, TILE_SIZE))
-                                .texture(texture_id)
-                                .at(pos);
-                        }
+                        let pos = main_camera.cam.world_to_screen(
+                            vec2(x as f32, y as f32) * TILE_SIZE
+                                + vec2(self.x as f32, self.y as f32) * CHUNK_SIZE,
+                        );
+                        ctx.gfx.rect().size(vec2(TILE_SIZE, TILE_SIZE)).at(pos);
                     }
                 }
             }
