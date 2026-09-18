@@ -48,6 +48,7 @@ fn render_players(
                 .rect()
                 .texture(texture_id)
                 .anchor(Anchor::Center)
+                .size(Vec2::splat(16.))
                 .at(main_camera.cam.world_to_screen(position.as_vec2()));
         }
     }

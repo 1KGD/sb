@@ -1,6 +1,6 @@
 use starbloom_base::prelude::*;
 
-pub const TILE_SIZE: f32 = 64.;
+pub const TILE_SIZE: f32 = 8.;
 
 pub type TileRepr = u16;
 

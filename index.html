@@ -7,19 +7,23 @@
     <link data-trunk rel="rust" data-bin="starbloom" />
     <style>
         body {
-            margin: 0px;
-            display: flex;
-            height: 100vh;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
             background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         canvas {
-            position: absolute;
-            top: 0px;
-            left: 0px;
+            image-rendering: pixelated;
             display: block;
-            width: 100vw;
-            height: 100vh;
+            object-fit: contain;
+            transform: scale(calc((100vh/256px)*90%));
+            position: absolute;
         }
 
         h1 {
