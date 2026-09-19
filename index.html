@@ -22,7 +22,8 @@
             image-rendering: pixelated;
             display: block;
             object-fit: contain;
-            transform: scale(calc((100vh/256px)*90%));
+            /* I don't know why this works, it just does */
+            transform: scale(calc(min(100vw/256%, 100vh/256%)));
             position: absolute;
         }
 
