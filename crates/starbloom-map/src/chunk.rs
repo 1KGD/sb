@@ -27,14 +27,20 @@ impl Chunk {
         tile_regestry: &Res<TileRegestry>,
     ) {
         if let Some(tiles) = self.tiles {
-            if let Some(mut ctx) = renderer.ctx() {
+            if let Some(ctx) = renderer.ctx() {
                 for (x, row) in tiles.iter().enumerate() {
                     for (y, tile_idx) in row.iter().enumerate() {
                         let tile = tile_regestry.get_tile_by_idx(tile_idx);
-                        let pos = main_camera.cam.world_to_screen(
-                            vec2(x as f32, y as f32) * TILE_SIZE + self.get_world_pos(),
-                        );
-                        ctx.gfx.rect().size(vec2(TILE_SIZE, TILE_SIZE)).at(pos);
+                        if let Some(texture) = tile.texture {
+                            let pos = main_camera.cam.world_to_screen(
+                                vec2(x as f32, y as f32) * TILE_SIZE + self.get_world_pos(),
+                            );
+                            ctx.gfx
+                                .rect()
+                                .texture(texture)
+                                .size(vec2(TILE_SIZE, TILE_SIZE))
+                                .at(pos);
+                        }
                     }
                 }
             }

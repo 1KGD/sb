@@ -13,7 +13,7 @@ impl Plugin for BootstrapPlugin {
     }
 }
 
-fn load_assets(
+pub fn load_assets(
     mut commands: Commands,
     mut manager: ResMut<BootstrapMananger>,
     query: Query<(Entity, &AssetRequest)>,
@@ -62,7 +62,7 @@ impl BootstrapMananger {
 }
 
 #[derive(Component)]
-enum AssetRequest {
+pub enum AssetRequest {
     Texture(&'static [u8]),
 }
 
@@ -75,7 +75,10 @@ pub fn declare_texture_asset(
     world: &mut World,
     texture_data: &'static [u8],
     bundle: impl Bundle + std::fmt::Debug + Copy,
-) {
-    world.spawn((bundle, AssetRequest::Texture(texture_data)));
+) -> Entity {
+    let entity: Entity = world
+        .spawn((bundle, AssetRequest::Texture(texture_data)))
+        .id();
     debug!("Spawned texture asset request with bundle {:#?}", bundle);
+    entity
 }
