@@ -34,7 +34,6 @@ jobs:
         os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/checkout@v7
       - name: Get latest commit
         run: git pull
       - name: Install libudev
