@@ -25,27 +25,20 @@ impl Chunk {
         renderer: &mut NonSendMut<Renderer>,
         main_camera: &Res<MainCamera>,
         tile_regestry: &Res<TileRegestry>,
-        assets: &mut ResMut<AssetServer>,
     ) {
         if let Some(tiles) = self.tiles {
-            if let Some(mut ctx) = renderer.ctx() {
+            if let Some(ctx) = renderer.ctx() {
                 for (x, row) in tiles.iter().enumerate() {
                     for (y, tile_idx) in row.iter().enumerate() {
                         let tile = tile_regestry.get_tile_by_idx(tile_idx);
                         if let Some(texture) = tile.texture {
-                            let texture_id = assets.bind_texture(
-                                &mut ctx,
-                                format!("tile_{}", tile_idx),
-                                texture,
-                            );
                             let pos = main_camera.cam.world_to_screen(
-                                vec2(x as f32, y as f32) * TILE_SIZE
-                                    + vec2(self.x as f32, self.y as f32) * CHUNK_SIZE,
+                                vec2(x as f32, y as f32) * TILE_SIZE + self.get_world_pos(),
                             );
                             ctx.gfx
                                 .rect()
+                                .texture(texture)
                                 .size(vec2(TILE_SIZE, TILE_SIZE))
-                                .texture(texture_id)
                                 .at(pos);
                         }
                     }
@@ -60,5 +53,22 @@ impl Chunk {
 
     pub fn get(&self, x: usize, y: usize) -> Option<TileRepr> {
         self.tiles.map(|tiles: [[u16; 8]; 8]| tiles[x][y])
+    }
+
+    pub(crate) fn get_world_pos(&self) -> Vec2 {
+        vec2(self.x as f32, self.y as f32) * CHUNK_SIZE
+    }
+
+    pub(crate) fn get_bounding_rect(&self) -> Rect {
+        Rect::new(self.get_world_pos(), Vec2::splat(CHUNK_SIZE))
+    }
+
+    pub(crate) fn should_be_culled(&self, viewport: Rect) -> bool {
+        for vert in self.get_bounding_rect().corners() {
+            if viewport.contains(vert) {
+                return false;
+            }
+        }
+        true
     }
 }

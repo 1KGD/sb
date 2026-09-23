@@ -35,8 +35,7 @@ pub fn main() {
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
 
-    world.insert_resource(AssetServer::default());
-
+    BootstrapPlugin::create(&mut world, &mut schedule);
     InputPlugin::create(&mut world, &mut schedule);
     CameraPlugin::create(&mut world, &mut schedule);
     MapPlugin::create(&mut world, &mut schedule);
@@ -60,12 +59,13 @@ pub fn main() {
 
     App::new()
         .window_size(256, 256)
+        .resizable(false)
         .fullscreen(true)
         .title(&format!("STARBOOM v{}", VERSION))
         .run(move |mut ctx: &mut FrameContext<'_>| {
             if ctx.timer.frame == 0 {
                 ctx.egui_ctx.set_fonts(fonts.clone());
-                ctx.egui_ctx.set_pixels_per_point(0.5);
+                ctx.egui_ctx.set_pixels_per_point(0.75);
             } else if ctx.timer.frame == 1 {
                 ctx.egui_ctx.tessellation_options_mut(
                     |options: &mut epaint::TessellationOptions| {
@@ -79,14 +79,29 @@ pub fn main() {
                     style.text_styles = [
                         (
                             TextStyle::Heading,
-                            FontId::new(24., FontFamily::Name("PS".into())),
+                            FontId::new(16., FontFamily::Name("PS".into())),
                         ),
                         (
                             TextStyle::Body,
-                            FontId::new(20., FontFamily::Name("PS".into())),
+                            FontId::new(16., FontFamily::Name("PS".into())),
+                        ),
+                        (
+                            TextStyle::Button,
+                            FontId::new(16., FontFamily::Name("PS".into())),
                         ),
                     ]
                     .into();
+
+                    style.visuals.override_text_color = Some(Color32::from_hex("#193d3f").unwrap());
+                    style.visuals.window_fill = Color32::from_hex("#ffe762").unwrap();
+                    style.visuals.extreme_bg_color = Color32::from_hex("#63c64d").unwrap();
+                    style.visuals.striped = true;
+                    style.visuals.interact_cursor = Some(CursorIcon::PointingHand);
+                    style.interaction.selectable_labels = false;
+                    style.debug.debug_on_hover_with_all_modifiers = true;
+                    style.visuals.window_highlight_topmost = false;
+                    style.visuals.window_stroke.color = Color32::BLACK;
+                    style.visuals.window_stroke.width = 0.1;
                 });
             }
 

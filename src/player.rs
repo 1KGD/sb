@@ -23,8 +23,13 @@ pub struct RemotePlayer {
 
 pub struct PlayerPlugin;
 
+#[derive(Component, Debug, Clone, Copy)]
+struct PlayerTexture;
+
 impl Plugin for PlayerPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
+        declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
+
         schedule.add_systems(update_local_player);
         schedule.add_systems(render_players.after(render_chunks));
         schedule.add_systems(render_player_names.after(render_players));
@@ -33,16 +38,12 @@ impl Plugin for PlayerPlugin {
 }
 fn render_players(
     query: Query<&Position, With<Player>>,
+    asset: Single<&TextureAsset, With<PlayerTexture>>,
     main_camera: Res<MainCamera>,
     mut renderer: NonSendMut<Renderer>,
-    mut assets: ResMut<AssetServer>,
 ) {
-    if let Some(mut ctx) = renderer.ctx() {
-        let texture_id: usize = assets.bind_texture(
-            &mut ctx,
-            "player_atlas".to_owned(),
-            include_bytes!("../assets/debug.png"),
-        );
+    let texture_id: usize = asset.into_inner().id;
+    if let Some(ctx) = renderer.ctx() {
         for position in query {
             ctx.gfx
                 .rect()
