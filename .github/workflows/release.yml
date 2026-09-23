@@ -26,10 +26,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  #todo: cargo test beforehand
+  test-all-platforms:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
+      - name: Get latest commit
+        run: git pull
+      - name: Install libudev
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get update && sudo apt-get install libudev-dev -y
+      - name: TEST!
+        run: cargo test --release --features desktop_build -j 256
 
   bump:
     runs-on: ubuntu-latest
+    needs: [test-all-platforms]
     permissions:
       contents: write
     outputs:
@@ -95,7 +111,7 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: sudo apt-get update && sudo apt-get install libudev-dev -y
       - name: Build binary
-        run: cargo build --release --features desktop_build
+        run: cargo build --release --features desktop_build -j 256
       - name: Rename binary
         run: mv ${{env.INITIAL_BIN_PATH}} ${{env.BIN_PATH}}
       - name: Upload binary
