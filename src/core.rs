@@ -98,7 +98,6 @@ pub fn main() {
                     style.visuals.striped = true;
                     style.visuals.interact_cursor = Some(CursorIcon::PointingHand);
                     style.interaction.selectable_labels = false;
-                    style.debug.debug_on_hover_with_all_modifiers = true;
                     style.visuals.window_highlight_topmost = false;
                     style.visuals.window_stroke.color = Color32::BLACK;
                     style.visuals.window_stroke.width = 0.1;
