@@ -1,3 +1,3 @@
-sphinx-book-theme
+cloud-sptheme
 myst-parser
 sphinx_new_tab_link
