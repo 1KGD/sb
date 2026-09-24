@@ -3,7 +3,6 @@
 > [!WARNING]
 > This game is very early in development and *all* of this is subject to change. No promises.
 
-
 > STARBLOOM is intended to be a factory building game. It is also intended to be a relaxing farming game.
 
 ...maybe relaxing isn't the best word while trying not to die of heat exhaustion while fending off incendiary robots looking to turn your plastic-producing farmplot into a raging inferno.
@@ -27,6 +26,9 @@ with little to no help from you.
 
 Plants are the backbone of life in STARBLOOM. They provide food, raw materials, processing, and/or power to the farm. Once planted, plants take time to grow (several in-game days), though this can be speeded up manually (but inefficently), or eventually automatically with robots. Most plants require a supply of water to survive, along with light and good enviormental conditions[^2].
 
+> [!NOTE]
+> Idea: preview simulation (in-world computer?) to see how it works before commiting to a layout, due to the long delay between runs?
+
 [^2]: *Food For Thought:* Should some plants die every winter and require replanting to fix assembly lines? Probably only a specific few that aren't needed in bulk. Maybe a way to prevent "thousands of identical furnaces all smelting iron" aproaches to playing the game.
 
 ## The Robots
@@ -49,5 +51,3 @@ They do what they were designed to do: *start fires*. And once they do, they wil
 
 > [!NOTE]
 > The world is not infinite, it is just so big that visiting the entirty if it will run into issues. Probably something involving floating-point errors, stoage space, or memory, whichever has the decency to come first.
-
-
