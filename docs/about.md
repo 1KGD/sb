@@ -3,7 +3,10 @@
 > [!WARNING]
 > This game is very early in development and *all* of this is subject to change. No promises.
 
-> STARBLOOM is intended to be a factory building game. It is also intended to be a relaxing farming game.
+```
+STARBLOOM is intended to be a factory building game.
+It is also intended to be a relaxing farming game.
+```
 
 ...maybe relaxing isn't the best word while trying not to die of heat exhaustion while fending off incendiary robots looking to turn your plastic-producing farmplot into a raging inferno.
 
