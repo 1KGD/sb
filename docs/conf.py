@@ -18,7 +18,4 @@ show_authors = False
 
 new_tab_link_show_external_link_icon = True
 
-html_theme = "solar_theme"
-
-import solar_theme
-html_theme_path = [solar_theme.theme_path]
+html_theme = "sphinx_book_theme"
