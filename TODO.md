@@ -15,3 +15,6 @@
 - [x] Controller support using `gilrs`
   - [ ] Integrate into input abstraction utils in `starbloom-base`
   - [x] Leave out of native mobile builds, as `gilrs` does not support it
+- [ ] Improve HTML bootstrap visuals (pending codespace free-up).
+  - [ ] <title/> showing loading progress (fancy ASCII progress bar?)
+  - [ ] WASM switching title to match native format on init ("STARBLOOM vX.X.X").
