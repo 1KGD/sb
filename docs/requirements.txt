@@ -1,3 +1,3 @@
-sphinx-nefertiti
-myst-parser
 solar-theme
+myst-parser
+sphinx_new_tab_link
