@@ -18,4 +18,4 @@ show_authors = False
 
 new_tab_link_show_external_link_icon = True
 
-html_theme = "sphinx_nefertiti"
+html_theme = "solar_theme"
