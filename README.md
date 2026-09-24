@@ -1,6 +1,6 @@
 # STARBLOOM
-![GitHub Release](https://img.shields.io/github/v/release/1kgd/sb?style=for-the-badge)
-![GitHub commits since latest release](https://img.shields.io/github/commits-since/1kgd/sb/latest?sort=semver&style=for-the-badge&logo=github)
+[![GitHub Release](https://img.shields.io/github/v/release/1kgd/sb?style=for-the-badge)](https://github/1KDG/sb/releases)
+[![GitHub commits since latest release](https://img.shields.io/github/commits-since/1kgd/sb/latest?sort=semver&style=for-the-badge&logo=github)](https://github.com/1KGD/sb)
 
 (rust rewrite)
 
