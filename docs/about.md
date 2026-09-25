@@ -14,7 +14,7 @@ The basic premise is this:
 
 > You (the player) exist in a (practically) infinite procedurally generated world. You are alone in this world, with only the robots to keep you company. You are scaping by on your farm, growing enough food to keep you and your (biological[^1]) livestock alive, while fending off wild animals, bad weather, and old robots that still want to burn anything that lives.
 
-[^1]: robots are not biological.
+[^1]: robots are not biological. They can, however, be livestock.
 
 ## You, The Player
 
