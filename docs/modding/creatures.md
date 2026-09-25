@@ -1,3 +1,4 @@
 # Creatures
 
-Let me get this straight: *there is no seperate creature system*. Everything from spawning to rendering to pathfinding to interacting with things is handled entirly within the [ECS](../implementation/ecs.md)
+> [!WARNING] UNIMPLEMENTED
+> Currently, the entire "world" is a single chunk that despawns as soon as it leaves the viewport. Once I actually get chunk *adding* working, I'll get around to implementing this.

@@ -1,6 +1,7 @@
 # Tiles
 
-In case you haven't noticed, the most prevolent thing in the world of STARBLOOM is tiles. Naturally, when modding STARBLOOM, you might want to add more types of tiles. This is increadably easy.
+> [!WARNING] (PARTIALLY) UNIMPLEMENTED
+> There is a very rudimentary tile regestry system and backwards-compatability cache thing I implemented just to get other things working.
 
 :::{literalinclude} /../crates/starbloom-tiles/src/lib.rs
 :language: rust

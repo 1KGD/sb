@@ -29,7 +29,7 @@ with little to no help from you.
 
 Plants are the backbone of life in STARBLOOM. They provide food, raw materials, processing, and/or power to the farm. Once planted, plants take time to grow (several in-game days), though this can be speeded up manually (but inefficently), or eventually automatically with robots. Most plants require a supply of water to survive, along with light and good enviormental conditions[^2].
 
-> [!NOTE]
+> [!INFO] IDEA
 > Idea: preview simulation (in-world computer?) to see how it works before commiting to a layout, due to the long delay between runs?
 
 [^2]: *Food For Thought:* Should some plants die every winter and require replanting to fix assembly lines? Probably only a specific few that aren't needed in bulk. Maybe a way to prevent "thousands of identical furnaces all smelting iron" aproaches to playing the game.
