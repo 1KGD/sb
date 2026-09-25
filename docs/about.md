@@ -27,7 +27,7 @@ with little to no help from you.
 
 ## The Plants
 
-Plants are the backbone of life in STARBLOOM. They provide food, raw materials, processing, and/or power to the farm. Once planted, plants take time to grow (several in-game days), though this can be speeded up manually (but inefficently), or eventually automatically with robots. Most plants require a supply of water to survive, along with light and good enviormental conditions[^2].
+Plants are the backbone of life in STARBLOOM. They provide food, raw materials, processing, and/or power to the farm. Once planted, plants take time to grow (potentially several in-game days), though this can be speeded up manually (but inefficently), or eventually automatically with robots. Most plants require a supply of water to survive, along with light and good enviormental conditions[^2].
 
 > [!NOTE]
 > Idea: preview simulation (in-world computer?) to see how it works before commiting to a layout, due to the long delay between runs?
