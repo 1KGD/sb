@@ -60,7 +60,6 @@ pub fn main() {
     App::new()
         .window_size(256, 256)
         .resizable(false)
-        .fullscreen(true)
         .title(&format!("STARBOOM v{}", VERSION))
         .run(move |mut ctx: &mut FrameContext<'_>| {
             if ctx.timer.frame == 0 {
@@ -105,19 +104,19 @@ pub fn main() {
             }
 
             world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
-                [&mut ctx].as_mut_ptr() as *mut &mut &mut FrameContext; // I DON'T WANT TO TALK ABOUT IT, OK?
+                (&raw mut ctx) as *mut &mut FrameContext<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
             world
                 .get_resource_mut::<InputCtx>()
                 .unwrap()
                 .update(ctx.input);
 
-            world
-                .get_non_send_mut::<Renderer<'_>>()
-                .unwrap()
-                .ctx()
-                .unwrap()
-                .gfx
-                .clear(Color::BLUE);
+            /*world
+            .get_non_send_mut::<Renderer<'_>>()
+            .unwrap()
+            .ctx()
+            .unwrap()
+            .gfx
+            .clear(Color::BLUE);*/
 
             schedule.run(&mut world);
 
