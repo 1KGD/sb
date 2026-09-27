@@ -105,7 +105,7 @@ pub fn main() {
             }
 
             world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
-                [&mut ctx].as_mut_ptr() as *mut &mut &mut FrameContext; // I DON'T WANT TO TALK ABOUT IT, OK?
+                [&mut ctx].as_mut_ptr() as *mut &mut [&mut FrameContext;1]; // I DON'T WANT TO TALK ABOUT IT, OK?
             world
                 .get_resource_mut::<InputCtx>()
                 .unwrap()
