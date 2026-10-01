@@ -7,7 +7,7 @@ mod chunkloader;
 mod data;
 
 pub use crate::chunk::*;
-use crate::chunkloader::*;
+pub use crate::chunkloader::*;
 use crate::data::*;
 
 pub struct MapPlugin();
