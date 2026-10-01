@@ -29,7 +29,7 @@ impl WorldgenProvider {
         }
     }
 
-    pub fn generate_chunk_data(chunk_pos: Vec2) -> [[u16; CHUNK_DIM]; CHUNK_DIM] {
+    pub fn generate_chunk_data(chunk_pos: IVec2) -> [[u16; CHUNK_DIM]; CHUNK_DIM] {
         [[1; CHUNK_DIM]; CHUNK_DIM]
     }
 }

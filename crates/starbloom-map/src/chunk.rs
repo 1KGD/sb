@@ -10,14 +10,13 @@ pub const CHUNK_SIZE: f32 = CHUNK_DIM as f32 * TILE_SIZE;
 
 #[derive(Component)]
 pub struct Chunk {
-    x: u64, // No overflows for you any time soon
-    y: u64,
+    pub(crate) pos: IVec2,
     tiles: Option<[[TileRepr; CHUNK_DIM]; CHUNK_DIM]>,
 }
 
 impl Chunk {
-    pub fn load(x: u64, y: u64) -> Self {
-        Self { x, y, tiles: None }
+    pub fn load(pos: IVec2) -> Self {
+        Self { pos, tiles: None }
     }
 
     pub fn render(
@@ -48,7 +47,7 @@ impl Chunk {
     }
 
     pub fn generate(&mut self, data_provider: &ChunkDataProvider) {
-        self.tiles = Some(data_provider.get_chunk_data(self.x, self.y));
+        self.tiles = Some(data_provider.get_chunk_data(self.pos));
     }
 
     pub fn get(&self, x: usize, y: usize) -> Option<TileRepr> {
@@ -56,7 +55,7 @@ impl Chunk {
     }
 
     pub(crate) fn get_world_pos(&self) -> Vec2 {
-        vec2(self.x as f32, self.y as f32) * CHUNK_SIZE
+        self.pos.as_vec2() * CHUNK_SIZE
     }
 
     pub(crate) fn get_bounding_rect(&self) -> Rect {

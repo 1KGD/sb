@@ -30,7 +30,7 @@ impl Plugin for PlayerPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
 
-        schedule.add_systems(update_local_player);
+        schedule.add_systems(update_local_player.before(load_chunks));
         schedule.add_systems(render_players.after(render_chunks));
         schedule.add_systems(render_player_names.after(render_players));
         world.spawn(LocalPlayer::default());
