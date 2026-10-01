@@ -15,8 +15,7 @@ pub struct MapPlugin();
 impl Plugin for MapPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
         ChunkloaderPlugin::create(world, schedule);
-        schedule.add_systems(generate_chunks);
-        schedule.add_systems(render_chunks.after(generate_chunks));
+        schedule.add_systems((generate_chunks, render_chunks).chain().in_set(GameState::Mainloop));
         world.insert_resource(TileRegestry::new());
         world.insert_resource(ChunkDataProvider {});
     }

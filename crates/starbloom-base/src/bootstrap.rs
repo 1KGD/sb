@@ -1,5 +1,3 @@
-use log::*;
-
 use crate::render::*;
 use crate::*;
 
@@ -8,8 +6,16 @@ pub struct BootstrapPlugin;
 impl Plugin for BootstrapPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
         world.insert_resource(BootstrapMananger::new());
-        schedule.add_systems(load_assets);
+        schedule.add_systems(
+            (load_assets, finish_bootstrap)
+                .chain()
+                .in_set(GameState::Bootstrap),
+        );
     }
+}
+
+fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
+    state_manager.state = GameState::Mainloop;
 }
 
 pub fn load_assets(

@@ -5,7 +5,11 @@ pub struct DefaultTilePlugin;
 
 impl Plugin for DefaultTilePlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
-        schedule.add_systems(insert_tile_textures_into_regestry.after(load_assets));
+        schedule.add_systems(
+            insert_tile_textures_into_regestry
+                .after(load_assets)
+                .in_set(GameState::Bootstrap),
+        );
         regester_grass(world);
     }
 }

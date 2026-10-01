@@ -1,6 +1,7 @@
 use bevy_ecs::prelude::*;
 use const_format::concatcp;
 use egor::math::*;
+use log::*;
 
 mod bootstrap;
 pub mod prelude;
@@ -54,4 +55,47 @@ impl Position {
         self.x = vec.x;
         self.y = vec.y;
     }
+}
+
+pub struct GameStatePlugin;
+
+impl Plugin for GameStatePlugin {
+    fn create(world: &mut World, schedule: &mut Schedule) {
+        world.insert_resource(GameStateManager::new());
+        schedule.configure_sets(GameState::Bootstrap.run_if(
+            |state_manager: Res<GameStateManager>| state_manager.state == GameState::Bootstrap,
+        ));
+        schedule.configure_sets(GameState::Mainloop.run_if(
+            |state_manager: Res<GameStateManager>| state_manager.state == GameState::Mainloop,
+        ));
+        schedule.add_systems(on_state_switch);
+    }
+}
+
+fn on_state_switch(state_manager: Res<GameStateManager>) {
+    if state_manager.is_changed() {
+        info!(
+            "Switched game state to {:#?} within this frame",
+            state_manager.state
+        );
+    }
+}
+
+#[derive(Resource)]
+pub struct GameStateManager {
+    state: GameState,
+}
+
+impl GameStateManager {
+    fn new() -> Self {
+        Self {
+            state: GameState::Bootstrap,
+        }
+    }
+}
+
+#[derive(SystemSet, Hash, Debug, PartialEq, Eq, Clone, Copy)]
+pub enum GameState {
+    Bootstrap,
+    Mainloop,
 }

@@ -9,7 +9,11 @@ pub struct ChunkloaderPlugin;
 
 impl Plugin for ChunkloaderPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
-        schedule.add_systems((cull_chunks, load_chunks).before(generate_chunks));
+        schedule.add_systems(
+            (cull_chunks, load_chunks)
+                .before(generate_chunks)
+                .in_set(GameState::Mainloop),
+        );
         world.insert_resource(ChunkManager::new());
     }
 }
