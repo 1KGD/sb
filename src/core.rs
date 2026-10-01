@@ -18,10 +18,17 @@ impl Plugin for MainPlugin {
 }
 
 pub fn main() {
+    let title: String = format!("STARBOOM v{}", VERSION);
+
     #[cfg(target_arch = "wasm32")]
     {
         wasm_logger::init(wasm_logger::Config::default().module_prefix("starbloom"));
         console_error_panic_hook::set_once();
+        web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .set_title(&title);
     }
     #[cfg(not(target_arch = "wasm32"))]
     env_logger::builder()
@@ -60,7 +67,7 @@ pub fn main() {
     App::new()
         .window_size(256, 256)
         .resizable(false)
-        .title(&format!("STARBOOM v{}", VERSION))
+        .title(&title)
         .run(move |mut ctx: &mut FrameContext<'_>| {
             if ctx.timer.frame == 0 {
                 ctx.egui_ctx.set_fonts(fonts.clone());

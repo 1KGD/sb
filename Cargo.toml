@@ -5,7 +5,10 @@ license = "MIT"
 edition = "2024"
 
 [workspace.dependencies]
-bevy_ecs = { version = "0.19", default-features = false, features = ["debug", "std"] }
+bevy_ecs = { version = "0.19", default-features = false, features = [
+    "debug",
+    "std",
+] }
 egor = { version = "0.10.0", default-features = false, features = [
     "webgl",
     "ui",
@@ -20,6 +23,7 @@ starbloom-base = { version = "^0", path = "crates/starbloom-base" }
 starbloom-input = { version = "^0", path = "crates/starbloom-input" }
 log = "0.4.33"
 egor_glue = "0.10.0"
+web-sys = { version = "0.3.106", features = ["Window", "Navigator", "Document"] }
 
 [workspace]
 resolver = "3"
@@ -47,6 +51,7 @@ publish = true
 egor.workspace = true
 bevy_ecs.workspace = true
 egor_glue.workspace = true
+web-sys.workspace = true
 starbloom-base.workspace = true
 starbloom-camera.workspace = true
 starbloom-intro.workspace = true
