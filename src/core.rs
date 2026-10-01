@@ -96,11 +96,12 @@ pub fn main() {
                     style.visuals.extreme_bg_color = Color32::from_hex("#63c64d").unwrap();
                     style.visuals.striped = true;
                     style.visuals.interact_cursor = Some(CursorIcon::PointingHand);
+                    style.interaction.selectable_labels = false;
                     style.visuals.window_highlight_topmost = false;
                     style.visuals.window_stroke.color = Color32::BLACK;
                     style.visuals.window_stroke.width = 0.1;
 
-                    style.interaction.selectable_labels = false;
+                    style.spacing.scroll.floating = false;
                 });
             }
 
@@ -122,7 +123,7 @@ pub fn main() {
             schedule.run(&mut world);
 
             #[cfg(feature = "debug_ui")]
-            egui::Window::new("Debug").show(ctx.egui_ctx, |ui| {
+            egui::Window::new("Debug").show(ctx.egui_ctx, |ui: &mut Ui| {
                 ui.label(format!(
                     "FPS: {}\nDELTA: {}\nFRAME: {}",
                     ctx.timer.fps,

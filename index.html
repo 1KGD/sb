@@ -5,7 +5,9 @@
     <meta charset="utf-8" />
     <title>LOADING...</title> <!-- TODO: Have wasm override title upon launch to match the native window title -->
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link data-trunk rel="rust" data-bin="starbloom" />
+    <link data-trunk rel="rust" data-bin="starbloom" data-initializer="src/bootstrap.mjs" />
+    <base data-trunk-public-url />
+
     <style>
         body {
             position: fixed;
@@ -28,7 +30,7 @@
             position: absolute;
         }
 
-        h1 {
+        #loading-panel {
             margin: auto;
             color: white;
         }
@@ -36,7 +38,10 @@
 </head>
 
 <body>
-    <h1>Loading...</h1>
+    <div id="loading-panel">
+        <pre id="loading-bytes"></pre>
+        <progress id="loading-progress"></progress>
+    </div>
 </body>
 
 </html>
