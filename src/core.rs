@@ -19,7 +19,6 @@ impl Plugin for MainPlugin {
 
 pub fn main() {
     let title: String = format!("STARBOOM v{}", VERSION);
-
     #[cfg(target_arch = "wasm32")]
     {
         wasm_logger::init(wasm_logger::Config::default().module_prefix("starbloom"));
