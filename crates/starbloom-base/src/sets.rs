@@ -28,6 +28,7 @@ impl Plugin for FrameStepPlugin {
         schedule.configure_sets(
             (
                 FrameStep::Prepare,
+                FrameStep::UpdatePlayer,
                 FrameStep::SyncMultiplayer,
                 (FrameStep::UpdateMap, FrameStep::UpdateEntities),
                 (
