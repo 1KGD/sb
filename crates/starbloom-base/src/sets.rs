@@ -15,6 +15,17 @@ impl Plugin for GameStatePlugin {
     }
 }
 
+
+
+fn on_state_switch(state_manager: Res<GameStateManager>) {
+    if state_manager.is_changed() {
+        info!(
+            "Switched game state to {:#?} within this frame",
+            state_manager.state
+        );
+    }
+}
+
 #[derive(Resource)]
 pub struct GameStateManager {
     state: GameState,
