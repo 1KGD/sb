@@ -12,7 +12,7 @@ impl Plugin for ChunkloaderPlugin {
         schedule.add_systems(
             (cull_chunks, load_chunks)
                 .before(generate_chunks)
-                .in_set(GameState::Mainloop),
+                .in_set(FrameStep::UpdateMap),
         );
         world.insert_resource(ChunkManager::new());
     }

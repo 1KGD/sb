@@ -4,4 +4,5 @@ pub use log::*;
 
 pub use crate::bootstrap::*;
 pub use crate::render::*;
+pub use crate::sets::*;
 pub use crate::*;

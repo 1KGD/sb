@@ -41,6 +41,7 @@ pub fn main() {
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
 
+    FrameStepPlugin::create(&mut world, &mut schedule);
     GameStatePlugin::create(&mut world, &mut schedule);
     BootstrapPlugin::create(&mut world, &mut schedule);
     InputPlugin::create(&mut world, &mut schedule);

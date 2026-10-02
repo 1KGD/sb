@@ -29,11 +29,11 @@ struct PlayerTexture;
 impl Plugin for PlayerPlugin {
     fn create(world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
+        schedule.add_systems(update_local_player.in_set(FrameStep::UpdateEntities));
         schedule.add_systems(
-            (update_local_player, render_players, render_player_names)
+            (render_players, render_player_names)
                 .chain()
-                .after(render_chunks)
-                .in_set(GameState::Mainloop),
+                .in_set(FrameStep::RenderEntities),
         );
         world.spawn(LocalPlayer::default());
     }
