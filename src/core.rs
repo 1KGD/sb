@@ -1,3 +1,5 @@
+use std::any;
+
 use egor::app::egui::*;
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
@@ -17,7 +19,9 @@ impl Plugin for MainPlugin {
     }
 }
 
-pub fn main(plugins: Option<&'static [impl Plugin]>) {
+const CORE_PLUGINS: &'static [&dyn Plugin] = &[&FrameStepPlugin, &GameStatePlugin];
+
+pub fn main(plugins: Option<&'static [&dyn Plugin]>) {
     let modded: bool = plugins.is_some();
 
     let title: String = format!("STARBOOM v{}{}", VERSION, if modded { "*" } else { "" });
