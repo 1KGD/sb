@@ -15,7 +15,9 @@ impl Plugin for GameStatePlugin {
     }
 }
 
-
+pub(crate) fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
+    state_manager.state = GameState::Mainloop;
+}
 
 fn on_state_switch(state_manager: Res<GameStateManager>) {
     if state_manager.is_changed() {

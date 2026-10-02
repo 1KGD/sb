@@ -14,10 +14,6 @@ impl Plugin for BootstrapPlugin {
     }
 }
 
-fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
-    state_manager.state = GameState::Mainloop;
-}
-
 pub fn load_assets(
     mut commands: Commands,
     mut manager: ResMut<BootstrapMananger>,
