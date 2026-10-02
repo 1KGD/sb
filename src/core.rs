@@ -17,8 +17,11 @@ impl Plugin for MainPlugin {
     }
 }
 
-pub fn main() {
-    let title: String = format!("STARBOOM v{}", VERSION);
+pub fn main(plugins: Option<&'static [impl Plugin]>) {
+    let modded: bool = plugins.is_some();
+
+    let title: String = format!("STARBOOM v{}{}", VERSION, if modded { "*" } else { "" });
+
     #[cfg(target_arch = "wasm32")]
     {
         wasm_logger::init(wasm_logger::Config::default().module_prefix("starbloom"));
