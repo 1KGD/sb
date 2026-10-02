@@ -68,16 +68,3 @@ fn on_state_switch(state_manager: Res<GameStateManager>) {
         );
     }
 }
-
-#[derive(Resource)]
-pub struct GameStateManager {
-    state: GameState,
-}
-
-impl GameStateManager {
-    fn new() -> Self {
-        Self {
-            state: GameState::Bootstrap,
-        }
-    }
-}

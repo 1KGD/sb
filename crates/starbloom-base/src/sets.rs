@@ -15,6 +15,19 @@ impl Plugin for GameStatePlugin {
     }
 }
 
+#[derive(Resource)]
+pub struct GameStateManager {
+    state: GameState,
+}
+
+impl GameStateManager {
+    fn new() -> Self {
+        Self {
+            state: GameState::Bootstrap,
+        }
+    }
+}
+
 #[derive(SystemSet, Hash, Debug, PartialEq, Eq, Clone, Copy)]
 pub enum GameState {
     Bootstrap,
