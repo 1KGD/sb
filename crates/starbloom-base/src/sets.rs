@@ -50,6 +50,7 @@ pub enum FrameStep {
 
     SyncMultiplayer, // Does nothing yet
 
+    UpdatePlayer,
     UpdateMap,
     UpdateEntities,
 
