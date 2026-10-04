@@ -134,14 +134,6 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
                 .unwrap()
                 .update(ctx.input);
 
-            world
-                .get_non_send_mut::<Renderer<'_>>()
-                .unwrap()
-                .ctx()
-                .unwrap()
-                .gfx
-                .clear(Color::BLUE);
-
             schedule.run(&mut world);
 
             #[cfg(feature = "debug_ui")]
