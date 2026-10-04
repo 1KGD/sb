@@ -97,5 +97,5 @@ fn on_state_switch(state_manager: Res<GameStateManager>) {
 }
 
 pub trait StateSetManager<T: SystemSet>: Resource {
-    fn configure(&self, schedule: &mut Schedule, state: GameState) -> &Self;
+    fn configure(&self, schedule: &mut Schedule, state: T) -> &Self;
 }

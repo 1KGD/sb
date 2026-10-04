@@ -9,6 +9,3 @@ edition.workspace = true
 starbloom-base.workspace = true
 starbloom-derive.workspace = true
 bevy_ecs.workspace = true
-
-[features]
-skip_intro = []

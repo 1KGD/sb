@@ -1,4 +1,6 @@
 use starbloom_base::prelude::*;
+use starbloom_derive::*;
+use starbloom_states::*;
 
 pub struct IntroPlugin;
 
@@ -10,12 +12,14 @@ impl Plugin for IntroPlugin {
     }
 }
 
-#[derive(Resource)]
-struct IntroStateManager(IntroState);
+#[derive(Resource, StateSetManager)]
+struct IntroStateManager {
+    state: IntroState,
+}
 
 impl IntroStateManager {
     fn new() -> Self {
-        Self(IntroState::Rust)
+        Self {state: IntroState::Rust}
     }
 }
 

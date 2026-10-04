@@ -9,3 +9,6 @@ edition.workspace = true
 starbloom-base.workspace = true
 starbloom-states.workspace = true
 bevy_ecs.workspace = true
+
+[features]
+skip_intro = []
