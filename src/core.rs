@@ -2,6 +2,7 @@ use egor::app::egui::*;
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
 use starbloom_input::prelude::*;
+use starbloom_intro::IntroPlugin;
 use starbloom_map::*;
 use starbloom_tiles::*;
 use starbloom_worldgen::*;
@@ -22,6 +23,7 @@ const CORE_PLUGINS: &'static [&dyn Plugin] = &[
     &FrameStepPlugin,
     &GameStatePlugin,
     &BootstrapPlugin,
+    &IntroPlugin,
     &InputPlugin,
     &CameraPlugin,
     &MapPlugin,

@@ -1,0 +1,11 @@
+[package]
+name = "starbloom-bootstrap"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+
+[dependencies]
+starbloom-base.workspace = true
+starbloom-states.workspace = true
+bevy_ecs.workspace = true

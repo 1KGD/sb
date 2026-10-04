@@ -1,14 +1,9 @@
 use bevy_ecs::prelude::*;
 use const_format::concatcp;
 use egor::math::*;
-use log::*;
 
-use crate::sets::*;
-
-mod bootstrap;
 pub mod prelude;
 mod render;
-mod sets;
 
 pub fn is_mobile_user_agent() -> bool {
     let user_agent = web_sys::window().and_then(|win| win.navigator().user_agent().ok());

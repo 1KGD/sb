@@ -1,5 +1,4 @@
-use crate::render::*;
-use crate::*;
+use starbloom_base::prelude::*;
 
 pub struct BootstrapPlugin;
 

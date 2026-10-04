@@ -14,6 +14,7 @@ egor = { version = "0.10.0", default-features = false, features = [
     "ui",
 ] }
 noise = "0.9.0"
+starbloom-derive = { version = "^0", path = "crates/starbloom-derive" }
 starbloom-intro = { version = "^0", path = "crates/starbloom-intro" }
 starbloom-map = { version = "^0", path = "crates/starbloom-map" }
 starbloom-worldgen = { version = "^0", path = "crates/starbloom-worldgen" }
@@ -21,6 +22,8 @@ starbloom-camera = { version = "^0", path = "crates/starbloom-camera" }
 starbloom-tiles = { version = "^0", path = "crates/starbloom-tiles" }
 starbloom-base = { version = "^0", path = "crates/starbloom-base" }
 starbloom-input = { version = "^0", path = "crates/starbloom-input" }
+starbloom-states = { version = "^0", path = "crates/starbloom-states" }
+starbloom-bootstrap = { version = "^0", path = "crates/starbloom-bootstrap" }
 log = "0.4.33"
 egor_glue = "0.10.0"
 web-sys = { version = "0.3.106", features = [
@@ -34,11 +37,14 @@ resolver = "3"
 members = [
     "crates/starbloom-base",
     "crates/starbloom-camera",
+    "crates/starbloom-derive",
     "crates/starbloom-input",
     "crates/starbloom-intro",
     "crates/starbloom-map",
     "crates/starbloom-tiles",
     "crates/starbloom-worldgen",
+    "crates/starbloom-states",
+    "crates/starbloom-bootstrap",
 ]
 
 [package]
@@ -63,13 +69,14 @@ starbloom-map.workspace = true
 starbloom-tiles.workspace = true
 starbloom-worldgen.workspace = true
 starbloom-input.workspace = true
+starbloom-states.workspace = true
 wasm-logger = "0.2.0"
 cosmic-text = { version = "0.19.0", features = ["wasm-web"] }
 env_logger = "0.11.11"
 console_error_panic_hook = "0.1.7"
 
 [features]
-skip_intro = ["starbloom-base/skip_intro"]
+skip_intro = ["starbloom-states/skip_intro"]
 debug_ui = []
 mobile = ["starbloom-input/mobile"]
 web = ["mobile", "starbloom-input/gilrs"]
@@ -83,6 +90,7 @@ dev = [
 ]
 
 [lib]
+proc-macro = true
 name = "sb"
 crate-type = ["cdylib", "rlib"]
 

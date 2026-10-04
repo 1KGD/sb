@@ -1,0 +1,14 @@
+[package]
+name = "starbloom-states"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+
+[dependencies]
+starbloom-base.workspace = true
+starbloom-derive.workspace = true
+bevy_ecs.workspace = true
+
+[features]
+skip_intro = []

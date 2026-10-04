@@ -11,6 +11,3 @@ const_format = "0.2.36"
 egor.workspace = true
 log.workspace = true
 web-sys.workspace = true
-
-[features]
-skip_intro = []
