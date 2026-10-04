@@ -8,7 +8,7 @@ use crate::{chunk::*, generate_chunks};
 pub struct ChunkloaderPlugin;
 
 impl Plugin for ChunkloaderPlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {
+    fn create(&self, world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(
             (cull_chunks, load_chunks)
                 .before(generate_chunks)

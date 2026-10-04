@@ -26,7 +26,7 @@ pub struct PlayerPlugin;
 struct PlayerTexture;
 
 impl Plugin for PlayerPlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {
+    fn create(&self, world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
         schedule.add_systems(update_local_player.in_set(FrameStep::UpdatePlayer));
         schedule.add_systems(

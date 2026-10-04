@@ -1,5 +1,3 @@
-use std::any;
-
 use egor::app::egui::*;
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
@@ -9,20 +7,32 @@ use starbloom_tiles::*;
 use starbloom_worldgen::*;
 
 use crate::player::*;
-struct MainPlugin();
+
+struct MainPlugin;
 
 impl Plugin for MainPlugin {
-    fn create(world: &mut World, _schedule: &mut Schedule) {
+    fn create(&self, world: &mut World, _schedule: &mut Schedule) {
         world.spawn(RemotePlayer {
             name: "Guest".to_owned(),
         });
     }
 }
 
-const CORE_PLUGINS: &'static [&dyn Plugin] = &[&FrameStepPlugin, &GameStatePlugin];
+const CORE_PLUGINS: &'static [&dyn Plugin] = &[
+    &FrameStepPlugin,
+    &GameStatePlugin,
+    &BootstrapPlugin,
+    &InputPlugin,
+    &CameraPlugin,
+    &MapPlugin,
+    &DefaultTilePlugin,
+    &WorldgenPlugin,
+    &PlayerPlugin,
+    &MainPlugin,
+];
 
-pub fn main(plugins: Option<&'static [&dyn Plugin]>) {
-    let modded: bool = plugins.is_some();
+pub fn main(mod_plugins: &'static [&dyn Plugin]) {
+    let modded: bool = !mod_plugins.is_empty();
 
     let title: String = format!("STARBOOM v{}{}", VERSION, if modded { "*" } else { "" });
 
@@ -48,16 +58,13 @@ pub fn main(plugins: Option<&'static [&dyn Plugin]>) {
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();
 
-    FrameStepPlugin::create(&mut world, &mut schedule);
-    GameStatePlugin::create(&mut world, &mut schedule);
-    BootstrapPlugin::create(&mut world, &mut schedule);
-    InputPlugin::create(&mut world, &mut schedule);
-    CameraPlugin::create(&mut world, &mut schedule);
-    MapPlugin::create(&mut world, &mut schedule);
-    DefaultTilePlugin::create(&mut world, &mut schedule);
-    WorldgenPlugin::create(&mut world, &mut schedule);
-    PlayerPlugin::create(&mut world, &mut schedule);
-    MainPlugin::create(&mut world, &mut schedule);
+    for plugin in CORE_PLUGINS {
+        plugin.create(&mut world, &mut schedule);
+    }
+
+    for plugin in mod_plugins {
+        plugin.create(&mut world, &mut schedule);
+    }
 
     world.insert_non_send(Renderer::new());
 

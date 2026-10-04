@@ -3,7 +3,7 @@ use crate::*;
 pub struct GameStatePlugin;
 
 impl Plugin for GameStatePlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {
+    fn create(&self, world: &mut World, schedule: &mut Schedule) {
         world.insert_resource(GameStateManager::new());
         schedule.configure_sets(GameState::Bootstrap.run_if(
             |state_manager: Res<GameStateManager>| state_manager.state == GameState::Bootstrap,
@@ -50,7 +50,7 @@ pub enum GameState {
 pub struct FrameStepPlugin;
 
 impl Plugin for FrameStepPlugin {
-    fn create(_world: &mut World, schedule: &mut Schedule) {
+    fn create(&self, _world: &mut World, schedule: &mut Schedule) {
         schedule.configure_sets(
             (
                 FrameStep::Prepare,

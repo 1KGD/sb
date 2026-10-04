@@ -10,11 +10,11 @@ pub use crate::chunk::*;
 pub use crate::chunkloader::*;
 use crate::data::*;
 
-pub struct MapPlugin();
+pub struct MapPlugin;
 
 impl Plugin for MapPlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {
-        ChunkloaderPlugin::create(world, schedule);
+    fn create(&self, world: &mut World, schedule: &mut Schedule) {
+        ChunkloaderPlugin.create(world, schedule);
         schedule.add_systems(generate_chunks.in_set(FrameStep::UpdateMap));
         schedule.add_systems(render_chunks.in_set(FrameStep::RenderMap));
         world.insert_resource(TileRegestry::new());

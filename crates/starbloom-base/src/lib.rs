@@ -40,9 +40,7 @@ pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(|| {
 });
 
 pub trait Plugin {
-    fn create(world: &mut World, schedule: &mut Schedule)
-    where
-        Self: Sized;
+    fn create(&self, world: &mut World, schedule: &mut Schedule);
 }
 
 #[derive(Default, Component)]
@@ -60,10 +58,4 @@ impl Position {
         self.x = vec.x;
         self.y = vec.y;
     }
-}
-
-pub struct DummyPlugin;
-
-impl Plugin for DummyPlugin {
-    fn create(_world: &mut World, _schedule: &mut Schedule) {}
 }

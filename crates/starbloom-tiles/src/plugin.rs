@@ -4,7 +4,7 @@ use crate::*;
 pub struct DefaultTilePlugin;
 
 impl Plugin for DefaultTilePlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {
+    fn create(&self, world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(
             insert_tile_textures_into_regestry
                 .after(load_assets)

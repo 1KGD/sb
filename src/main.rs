@@ -2,5 +2,5 @@ mod core;
 mod player;
 
 fn main() {
-    crate::core::main(None);
+    crate::core::main(&[]);
 }

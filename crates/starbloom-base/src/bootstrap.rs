@@ -4,7 +4,7 @@ use crate::*;
 pub struct BootstrapPlugin;
 
 impl Plugin for BootstrapPlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {
+    fn create(&self, world: &mut World, schedule: &mut Schedule) {
         world.insert_resource(BootstrapMananger::new());
         schedule.add_systems(
             (load_assets, finish_bootstrap)
