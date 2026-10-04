@@ -23,7 +23,11 @@ starbloom-base = { version = "^0", path = "crates/starbloom-base" }
 starbloom-input = { version = "^0", path = "crates/starbloom-input" }
 log = "0.4.33"
 egor_glue = "0.10.0"
-web-sys = { version = "0.3.106", features = ["Window", "Navigator", "Document"] }
+web-sys = { version = "0.3.106", features = [
+    "Window",
+    "Navigator",
+    "Document",
+] }
 
 [workspace]
 resolver = "3"
@@ -65,7 +69,7 @@ env_logger = "0.11.11"
 console_error_panic_hook = "0.1.7"
 
 [features]
-skip_intro = []
+skip_intro = ["starbloom-base/skip_intro"]
 debug_ui = []
 mobile = ["starbloom-input/mobile"]
 web = ["mobile", "starbloom-input/gilrs"]
@@ -73,7 +77,10 @@ web = ["mobile", "starbloom-input/gilrs"]
 mobile_build = ["mobile"]
 desktop_build = ["starbloom-input/gilrs"]
 
-dev = ["skip_intro", "debug_ui"]
+dev = [
+    #"skip_intro",
+    "debug_ui",
+]
 
 [lib]
 name = "sb"

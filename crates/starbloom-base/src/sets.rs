@@ -16,7 +16,11 @@ impl Plugin for GameStatePlugin {
 }
 
 pub(crate) fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
-    state_manager.state = GameState::Mainloop;
+    state_manager.state = if cfg!(feature = "skip_intro") {
+        GameState::Mainloop
+    } else {
+        GameState::Intro
+    };
 }
 
 fn on_state_switch(state_manager: Res<GameStateManager>) {
@@ -44,6 +48,7 @@ impl GameStateManager {
 #[derive(SystemSet, Hash, Debug, PartialEq, Eq, Clone, Copy)]
 pub enum GameState {
     Bootstrap,
+    Intro,
     Mainloop,
 }
 
