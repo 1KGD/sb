@@ -1,6 +1,8 @@
 use starbloom_base::prelude::*;
+use starbloom_bootstrap::*;
 use starbloom_camera::*;
 use starbloom_input::prelude::*;
+use starbloom_states::*;
 
 const PLAYER_SPEED: f32 = 200.;
 

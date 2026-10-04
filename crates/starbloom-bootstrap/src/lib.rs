@@ -1,4 +1,5 @@
 use starbloom_base::prelude::*;
+use starbloom_states::*;
 
 pub struct BootstrapPlugin;
 
@@ -40,6 +41,14 @@ pub fn load_assets(
             manager.phase = BootstrapPhase::Handoff;
         }
     }
+}
+
+fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
+    state_manager.switch_state(if cfg!(feature = "skip_intro") {
+        GameState::Mainloop
+    } else {
+        GameState::Intro
+    });
 }
 
 #[derive(Clone, Copy, PartialEq, Debug)]

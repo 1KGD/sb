@@ -7,5 +7,6 @@ edition.workspace = true
 
 [dependencies]
 starbloom-base.workspace = true
+starbloom-states.workspace = true
 starbloom-bootstrap.workspace = true
 bevy_ecs.workspace = true
