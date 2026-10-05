@@ -23,6 +23,10 @@ starbloom-tiles = { version = "^0", path = "crates/starbloom-tiles" }
 starbloom-base = { version = "^0", path = "crates/starbloom-base" }
 starbloom-input = { version = "^0", path = "crates/starbloom-input" }
 starbloom-states = { version = "^0", path = "crates/starbloom-states" }
+rand = { version = "0.10.3", default-features = false, features = [
+    "std",
+    "std_rng",
+] }
 starbloom-bootstrap = { version = "^0", path = "crates/starbloom-bootstrap" }
 log = "0.4.33"
 egor_glue = "0.10.0"
@@ -75,6 +79,7 @@ wasm-logger = "0.2.0"
 cosmic-text = { version = "0.19.0", features = ["wasm-web"] }
 env_logger = "0.11.11"
 console_error_panic_hook = "0.1.7"
+rand.workspace = true
 
 [features]
 skip_intro = ["starbloom-bootstrap/skip_intro"]

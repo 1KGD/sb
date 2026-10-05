@@ -43,16 +43,6 @@ pub trait Plugin {
 #[derive(Default, Component)]
 pub struct Position(Vec2);
 
-pub trait AsPosComponent {
-    fn as_pos(&self) -> Position;
-}
-
-impl AsPosComponent for Vec2 {
-    fn as_pos(&self) -> Position {
-        Position(*self)
-    }
-}
-
 impl Deref for Position {
     type Target = Vec2;
     #[inline]
@@ -79,5 +69,11 @@ impl From<Position> for Vec2 {
     #[inline]
     fn from(value: Position) -> Self {
         *value
+    }
+}
+
+impl From<Vec2> for Position {
+    fn from(value: Vec2) -> Self {
+        Self(value)
     }
 }
