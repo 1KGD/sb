@@ -16,7 +16,7 @@ pub fn derive_state_set_manager(input: TokenStream) -> TokenStream {
             let ty: &syn::Type = &t.ty;
             let name: syn::Ident = input.ident;
             return TokenStream::from(quote!(
-                impl crate::StateSetManager<#ty> for #name {
+                impl StateSetManager<#ty> for #name {
                     fn configure(&self, schedule: &mut bevy_ecs::prelude::Schedule, state: #ty) -> &Self {
                         schedule.configure_sets(state.run_if(move |manager: bevy_ecs::prelude::Res<Self>| manager.state == state));
                         self

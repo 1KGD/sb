@@ -1,3 +1,5 @@
+use std::ops::{Deref, DerefMut};
+
 use bevy_ecs::prelude::*;
 use const_format::concatcp;
 use egor::math::*;
@@ -39,18 +41,43 @@ pub trait Plugin {
 }
 
 #[derive(Default, Component)]
-pub struct Position {
-    pub x: f32,
-    pub y: f32,
+pub struct Position(Vec2);
+
+pub trait AsPosComponent {
+    fn as_pos(&self) -> Position;
 }
 
-impl Position {
-    pub fn as_vec2(&self) -> Vec2 {
-        Vec2::new(self.x, self.y)
+impl AsPosComponent for Vec2 {
+    fn as_pos(&self) -> Position {
+        Position(*self)
     }
+}
 
-    pub fn from_vec2(&mut self, vec: Vec2) {
-        self.x = vec.x;
-        self.y = vec.y;
+impl Deref for Position {
+    type Target = Vec2;
+    #[inline]
+    fn deref(&self) -> &Self::Target {
+        &self.0
+    }
+}
+
+impl DerefMut for Position {
+    #[inline]
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
+    }
+}
+
+impl AsRef<Vec2> for Position {
+    #[inline]
+    fn as_ref(&self) -> &Vec2 {
+        self.deref()
+    }
+}
+
+impl From<Position> for Vec2 {
+    #[inline]
+    fn from(value: Position) -> Self {
+        *value
     }
 }

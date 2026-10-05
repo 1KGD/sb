@@ -47,13 +47,13 @@ fn render_players(
 ) {
     let texture_id: usize = asset.into_inner().id;
     if let Some(ctx) = renderer.ctx() {
-        for position in query {
+        for pos in query {
             ctx.gfx
                 .rect()
                 .texture(texture_id)
                 .anchor(Anchor::Center)
                 .size(Vec2::splat(16.))
-                .at(main_camera.cam.world_to_screen(position.as_vec2()));
+                .at(main_camera.cam.world_to_screen(**pos));
         }
     }
 }
@@ -64,10 +64,10 @@ fn render_player_names(
     mut renderer: NonSendMut<Renderer>,
 ) {
     if let Some(ctx) = renderer.ctx() {
-        for (position, remote) in query {
+        for (pos, remote) in query {
             ctx.gfx
                 .text(&remote.name)
-                .at(main_camera.cam.world_to_screen(position.as_vec2()))
+                .at(main_camera.cam.world_to_screen(**pos))
                 .size(PLAYER_NAME_FNT_SIZE);
         }
     }
@@ -80,7 +80,7 @@ fn update_local_player(
     mut renderer: NonSendMut<Renderer>,
 ) {
     if let Some(ctx) = renderer.ctx() {
-        if let Ok(mut position) = query.single_mut() {
+        if let Ok(mut pos) = query.single_mut() {
             let mut motion: Vec2 = Vec2::ZERO;
 
             if input.action_held(Action::Down) {
@@ -99,16 +99,12 @@ fn update_local_player(
                 motion.x += 1.;
             }
 
-            let pos: Vec2 = position.as_vec2();
-
             // Don't use an expensive square root if you don't need it.
             if motion.distance_squared(Vec2::ZERO) != 0. {
-                position.from_vec2(pos + motion.normalize() * PLAYER_SPEED * ctx.timer.delta);
+                **pos = **pos + motion.normalize() * PLAYER_SPEED * ctx.timer.delta;
             }
 
-            main_camera
-                .cam
-                .center(position.as_vec2(), ctx.gfx.screen_size());
+            main_camera.cam.center(**pos, ctx.gfx.screen_size());
         }
     }
 }
