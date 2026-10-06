@@ -1,5 +1,6 @@
 use egor::app::egui::*;
 use starbloom_base::prelude::*;
+use starbloom_bootstrap::*;
 use starbloom_camera::*;
 use starbloom_input::prelude::*;
 use starbloom_intro::IntroPlugin;
@@ -7,7 +8,6 @@ use starbloom_map::*;
 use starbloom_states::*;
 use starbloom_tiles::*;
 use starbloom_worldgen::*;
-use starbloom_bootstrap::*;
 
 use crate::player::*;
 
@@ -87,7 +87,7 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
         .window_size(256, 256)
         .resizable(false)
         .title(&title)
-        .run(move |mut ctx: &mut FrameContext<'_>| {
+        .run(move |ctx: &mut FrameContext<'_>| {
             if ctx.timer.frame == 0 {
                 ctx.egui_ctx.set_fonts(fonts.clone());
                 ctx.egui_ctx.set_pixels_per_point(0.75);
@@ -131,8 +131,9 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
                 });
             }
 
+            world.insert_resource(FrameData::from(&*ctx));
             world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
-                (&raw mut ctx) as *mut &mut FrameContext<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
+                (&raw mut *ctx) as *mut FrameContext<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
             world
                 .get_resource_mut::<InputCtx>()
                 .unwrap()

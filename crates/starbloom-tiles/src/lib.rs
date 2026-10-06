@@ -47,6 +47,7 @@ impl TileRegestry {
             entries: std::collections::HashMap::new(),
         }
     }
+
     pub fn regester(&mut self, tile: Tile) {
         let entity: Entity = tile.entity;
         self.entries.insert(entity, tile);

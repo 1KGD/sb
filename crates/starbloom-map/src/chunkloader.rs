@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
 use starbloom_base::prelude::*;
-use starbloom_states::*;
 use starbloom_camera::*;
+use starbloom_states::*;
 
 use crate::{chunk::*, generate_chunks};
 
@@ -74,12 +74,10 @@ pub fn load_chunks(
     commands: Commands,
     camera: Res<MainCamera>,
     mut manager: ResMut<ChunkManager>,
-    mut renderer: NonSendMut<Renderer>,
+    frame_data: Res<FrameData>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        let viewport: Rect = camera.cam.viewport(ctx.gfx.screen_size());
-        manager.spawn_new_chunks(commands, viewport);
-    }
+    let viewport: Rect = camera.cam.viewport(frame_data.screen_size);
+    manager.spawn_new_chunks(commands, viewport);
 }
 
 pub fn cull_chunks(
@@ -87,15 +85,13 @@ pub fn cull_chunks(
     query: Query<(Entity, &Chunk)>,
     camera: Res<MainCamera>,
     mut manager: ResMut<ChunkManager>,
-    mut renderer: NonSendMut<Renderer>,
+    frame_data: Res<FrameData>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        let viewport: Rect = camera.cam.viewport(ctx.gfx.screen_size());
-        for (entity, chunk) in query {
-            if chunk.should_be_culled(viewport) {
-                manager.remove_chunk(chunk.pos);
-                commands.entity(entity).despawn();
-            }
+    let viewport: Rect = camera.cam.viewport(frame_data.screen_size);
+    for (entity, chunk) in query {
+        if chunk.should_be_culled(viewport) {
+            manager.remove_chunk(chunk.pos);
+            commands.entity(entity).despawn();
         }
     }
 }

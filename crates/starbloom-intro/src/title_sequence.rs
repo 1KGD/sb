@@ -1,5 +1,5 @@
-use std::ops::{Deref, DerefMut};
 use rand::prelude::*;
+use std::ops::{Deref, DerefMut};
 
 use crate::*;
 
@@ -46,22 +46,21 @@ fn spawn_starfall(
     mut commands: Commands,
     mut timer: Local<f32>,
     mut rng: Local<LocalRng>,
-    mut renderer: NonSendMut<Renderer>,
+    frame_data: Res<FrameData>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        if *timer >= 0.2 {
-            let screen_size: Vec2 = ctx.gfx.screen_size();
-            let length: f32 = (rng.next_u32() as f32 / u32::MAX as f32) * 20. + 20.;
-            let speed: f32 = (rng.next_u32() as f32 / u32::MAX as f32) * 20. + 20.;
-            let origin: Vec2 = vec2(
-                ((rng.next_u32() as f32 / u32::MAX as f32) * (screen_size.x + screen_size.y)).floor(),
-                0.,
-            );
-            commands.spawn((Starfall { length, speed }, Position::from(origin)));
-            *timer = 0.;
-        }
-        *timer += ctx.timer.delta;
+    if *timer >= 0.2 {
+        let length: f32 = (rng.next_u32() as f32 / u32::MAX as f32) * 20. + 20.;
+        let speed: f32 = (rng.next_u32() as f32 / u32::MAX as f32) * 20. + 20.;
+        let origin: Vec2 = vec2(
+            ((rng.next_u32() as f32 / u32::MAX as f32)
+                * (frame_data.screen_size.x + frame_data.screen_size.y))
+                .floor(),
+            0.,
+        );
+        commands.spawn((Starfall { length, speed }, Position::from(origin)));
+        *timer = 0.;
     }
+    *timer += frame_data.delta;
 }
 
 fn render_starfall(query: Query<(&Position, &Starfall)>, mut renderer: NonSendMut<Renderer>) {
@@ -78,14 +77,12 @@ fn render_starfall(query: Query<(&Position, &Starfall)>, mut renderer: NonSendMu
 fn update_starfall(
     mut commands: Commands,
     query: Query<(Entity, &mut Position, &Starfall)>,
-    mut renderer: NonSendMut<Renderer>,
+    frame_data: Res<FrameData>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        for (entity, mut pos, starfall) in query {
-            **pos += vec2(-1., 1.) * starfall.speed * ctx.timer.delta;
-            if pos.x < -starfall.length {
-                commands.entity(entity).despawn();
-            }
+    for (entity, mut pos, starfall) in query {
+        **pos += vec2(-1., 1.) * starfall.speed * frame_data.delta;
+        if pos.x < -starfall.length {
+            commands.entity(entity).despawn();
         }
     }
 }
