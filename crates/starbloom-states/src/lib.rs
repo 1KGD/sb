@@ -13,10 +13,6 @@ impl GameStateManager {
             state: GameState::Bootstrap,
         }
     }
-
-    pub fn switch_state(&mut self, state: GameState) {
-        self.state = state;
-    }
 }
 
 #[derive(SystemSet, Hash, Debug, PartialEq, Eq, Clone, Copy)]
@@ -98,4 +94,5 @@ fn on_state_switch(state_manager: Res<GameStateManager>) {
 
 pub trait StateSetManager<T: SystemSet>: Resource {
     fn configure(&self, schedule: &mut Schedule, state: T) -> &Self;
+    fn switch(&mut self, state: T);
 }

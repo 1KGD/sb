@@ -22,6 +22,8 @@ impl Plugin for IntroPlugin {
             .configure(schedule, IntroState::Finish);
         world.insert_resource(manager);
 
+        schedule.add_systems(catch_finish.in_set(IntroState::Finish));
+
         TitleSequencePlugin.create(world, schedule);
     }
 }
@@ -45,4 +47,8 @@ enum IntroState {
     Presents,
     Title,
     Finish,
+}
+
+fn catch_finish(mut game_manager: ResMut<GameStateManager>) {
+    game_manager.switch(GameState::Mainloop);
 }

@@ -3,7 +3,6 @@ use starbloom_base::prelude::*;
 use starbloom_bootstrap::*;
 use starbloom_camera::*;
 use starbloom_input::prelude::*;
-use starbloom_intro::IntroPlugin;
 use starbloom_map::*;
 use starbloom_states::*;
 use starbloom_tiles::*;
@@ -25,7 +24,8 @@ const CORE_PLUGINS: &'static [&dyn Plugin] = &[
     &FrameStepPlugin,
     &GameStatePlugin,
     &BootstrapPlugin,
-    &IntroPlugin,
+    #[cfg(not(feature="skip_intro"))]
+    &starbloom_intro::IntroPlugin,
     &InputPlugin,
     &CameraPlugin,
     &MapPlugin,
@@ -74,13 +74,16 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
 
     let mut fonts: FontDefinitions = FontDefinitions::default();
     fonts.font_data.insert(
-        "PS".to_owned(),
+        "Pixelify Sans".to_owned(),
         FontData::from_static(include_bytes!("../assets/fonts/PS.ttf")).into(),
     );
 
     let mut newfam: std::collections::BTreeMap<FontFamily, Vec<String>> =
         std::collections::BTreeMap::new();
-    newfam.insert(FontFamily::Name("PS".into()), vec!["PS".to_owned()]);
+    newfam.insert(
+        FontFamily::Name("Pixelify Sans".into()),
+        vec!["Pixelify Sans".to_owned()],
+    );
     fonts.families.append(&mut newfam);
 
     App::new()
@@ -89,6 +92,8 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
         .title(&title)
         .run(move |ctx: &mut FrameContext<'_>| {
             if ctx.timer.frame == 0 {
+                ctx.gfx.load_font(include_bytes!("../assets/fonts/PS.ttf"));
+                
                 ctx.egui_ctx.set_fonts(fonts.clone());
                 ctx.egui_ctx.set_pixels_per_point(0.75);
             } else if ctx.timer.frame == 1 {
@@ -104,15 +109,15 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
                     style.text_styles = [
                         (
                             TextStyle::Heading,
-                            FontId::new(16., FontFamily::Name("PS".into())),
+                            FontId::new(16., FontFamily::Name("Pixelify Sans".into())),
                         ),
                         (
                             TextStyle::Body,
-                            FontId::new(16., FontFamily::Name("PS".into())),
+                            FontId::new(16., FontFamily::Name("Pixelify Sans".into())),
                         ),
                         (
                             TextStyle::Button,
-                            FontId::new(16., FontFamily::Name("PS".into())),
+                            FontId::new(16., FontFamily::Name("Pixelify Sans".into())),
                         ),
                     ]
                     .into();

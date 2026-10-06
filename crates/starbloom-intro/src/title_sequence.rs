@@ -1,3 +1,4 @@
+use core::f32;
 use rand::prelude::*;
 use std::ops::{Deref, DerefMut};
 
@@ -8,7 +9,12 @@ pub(crate) struct TitleSequencePlugin;
 impl Plugin for TitleSequencePlugin {
     fn create(&self, _world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(
-            (spawn_starfall, update_starfall, render_starfall).in_set(IntroState::Title),
+            (
+                spawn_starfall,
+                update_starfall,
+                (render_starfall, render_title).chain(),
+            )
+                .in_set(IntroState::Title),
         );
     }
 }
@@ -39,6 +45,32 @@ impl Deref for LocalRng {
 impl DerefMut for LocalRng {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.0
+    }
+}
+
+fn render_title(
+    mut renderer: NonSendMut<Renderer>,
+    frame_data: Res<FrameData>,
+    mut manager: ResMut<IntroStateManager>,
+    mut age: Local<f32>,
+) {
+    if let Some(ctx) = renderer.ctx() {
+        let screen_rect: Rect = Rect::new(Vec2::ZERO, ctx.gfx.screen_size());
+        ctx.gfx
+            .text("STARBLOOM")
+            .font("Pixelify Sans".to_owned())
+            .color(Color::new([
+                1.,
+                1.,
+                1.,
+                1. - (*age * f32::consts::PI).cos().powi(2),
+            ]))
+            .in_rect(screen_rect, Align::MiddleCenter);
+        *age += frame_data.delta / 15.;
+
+        if *age > 1. {
+            manager.switch(IntroState::Finish);
+        }
     }
 }
 

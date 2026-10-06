@@ -21,6 +21,10 @@ pub fn derive_state_set_manager(input: TokenStream) -> TokenStream {
                         schedule.configure_sets(state.run_if(move |manager: bevy_ecs::prelude::Res<Self>| manager.state == state));
                         self
                     }
+
+                    fn switch(&mut self, state: #ty) {
+                        self.state = state;
+                    }
                 }
             ));
         }
