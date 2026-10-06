@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use starbloom_base::prelude::*;
+use starbloom_states::*;
 use starbloom_camera::*;
 
 use crate::{chunk::*, generate_chunks};
@@ -8,11 +9,11 @@ use crate::{chunk::*, generate_chunks};
 pub struct ChunkloaderPlugin;
 
 impl Plugin for ChunkloaderPlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {
+    fn create(&self, world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(
             (cull_chunks, load_chunks)
                 .before(generate_chunks)
-                .in_set(GameState::Mainloop),
+                .in_set(FrameStep::UpdateMap),
         );
         world.insert_resource(ChunkManager::new());
     }

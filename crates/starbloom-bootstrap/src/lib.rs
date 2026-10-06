@@ -1,10 +1,10 @@
-use crate::render::*;
-use crate::*;
+use starbloom_base::prelude::*;
+use starbloom_states::*;
 
 pub struct BootstrapPlugin;
 
 impl Plugin for BootstrapPlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {
+    fn create(&self, world: &mut World, schedule: &mut Schedule) {
         world.insert_resource(BootstrapMananger::new());
         schedule.add_systems(
             (load_assets, finish_bootstrap)
@@ -12,10 +12,6 @@ impl Plugin for BootstrapPlugin {
                 .in_set(GameState::Bootstrap),
         );
     }
-}
-
-fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
-    state_manager.state = GameState::Mainloop;
 }
 
 pub fn load_assets(
@@ -45,6 +41,14 @@ pub fn load_assets(
             manager.phase = BootstrapPhase::Handoff;
         }
     }
+}
+
+fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
+    state_manager.switch_state(if cfg!(feature = "skip_intro") {
+        GameState::Mainloop
+    } else {
+        GameState::Intro
+    });
 }
 
 #[derive(Clone, Copy, PartialEq, Debug)]

@@ -7,10 +7,10 @@ mod biome;
 
 use crate::biome::*;
 
-pub struct WorldgenPlugin();
+pub struct WorldgenPlugin;
 
 impl Plugin for WorldgenPlugin {
-    fn create(world: &mut World, _schedule: &mut Schedule) {
+    fn create(&self, world: &mut World, _schedule: &mut Schedule) {
         world.insert_resource(WorldgenProvider::new(0));
     }
 }

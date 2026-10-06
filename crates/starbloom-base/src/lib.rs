@@ -1,9 +1,9 @@
+use std::ops::{Deref, DerefMut};
+
 use bevy_ecs::prelude::*;
 use const_format::concatcp;
 use egor::math::*;
-use log::*;
 
-mod bootstrap;
 pub mod prelude;
 mod render;
 
@@ -37,65 +37,43 @@ pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(|| {
 });
 
 pub trait Plugin {
-    fn create(world: &mut World, schedule: &mut Schedule);
+    fn create(&self, world: &mut World, schedule: &mut Schedule);
 }
 
 #[derive(Default, Component)]
-pub struct Position {
-    pub x: f32,
-    pub y: f32,
-}
+pub struct Position(Vec2);
 
-impl Position {
-    pub fn as_vec2(&self) -> Vec2 {
-        Vec2::new(self.x, self.y)
-    }
-
-    pub fn from_vec2(&mut self, vec: Vec2) {
-        self.x = vec.x;
-        self.y = vec.y;
+impl Deref for Position {
+    type Target = Vec2;
+    #[inline]
+    fn deref(&self) -> &Self::Target {
+        &self.0
     }
 }
 
-pub struct GameStatePlugin;
-
-impl Plugin for GameStatePlugin {
-    fn create(world: &mut World, schedule: &mut Schedule) {
-        world.insert_resource(GameStateManager::new());
-        schedule.configure_sets(GameState::Bootstrap.run_if(
-            |state_manager: Res<GameStateManager>| state_manager.state == GameState::Bootstrap,
-        ));
-        schedule.configure_sets(GameState::Mainloop.run_if(
-            |state_manager: Res<GameStateManager>| state_manager.state == GameState::Mainloop,
-        ));
-        schedule.add_systems(on_state_switch);
+impl DerefMut for Position {
+    #[inline]
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.0
     }
 }
 
-fn on_state_switch(state_manager: Res<GameStateManager>) {
-    if state_manager.is_changed() {
-        info!(
-            "Switched game state to {:#?} within this frame",
-            state_manager.state
-        );
+impl AsRef<Vec2> for Position {
+    #[inline]
+    fn as_ref(&self) -> &Vec2 {
+        self.deref()
     }
 }
 
-#[derive(Resource)]
-pub struct GameStateManager {
-    state: GameState,
-}
-
-impl GameStateManager {
-    fn new() -> Self {
-        Self {
-            state: GameState::Bootstrap,
-        }
+impl From<Position> for Vec2 {
+    #[inline]
+    fn from(value: Position) -> Self {
+        *value
     }
 }
 
-#[derive(SystemSet, Hash, Debug, PartialEq, Eq, Clone, Copy)]
-pub enum GameState {
-    Bootstrap,
-    Mainloop,
+impl From<Vec2> for Position {
+    fn from(value: Vec2) -> Self {
+        Self(value)
+    }
 }
