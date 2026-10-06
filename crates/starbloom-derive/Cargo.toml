@@ -4,6 +4,7 @@ version.workspace = true
 authors.workspace = true
 license.workspace = true
 edition.workspace = true
+description = "A sub package for starbloom"
 
 [dependencies]
 quote = "1.0.47"
