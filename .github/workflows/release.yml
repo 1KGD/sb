@@ -172,6 +172,8 @@ jobs:
         uses: cargo-bins/cargo-binstall@main
       - name: Install trunk
         run: cargo binstall trunk
+      - name: Install libudev
+        run: sudo apt-get update && sudo apt-get install libudev-dev -y
       - name: Add wasm32-unknown-unknown target
         run: rustup target add wasm32-unknown-unknown
       - name: Build
