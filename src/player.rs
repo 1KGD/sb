@@ -77,34 +77,32 @@ fn update_local_player(
     mut query: Query<&mut Position, With<LocalPlayer>>,
     mut main_camera: ResMut<MainCamera>,
     input: Res<InputCtx>,
-    mut renderer: NonSendMut<Renderer>,
+    frame_data: Res<FrameData>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        if let Ok(mut pos) = query.single_mut() {
-            let mut motion: Vec2 = Vec2::ZERO;
+    if let Ok(mut pos) = query.single_mut() {
+        let mut motion: Vec2 = Vec2::ZERO;
 
-            if input.action_held(Action::Down) {
-                motion.y += 1.;
-            }
-
-            if input.action_held(Action::Up) {
-                motion.y -= 1.;
-            }
-
-            if input.action_held(Action::Left) {
-                motion.x -= 1.;
-            }
-
-            if input.action_held(Action::Right) {
-                motion.x += 1.;
-            }
-
-            // Don't use an expensive square root if you don't need it.
-            if motion.distance_squared(Vec2::ZERO) != 0. {
-                **pos = **pos + motion.normalize() * PLAYER_SPEED * ctx.timer.delta;
-            }
-
-            main_camera.cam.center(**pos, ctx.gfx.screen_size());
+        if input.action_held(Action::Down) {
+            motion.y += 1.;
         }
+
+        if input.action_held(Action::Up) {
+            motion.y -= 1.;
+        }
+
+        if input.action_held(Action::Left) {
+            motion.x -= 1.;
+        }
+
+        if input.action_held(Action::Right) {
+            motion.x += 1.;
+        }
+
+        // Don't use an expensive square root if you don't need it.
+        if motion.distance_squared(Vec2::ZERO) != 0. {
+            **pos = **pos + motion.normalize() * PLAYER_SPEED * frame_data.delta;
+        }
+
+        main_camera.cam.center(**pos, frame_data.screen_size);
     }
 }
