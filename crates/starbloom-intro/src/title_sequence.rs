@@ -54,7 +54,7 @@ fn spawn_starfall(
             let length: f32 = (rng.next_u32() as f32 / u32::MAX as f32) * 20. + 20.;
             let speed: f32 = (rng.next_u32() as f32 / u32::MAX as f32) * 20. + 20.;
             let origin: Vec2 = vec2(
-                (rng.next_u32() as f32 / u32::MAX as f32) * (screen_size.x + screen_size.y),
+                ((rng.next_u32() as f32 / u32::MAX as f32) * (screen_size.x + screen_size.y)).floor(),
                 0.,
             );
             commands.spawn((Starfall { length, speed }, Position::from(origin)));
