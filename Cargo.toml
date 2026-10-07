@@ -65,7 +65,7 @@ publish = true
 egor.workspace = true
 bevy_ecs.workspace = true
 egor_glue.workspace = true
-web-sys.workspace = true
+web-sys = { workspace = true, optional = true }
 starbloom-base.workspace = true
 starbloom-camera.workspace = true
 starbloom-intro.workspace = true
@@ -75,28 +75,32 @@ starbloom-worldgen.workspace = true
 starbloom-input.workspace = true
 starbloom-states.workspace = true
 starbloom-bootstrap.workspace = true
-wasm-logger = "0.2.0"
-cosmic-text = { version = "0.19.0", features = ["wasm-web"] }
-env_logger = "0.11.11"
-console_error_panic_hook = "0.1.7"
+wasm-logger = { version = "0.2.0", optional = true }
+cosmic-text = "0.19.0"
+env_logger = { version = "0.11.11", optional = true }
+console_error_panic_hook = { version = "0.1.7", optional = true }
 rand.workspace = true
 
 [features]
 skip_intro = ["starbloom-bootstrap/skip_intro"]
 debug_ui = []
 mobile = ["starbloom-input/mobile"]
-web = ["mobile", "starbloom-input/gilrs"]
-
-mobile_build = ["mobile"]
-desktop_build = ["starbloom-input/gilrs"]
-
-dev = [
-    "skip_intro", 
-    "debug_ui",
+web = [
+    "mobile",
+    "starbloom-input/gilrs",
+    "cosmic-text/wasm-web",
+    "starbloom-base/web",
+    "dep:web-sys",
+    "dep:wasm-logger",
+    "dep:console_error_panic_hook",
 ]
 
+mobile_build = ["mobile"]
+desktop_build = ["starbloom-input/gilrs", "dep:env_logger"]
+
+dev = ["skip_intro", "debug_ui"]
+
 [lib]
-proc-macro = true
 name = "sb"
 crate-type = ["cdylib", "rlib"]
 

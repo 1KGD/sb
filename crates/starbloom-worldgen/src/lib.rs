@@ -17,19 +17,19 @@ impl Plugin for WorldgenPlugin {
 
 #[derive(Resource)]
 pub struct WorldgenProvider {
-    biome_noise: Simplex,
-    biomes: std::collections::HashMap<&'static str, Biome>,
+    _biome_noise: Simplex,
+    _biomes: std::collections::HashMap<&'static str, Biome>,
 }
 
 impl WorldgenProvider {
     fn new(seed: u32) -> Self {
         Self {
-            biome_noise: Simplex::new(seed),
-            biomes: std::collections::HashMap::new(),
+            _biome_noise: Simplex::new(seed),
+            _biomes: std::collections::HashMap::new(),
         }
     }
 
-    pub fn generate_chunk_data(chunk_pos: IVec2) -> [[u16; CHUNK_DIM]; CHUNK_DIM] {
+    pub fn generate_chunk_data(_chunk_pos: IVec2) -> [[u16; CHUNK_DIM]; CHUNK_DIM] {
         [[1; CHUNK_DIM]; CHUNK_DIM]
     }
 }

@@ -8,21 +8,20 @@ pub fn derive_state_set_manager(input: TokenStream) -> TokenStream {
         if let Some(t) = &data.fields.iter().find_map(move |field: &syn::Field| {
             if let Some(ident) = &field.ident {
                 if ident.to_string() == "state" {
-                    return Some(field);
+                    return Some(&field.ty);
                 }
             }
             None
         }) {
-            let ty: &syn::Type = &t.ty;
             let name: syn::Ident = input.ident;
             return TokenStream::from(quote!(
-                impl StateSetManager<#ty> for #name {
-                    fn configure(&self, schedule: &mut bevy_ecs::prelude::Schedule, state: #ty) -> &Self {
+                impl StateSetManager<#t> for #name {
+                    fn configure(&self, schedule: &mut bevy_ecs::prelude::Schedule, state: #t) -> &Self {
                         schedule.configure_sets(state.run_if(move |manager: bevy_ecs::prelude::Res<Self>| manager.state == state));
                         self
                     }
 
-                    fn switch(&mut self, state: #ty) {
+                    fn switch(&mut self, state: #t) {
                         self.state = state;
                     }
                 }
