@@ -40,7 +40,7 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
 
     let title: String = format!("STARBOOM v{}{}", VERSION, if modded { "*" } else { "" });
 
-    #[cfg(target_arch = "wasm32")]
+    #[cfg(feature = "web")]
     {
         wasm_logger::init(
             wasm_logger::Config::new(if cfg!(feature = "debug_logging") {
@@ -57,7 +57,7 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
             .unwrap()
             .set_title(&title);
     }
-    #[cfg(not(target_arch = "wasm32"))]
+    #[cfg(feature = "env_logger")]
     env_logger::builder()
         .format_timestamp(None)
         .filter(

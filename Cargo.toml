@@ -85,6 +85,7 @@ rand.workspace = true
 intro = ["starbloom-bootstrap/intro", "dep:starbloom-intro"]
 debug_ui = []
 debug_logging = []
+env_logger = ["dep:env_logger"]
 mobile = ["starbloom-input/mobile"]
 web = [
     "mobile",
@@ -96,8 +97,8 @@ web = [
     "dep:console_error_panic_hook",
 ]
 
-mobile_build = ["intro", "mobile"]
-desktop_build = ["intro", "starbloom-input/gilrs", "dep:env_logger"]
+mobile_build = ["intro", "mobile", "env_logger"]
+desktop_build = ["intro", "starbloom-input/gilrs", "env_logger"]
 web_build = ["intro", "web"]
 
 dev = ["debug_ui", "debug_logging"]
