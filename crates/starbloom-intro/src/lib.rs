@@ -1,14 +1,15 @@
 use starbloom_base::prelude::*;
+use starbloom_bootstrap::TextureAsset;
 use starbloom_derive::*;
 use starbloom_states::*;
 
 use crate::title_sequence::*;
+use crate::rust_sequence::*;
 
 pub struct IntroPlugin;
 
 mod title_sequence;
-
-const INTRO_PHASE_TIME: f32 = 5.;
+mod rust_sequence;
 
 impl Plugin for IntroPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
@@ -24,6 +25,7 @@ impl Plugin for IntroPlugin {
 
         schedule.add_systems(catch_finish.in_set(IntroState::Finish));
 
+        RustSequencePlugin.create(world, schedule);
         TitleSequencePlugin.create(world, schedule);
     }
 }
@@ -36,7 +38,7 @@ struct IntroStateManager {
 impl IntroStateManager {
     fn new() -> Self {
         Self {
-            state: IntroState::Title,
+            state: IntroState::Rust,
         }
     }
 }
