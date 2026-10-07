@@ -91,7 +91,7 @@ mobile_build = ["mobile"]
 desktop_build = ["starbloom-input/gilrs"]
 
 dev = [
-    #"skip_intro", 
+    "skip_intro", 
     "debug_ui",
 ]
 
