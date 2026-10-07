@@ -12,4 +12,4 @@ starbloom-states.workspace = true
 bevy_ecs.workspace = true
 
 [features]
-skip_intro = []
+intro = []

@@ -68,7 +68,7 @@ egor_glue.workspace = true
 web-sys = { workspace = true, optional = true }
 starbloom-base.workspace = true
 starbloom-camera.workspace = true
-starbloom-intro.workspace = true
+starbloom-intro = { workspace = true, optional = true }
 starbloom-map.workspace = true
 starbloom-tiles.workspace = true
 starbloom-worldgen.workspace = true
@@ -82,8 +82,9 @@ console_error_panic_hook = { version = "0.1.7", optional = true }
 rand.workspace = true
 
 [features]
-skip_intro = ["starbloom-bootstrap/skip_intro"]
+intro = ["starbloom-bootstrap/intro", "dep:starbloom-intro"]
 debug_ui = []
+debug_logging = []
 mobile = ["starbloom-input/mobile"]
 web = [
     "mobile",
@@ -95,10 +96,11 @@ web = [
     "dep:console_error_panic_hook",
 ]
 
-mobile_build = ["mobile"]
-desktop_build = ["starbloom-input/gilrs", "dep:env_logger"]
+mobile_build = ["intro", "mobile"]
+desktop_build = ["intro", "starbloom-input/gilrs", "dep:env_logger"]
+web_build = ["intro", "web"]
 
-dev = ["skip_intro", "debug_ui"]
+dev = ["debug_ui", "debug_logging"]
 
 [lib]
 name = "sb"

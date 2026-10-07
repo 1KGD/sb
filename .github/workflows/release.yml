@@ -177,7 +177,7 @@ jobs:
       - name: Add wasm32-unknown-unknown target
         run: rustup target add wasm32-unknown-unknown
       - name: Build
-        run: trunk build --release --features web
+        run: trunk build --release --features web_build
       - name: Setup butler
         uses: remarkablegames/setup-butler@v3
       - name: Setup Pages

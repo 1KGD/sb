@@ -2,7 +2,7 @@ run:
 	cargo run --features desktop_build,dev
 
 run-web:
-	trunk serve -c -a 0.0.0.0 --features web,dev
+	trunk serve -c -a 0.0.0.0 --features web_build,dev
 
 fmt:
 	cargo fmt --all
@@ -14,7 +14,7 @@ build:
 	cargo build --release
 
 build-web:
-	trunk build --features web
+	trunk build --features web_build
 
 install:
 	cargo install --path .

@@ -24,7 +24,7 @@ const CORE_PLUGINS: &'static [&dyn Plugin] = &[
     &FrameStepPlugin,
     &GameStatePlugin,
     &BootstrapPlugin,
-    #[cfg(not(feature="skip_intro"))]
+    #[cfg(feature = "intro")]
     &starbloom_intro::IntroPlugin,
     &InputPlugin,
     &CameraPlugin,
@@ -42,7 +42,14 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
 
     #[cfg(target_arch = "wasm32")]
     {
-        wasm_logger::init(wasm_logger::Config::default().module_prefix("starbloom"));
+        wasm_logger::init(
+            wasm_logger::Config::new(if cfg!(feature = "debug_logging") {
+                Level::Debug
+            } else {
+                Level::Info
+            })
+            .module_prefix("starbloom"),
+        );
         console_error_panic_hook::set_once();
         web_sys::window()
             .unwrap()
@@ -53,7 +60,14 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
     #[cfg(not(target_arch = "wasm32"))]
     env_logger::builder()
         .format_timestamp(None)
-        .filter(Some("starbloom"), LevelFilter::Info)
+        .filter(
+            Some("starbloom"),
+            if cfg!(feature = "debug_logging") {
+                LevelFilter::Debug
+            } else {
+                LevelFilter::Info
+            },
+        )
         .init();
 
     info!("STARBLOOM v{}", VERSION);
@@ -93,7 +107,7 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
         .run(move |ctx: &mut FrameContext<'_>| {
             if ctx.timer.frame == 0 {
                 ctx.gfx.load_font(include_bytes!("../assets/fonts/PS.ttf"));
-                
+
                 ctx.egui_ctx.set_fonts(fonts.clone());
                 ctx.egui_ctx.set_pixels_per_point(0.75);
             } else if ctx.timer.frame == 1 {

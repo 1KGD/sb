@@ -44,10 +44,10 @@ pub fn load_assets(
 }
 
 fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
-    state_manager.switch(if cfg!(feature = "skip_intro") {
-        GameState::Mainloop
-    } else {
+    state_manager.switch(if cfg!(feature = "intro") {
         GameState::Intro
+    } else {
+        GameState::Mainloop
     });
 }
 
