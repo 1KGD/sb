@@ -25,7 +25,7 @@ pub fn is_mobile_user_agent() -> bool {
 
 pub const VERSION: &'static str = concatcp!(
     env!("CARGO_PKG_VERSION"),
-    if cfg!(debug_assertions) { "+DEV" } else { "" }
+    if cfg!(debug_assertions) { " DEV" } else { "" }
 );
 
 #[allow(unreachable_code)]

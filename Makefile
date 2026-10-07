@@ -2,7 +2,7 @@ run:
 	cargo run --features desktop_build,dev
 
 run-web:
-	trunk serve -c -a 0.0.0.0 --features web_build,dev
+	trunk serve -c -a 0.0.0.0 --features web,dev
 
 fmt:
 	cargo fmt --all
