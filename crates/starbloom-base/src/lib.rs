@@ -74,6 +74,7 @@ impl From<Position> for Vec2 {
 }
 
 impl From<Vec2> for Position {
+    #[inline]
     fn from(value: Vec2) -> Self {
         Self(value)
     }

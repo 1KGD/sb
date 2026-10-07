@@ -6,7 +6,7 @@ use starbloom_states::*;
 
 const PLAYER_SPEED: f32 = 200.;
 
-const PLAYER_NAME_FNT_SIZE: f32 = 20.;
+const PLAYER_NAME_FNT_SIZE: f32 = 16.;
 
 #[derive(Component, Default)]
 #[require(Position)]
@@ -65,9 +65,16 @@ fn render_player_names(
 ) {
     if let Some(ctx) = renderer.ctx() {
         for (pos, remote) in query {
+            let rect: Rect = Rect::new(
+                main_camera.cam.world_to_screen(**pos)
+                    - vec2(ctx.gfx.screen_size().x / 2., ctx.gfx.screen_size().y)
+                    - vec2(0., 10.),
+                ctx.gfx.screen_size(),
+            );
             ctx.gfx
                 .text(&remote.name)
-                .at(main_camera.cam.world_to_screen(**pos))
+                .in_rect(rect, Align::BottomCenter)
+                .font("Pixelify Sans".to_owned())
                 .size(PLAYER_NAME_FNT_SIZE);
         }
     }
