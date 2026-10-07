@@ -4,6 +4,8 @@ use std::ops::{Deref, DerefMut};
 
 use crate::*;
 
+const SEQUENCE_TIME: f32 = 15.;
+
 pub(crate) struct TitleSequencePlugin;
 
 impl Plugin for TitleSequencePlugin {
@@ -66,7 +68,7 @@ fn render_title(
                 1. - (*age * f32::consts::PI).cos().powi(2),
             ]))
             .in_rect(screen_rect, Align::MiddleCenter);
-        *age += frame_data.delta / 15.;
+        *age += frame_data.delta / SEQUENCE_TIME;
 
         if *age > 1. {
             manager.switch(IntroState::Finish);
@@ -82,7 +84,7 @@ fn spawn_starfall(
 ) {
     if *timer >= 0.2 {
         let length: f32 = (rng.next_u32() as f32 / u32::MAX as f32) * 20. + 20.;
-        let speed: f32 = (rng.next_u32() as f32 / u32::MAX as f32) * 20. + 20.;
+        let speed: f32 = ((rng.next_u32() as f32 / u32::MAX as f32) * 20. + 20.).floor();
         let origin: Vec2 = vec2(
             ((rng.next_u32() as f32 / u32::MAX as f32)
                 * (frame_data.screen_size.x + frame_data.screen_size.y))

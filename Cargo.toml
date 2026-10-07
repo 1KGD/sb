@@ -90,7 +90,10 @@ web = ["mobile", "starbloom-input/gilrs"]
 mobile_build = ["mobile"]
 desktop_build = ["starbloom-input/gilrs"]
 
-dev = ["skip_intro", "debug_ui"]
+dev = [
+    "skip_intro", 
+    "debug_ui",
+]
 
 [lib]
 proc-macro = true
