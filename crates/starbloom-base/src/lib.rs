@@ -7,6 +7,7 @@ use egor::math::*;
 pub mod prelude;
 mod render;
 
+#[cfg(feature = "web")]
 pub fn is_mobile_user_agent() -> bool {
     let user_agent = web_sys::window().and_then(|win| win.navigator().user_agent().ok());
 
@@ -28,12 +29,13 @@ pub const VERSION: &'static str = concatcp!(
 );
 
 pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(|| {
-    cfg!(target_os = "android")
-        || if cfg!(target_arch = "wasm32") {
-            is_mobile_user_agent()
-        } else {
-            false
-        }
+    if cfg!(target_os = "android") {
+        return true;
+    }
+    if cfg!(feature = "web") {
+        return is_mobile_user_agent();
+    }
+    false
 });
 
 pub trait Plugin {
