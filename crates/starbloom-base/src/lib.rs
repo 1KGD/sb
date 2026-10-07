@@ -28,10 +28,11 @@ pub const VERSION: &'static str = concatcp!(
     if cfg!(debug_assertions) { "+DEV" } else { "" }
 );
 
+#[allow(unreachable_code)]
 pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(|| {
     #[cfg(target_os = "android")]
     return true;
-    #[cfg(feature="web")]
+    #[cfg(feature = "web")]
     return is_mobile_user_agent();
     false
 });
