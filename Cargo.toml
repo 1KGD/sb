@@ -1,5 +1,5 @@
 [workspace.package]
-version = "0.5.52"
+version = "0.5.53"
 authors = ["John Schiefelbein"]
 license = "MIT"
 edition = "2024"
