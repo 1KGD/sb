@@ -3,7 +3,7 @@
     "name": "STARBLOOM Web",
     "icons": [
         {
-            "src": "debug.png",
+            "src": "favicon.png",
             "sizes": "256x256",
             "type": "image/png"
         }
