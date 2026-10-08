@@ -11,7 +11,7 @@
     "start_url": ".",
     "display_override": [
         "fullscreen",
-        "minimal-ui"
+        "window-controls-overlay"
     ],
     "display": "standalone",
     "theme_color": "black",
