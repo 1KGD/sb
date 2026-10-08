@@ -4,7 +4,7 @@
     "icons": [
         {
             "src": "debug.png",
-            "sizes": "16x16",
+            "sizes": "256x256",
             "type": "image/png"
         }
     ],
