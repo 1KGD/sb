@@ -38,7 +38,7 @@ pub fn load_assets(
                 }
             }
             debug!("Done loading assets");
-            manager.switch(BootstrapPhase::Handoff);
+            manager.phase = BootstrapPhase::Handoff;
         }
     }
 }
