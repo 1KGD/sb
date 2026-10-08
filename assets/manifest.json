@@ -9,6 +9,10 @@
         }
     ],
     "start_url": ".",
+    "display_override": [
+        "fullscreen",
+        "minimal-ui"
+    ],
     "display": "standalone",
     "theme_color": "black",
     "background_color": "black"
