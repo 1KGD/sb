@@ -1,0 +1,15 @@
+{
+    "short_name": "STARBLOOM",
+    "name": "STARBLOOM Web",
+    "icons": [
+        {
+            "src": "/debug.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "black",
+    "background_color": "black"
+}
