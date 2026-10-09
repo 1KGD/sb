@@ -76,7 +76,7 @@ starbloom-input.workspace = true
 starbloom-states.workspace = true
 starbloom-bootstrap.workspace = true
 wasm-logger = { version = "0.2.0", optional = true }
-cosmic-text = "0.19.0"
+cosmic-text = { version = "0.19.0", optional = true }
 env_logger = { version = "0.11.11", optional = true }
 console_error_panic_hook = { version = "0.1.7", optional = true }
 rand.workspace = true
@@ -90,7 +90,7 @@ mobile = ["starbloom-input/mobile"]
 web = [
     "mobile",
     "starbloom-input/gilrs",
-    "cosmic-text/wasm-web",
+    "cosmic-text?/wasm-web",
     "starbloom-base/web",
     "dep:web-sys",
     "dep:wasm-logger",
@@ -102,6 +102,7 @@ desktop_build = ["intro", "starbloom-input/gilrs", "env_logger"]
 web_build = ["intro", "web"]
 
 dev = ["debug_ui", "debug_logging"]
+cosmic-text = ["dep:cosmic-text"]
 
 [lib]
 name = "sb"
