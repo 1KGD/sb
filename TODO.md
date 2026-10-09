@@ -1,12 +1,12 @@
 # Todo
 
 - [x] `egor` port, so that wasm builds work
-  - [x] A render function queue, that takes the framecontext as an arg. Due to egor and bevy_ecs being mutually antagonistic of each other.
-  - [ ] Plenty of rendering utilities in `starbloom-base` (potentially another crate, `starbloom-rendering`?)
+  - [ ] Plenty of rendering utilities in `starbloom-base`
+    - [ ] Deref for Renderer and FrameData
+      - [ ] Also a custom ecs provider to reduce boilerplate.
+    - [ ] Clamp delta in Renderer as well.
     - [x] Image rendering
     - [ ] Spritesheet (animated) rendering
-    - [ ] Ui rendering (almost certanly in `starbloom-ui`)
-      - [x] Custom, distinct `egui` theme (old windows?). (PARTIAL)
 - [ ] Mobile support (`starbloom-mobile`)
   - [ ] `egor` lacks multitouch support?
     - [ ] Virtual joystick, buttons
@@ -15,6 +15,10 @@
 - [x] Controller support using `gilrs`
   - [ ] Integrate into input abstraction utils in `starbloom-base`
   - [x] Leave out of native mobile builds, as `gilrs` does not support it
-- [x] Improve HTML bootstrap visuals (pending codespace free-up).
-  - [ ] \<title/> showing loading progress (fancy ASCII progress bar?)
-  - [x] WASM switching title to match native format on init ("STARBLOOM vX.X.X").
+- [ ] Multiplayer framework framework
+  - [ ] Discriminatory builds for server, client, and server+client
+    - [ ] Dedicated wasm client self-hosted for dedicated servers.
+    - [ ] Custom macros for annotating systems for server, client, or both.
+      - [ ] Same for entire crates?
+  - [ ] Naia integration
+    - [ ] Should be indistinguishable from a local ECS world, so singleplayer does not require spinning up a server (for the sake of wasm singleplayer)
