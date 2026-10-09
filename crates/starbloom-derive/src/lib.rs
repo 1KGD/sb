@@ -33,3 +33,25 @@ pub fn derive_state_set_manager(input: TokenStream) -> TokenStream {
     }
     TokenStream::from(syn::Error::new(input.ident.span(), "Not a struct").to_compile_error())
 }
+
+#[proc_macro_attribute]
+#[allow(unreachable_code)]
+pub fn sided(attr: TokenStream, item: TokenStream) -> TokenStream {
+    #[cfg(not(feature = "multiplayer"))]
+    return item;
+    match attr.to_string().as_str() {
+        #[cfg(feature = "client")]
+        "Client" => item,
+        #[cfg(feature = "server")]
+        "Server" => item,
+        tag => {
+            if ["Client", "Server"].contains(&tag) {
+                TokenStream::from(
+                    syn::Error::new(Span::call_site().into(), "Invalid side").to_compile_error(),
+                )
+            } else {
+                TokenStream::new()
+            }
+        }
+    }
+}

@@ -9,7 +9,11 @@ pub mod prelude;
 pub struct InputPlugin;
 
 impl Plugin for InputPlugin {
-    fn create(&self, world: &mut bevy_ecs::world::World, _schedule: &mut bevy_ecs::schedule::Schedule) {
+    fn create(
+        &self,
+        world: &mut bevy_ecs::world::World,
+        _schedule: &mut bevy_ecs::schedule::Schedule,
+    ) {
         world.insert_resource(InputCtx::default());
     }
 }

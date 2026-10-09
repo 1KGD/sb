@@ -3,9 +3,9 @@ use starbloom_bootstrap::TextureAsset;
 use starbloom_derive::*;
 use starbloom_states::*;
 
+use crate::presents_sequence::*;
 use crate::rust_sequence::*;
 use crate::title_sequence::*;
-use crate::presents_sequence::*;
 
 pub struct IntroPlugin;
 

@@ -38,25 +38,6 @@ const CORE_PLUGINS: &'static [&dyn Plugin] = &[
 pub fn main(mod_plugins: &'static [&dyn Plugin]) {
     let modded: bool = !mod_plugins.is_empty();
 
-    let title: String = format!("STARBOOM v{}{}", VERSION, if modded { "*" } else { "" });
-
-    #[cfg(feature = "web")]
-    {
-        wasm_logger::init(
-            wasm_logger::Config::new(if cfg!(feature = "debug_logging") {
-                Level::Debug
-            } else {
-                Level::Info
-            })
-            .module_prefix("starbloom"),
-        );
-        console_error_panic_hook::set_once();
-        web_sys::window()
-            .unwrap()
-            .document()
-            .unwrap()
-            .set_title(&title);
-    }
     #[cfg(feature = "env_logger")]
     env_logger::builder()
         .format_timestamp(None)
@@ -84,7 +65,37 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
         plugin.create(&mut world, &mut schedule);
     }
 
+    if cfg!(feature = "client") || cfg!(not(feature = "multiplayer")) {
+        client(world, schedule, modded);
+    }
+    if cfg!(feature = "server") {
+        unimplemented!("Server")
+    }
+}
+
+#[cfg(feature = "client")]
+fn client(mut world: World, mut schedule: Schedule, modded: bool) {
     world.insert_non_send(Renderer::new());
+
+    let title: String = format!("STARBOOM v{}{}", VERSION, if modded { "*" } else { "" });
+
+    #[cfg(feature = "web")]
+    {
+        wasm_logger::init(
+            wasm_logger::Config::new(if cfg!(feature = "debug_logging") {
+                Level::Debug
+            } else {
+                Level::Info
+            })
+            .module_prefix("starbloom"),
+        );
+        console_error_panic_hook::set_once();
+        web_sys::window()
+            .unwrap()
+            .document()
+            .unwrap()
+            .set_title(&title);
+    }
 
     let mut fonts: FontDefinitions = FontDefinitions::default();
     fonts.font_data.insert(
@@ -171,6 +182,5 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
             });
 
             world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut(); // Look, I'm being safe, OK?
-        }
-    );
+        });
 }

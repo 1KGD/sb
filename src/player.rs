@@ -1,6 +1,7 @@
 use starbloom_base::prelude::*;
 use starbloom_bootstrap::*;
 use starbloom_camera::*;
+use starbloom_derive::*;
 use starbloom_input::prelude::*;
 use starbloom_states::*;
 
@@ -39,6 +40,8 @@ impl Plugin for PlayerPlugin {
         world.spawn(LocalPlayer::default());
     }
 }
+
+#[sided(Client)]
 fn render_players(
     query: Query<&Position, With<Player>>,
     asset: Single<&TextureAsset, With<PlayerTexture>>,
@@ -58,6 +61,7 @@ fn render_players(
     }
 }
 
+#[sided(Client)]
 fn render_player_names(
     query: Query<(&Position, &RemotePlayer), With<Player>>,
     main_camera: Res<MainCamera>,
@@ -80,6 +84,7 @@ fn render_player_names(
     }
 }
 
+#[sided(Client)]
 fn update_local_player(
     mut query: Query<&mut Position, With<LocalPlayer>>,
     mut main_camera: ResMut<MainCamera>,
