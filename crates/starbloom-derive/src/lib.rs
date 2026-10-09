@@ -35,7 +35,7 @@ pub fn derive_state_set_manager(input: TokenStream) -> TokenStream {
 }
 
 #[proc_macro_attribute]
-#[allow(unreachable_code)]
+#[allow(unreachable_code, unused)]
 pub fn sided(attr: TokenStream, item: TokenStream) -> TokenStream {
     #[cfg(not(feature = "multiplayer"))]
     return item;
@@ -45,7 +45,7 @@ pub fn sided(attr: TokenStream, item: TokenStream) -> TokenStream {
         #[cfg(feature = "server")]
         "Server" => item,
         tag => {
-            if ["Client", "Server"].contains(&tag) {
+            if !["Client", "Server"].contains(&tag) {
                 TokenStream::from(
                     syn::Error::new(Span::call_site().into(), "Invalid side").to_compile_error(),
                 )

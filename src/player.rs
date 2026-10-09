@@ -1,8 +1,12 @@
 use starbloom_base::prelude::*;
+#[sided(Client)]
 use starbloom_bootstrap::*;
+#[sided(Client)]
 use starbloom_camera::*;
 use starbloom_derive::*;
+#[sided(Client)]
 use starbloom_input::prelude::*;
+#[sided(Client)]
 use starbloom_states::*;
 
 const PLAYER_SPEED: f32 = 200.;
@@ -30,13 +34,13 @@ struct PlayerTexture;
 
 impl Plugin for PlayerPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
-        declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
-        schedule.add_systems(update_local_player.in_set(FrameStep::UpdatePlayer));
-        schedule.add_systems(
+        //declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
+        //schedule.add_systems(update_local_player.in_set(FrameStep::UpdatePlayer));
+        /*schedule.add_systems(
             (render_players, render_player_names)
                 .chain()
                 .in_set(FrameStep::RenderEntities),
-        );
+        );*/
         world.spawn(LocalPlayer::default());
     }
 }
@@ -84,37 +88,37 @@ fn render_player_names(
     }
 }
 
-#[sided(Client)]
+#[sided(Server)]
 fn update_local_player(
     mut query: Query<&mut Position, With<LocalPlayer>>,
-    mut main_camera: ResMut<MainCamera>,
-    input: Res<InputCtx>,
+    //mut main_camera: ResMut<MainCamera>,
+    //input: Res<InputCtx>,
     frame_data: Res<FrameData>,
 ) {
     if let Ok(mut pos) = query.single_mut() {
         let mut motion: Vec2 = Vec2::ZERO;
+        /*
+                if input.action_held(Action::Down) {
+                    motion.y += 1.;
+                }
 
-        if input.action_held(Action::Down) {
-            motion.y += 1.;
-        }
+                if input.action_held(Action::Up) {
+                    motion.y -= 1.;
+                }
 
-        if input.action_held(Action::Up) {
-            motion.y -= 1.;
-        }
+                if input.action_held(Action::Left) {
+                    motion.x -= 1.;
+                }
 
-        if input.action_held(Action::Left) {
-            motion.x -= 1.;
-        }
-
-        if input.action_held(Action::Right) {
-            motion.x += 1.;
-        }
-
+                if input.action_held(Action::Right) {
+                    motion.x += 1.;
+                }
+        */
         // Don't use an expensive square root if you don't need it.
         if motion.distance_squared(Vec2::ZERO) != 0. {
             **pos = **pos + motion.normalize() * PLAYER_SPEED * frame_data.delta;
         }
 
-        main_camera.cam.center(**pos, frame_data.screen_size);
+        //main_camera.cam.center(**pos, frame_data.screen_size);
     }
 }

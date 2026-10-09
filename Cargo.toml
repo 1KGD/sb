@@ -66,19 +66,19 @@ publish = true
 
 [dependencies]
 
-egor.workspace = true
+egor = { workspace = true, optional = true }
 bevy_ecs.workspace = true
-egor_glue.workspace = true
+egor_glue = { workspace = true, optional = true }
 web-sys = { workspace = true, optional = true }
 starbloom-base.workspace = true
-starbloom-camera.workspace = true
+starbloom-camera = { workspace = true, optional = true }
 starbloom-intro = { workspace = true, optional = true }
 starbloom-map.workspace = true
 starbloom-tiles.workspace = true
 starbloom-worldgen.workspace = true
-starbloom-input.workspace = true
+starbloom-input = { workspace = true, optional = true }
 starbloom-states.workspace = true
-starbloom-bootstrap.workspace = true
+starbloom-bootstrap = { workspace = true, optional = true }
 starbloom-derive.workspace = true
 wasm-logger = { version = "0.2.0", optional = true }
 cosmic-text = { version = "0.19.0", optional = true }
@@ -109,7 +109,16 @@ web = [
 multiplayer = ["dep:naia-shared"]
 
 server = ["multiplayer", "dep:naia-server", "starbloom-derive/server"]
-client = ["multiplayer", "dep:naia-client", "starbloom-derive/client"]
+client = [
+    "multiplayer",
+    "dep:naia-client",
+    "starbloom-derive/client",
+    "dep:starbloom-camera",
+    "dep:starbloom-intro",
+    "dep:starbloom-bootstrap",
+    "dep:egor",
+    "dep:egor_glue",
+]
 
 mobile_build = ["intro", "mobile", "env_logger"]
 desktop_build = [
