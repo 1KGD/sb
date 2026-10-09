@@ -35,6 +35,9 @@ web-sys = { version = "0.3.106", features = [
     "Navigator",
     "Document",
 ] }
+naia-server = "0.25.0"
+naia-client = "0.25.0"
+naia-shared = "0.25.0"
 
 [workspace]
 resolver = "3"
@@ -62,6 +65,7 @@ repository = "https://github.com/1kgd/sb"
 publish = true
 
 [dependencies]
+
 egor.workspace = true
 bevy_ecs.workspace = true
 egor_glue.workspace = true
@@ -80,6 +84,9 @@ cosmic-text = { version = "0.19.0", optional = true }
 env_logger = { version = "0.11.11", optional = true }
 console_error_panic_hook = { version = "0.1.7", optional = true }
 rand.workspace = true
+naia-client = {workspace = true, optional = true}
+naia-server = { workspace = true, optional = true }
+naia-shared = { workspace = true, optional = true }
 
 [features]
 intro = ["starbloom-bootstrap/intro", "dep:starbloom-intro"]
@@ -95,11 +102,18 @@ web = [
     "dep:web-sys",
     "dep:wasm-logger",
     "dep:console_error_panic_hook",
+    "naia-shared?/wbindgen",
+    "naia-client?/wbindgen"
 ]
+multiplayer = ["dep:naia-shared"]
+
+server = ["multiplayer","dep:naia-server"]
+client = ["multiplayer","dep:naia-client"]
 
 mobile_build = ["intro", "mobile", "env_logger"]
-desktop_build = ["intro", "starbloom-input/gilrs", "env_logger"]
+desktop_build = ["intro", "starbloom-input/gilrs", "env_logger","client","server"]
 web_build = ["intro", "web"]
+server_build = ["env_logger", "server"]
 
 dev = ["debug_ui", "debug_logging"]
 cosmic-text = ["dep:cosmic-text"]
