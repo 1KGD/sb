@@ -1,3 +1,5 @@
+// TODO: REQUIRES FULL REWRITE FOR MULTIPLAYER COMPATABLILITY
+
 use std::collections::HashMap;
 
 use starbloom_base::prelude::*;
@@ -10,11 +12,11 @@ pub struct ChunkloaderPlugin;
 
 impl Plugin for ChunkloaderPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
-        schedule.add_systems(
+        /*schedule.add_systems(
             (cull_chunks, load_chunks)
                 .before(generate_chunks)
                 .in_set(FrameStep::UpdateMap),
-        );
+        );*/
         world.insert_resource(ChunkManager::new());
     }
 }
@@ -69,7 +71,7 @@ impl ChunkManager {
         }
     }
 }
-
+/*
 pub fn load_chunks(
     commands: Commands,
     camera: Res<MainCamera>,
@@ -95,3 +97,4 @@ pub fn cull_chunks(
         }
     }
 }
+*/

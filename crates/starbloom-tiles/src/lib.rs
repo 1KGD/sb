@@ -1,5 +1,7 @@
 use starbloom_base::prelude::*;
+#[sided(Client)]
 use starbloom_bootstrap::*;
+use starbloom_derive::*;
 
 pub const TILE_SIZE: f32 = 16.;
 

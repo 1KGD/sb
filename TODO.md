@@ -25,3 +25,6 @@
       - [ ] Same for entire crates?
   - [ ] Naia integration
     - [ ] Should be indistinguishable from a local ECS world, so singleplayer does not require spinning up a server (for the sake of wasm singleplayer)
+  - [ ] Bring chunk map system into multiplayer.
+  - [ ] Bring player input into multiplayer
+    - [ ] Client prediction/rollback?

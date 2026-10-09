@@ -5,6 +5,7 @@ use const_format::concatcp;
 use egor::math::*;
 
 pub mod prelude;
+#[cfg(feature = "client")]
 mod render;
 
 #[cfg(feature = "web")]

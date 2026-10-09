@@ -92,10 +92,10 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
             world.insert_resource(FrameData::from(&*ctx));
             world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
                 (&raw mut *ctx) as *mut FrameContext<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
-            world
+            /*world
                 .get_resource_mut::<InputCtx>()
                 .unwrap()
-                .update(ctx.input);
+                .update(ctx.input);*/
 
             schedule.run(&mut world);
 

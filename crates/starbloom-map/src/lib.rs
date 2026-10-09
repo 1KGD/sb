@@ -1,5 +1,6 @@
 use starbloom_base::prelude::*;
 use starbloom_camera::*;
+use starbloom_derive::*;
 use starbloom_states::*;
 use starbloom_tiles::*;
 
@@ -17,7 +18,7 @@ impl Plugin for MapPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         ChunkloaderPlugin.create(world, schedule);
         schedule.add_systems(generate_chunks.in_set(FrameStep::UpdateMap));
-        schedule.add_systems(render_chunks.in_set(FrameStep::RenderMap));
+        //schedule.add_systems(render_chunks.in_set(FrameStep::RenderMap));
         world.insert_resource(TileRegestry::new());
         world.insert_resource(ChunkDataProvider {});
     }
@@ -29,6 +30,7 @@ pub fn generate_chunks(mut query: Query<&mut Chunk>, data_provider: Res<ChunkDat
     }
 }
 
+/*
 pub fn render_chunks(
     query: Query<&Chunk>,
     tile_regestry: Res<TileRegestry>,
@@ -39,3 +41,4 @@ pub fn render_chunks(
         chunk.render(&mut renderer, &main_camera, &tile_regestry);
     }
 }
+*/

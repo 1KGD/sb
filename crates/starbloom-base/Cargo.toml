@@ -14,3 +14,4 @@ web-sys = { workspace = true, optional = true }
 
 [features]
 web = ["dep:web-sys"]
+client = []

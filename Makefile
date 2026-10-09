@@ -1,5 +1,5 @@
 run:
-	cargo run --no-default-features --features dev
+	cargo run --no-default-features --features dev,client
 
 run-web:
 	trunk serve -c -a 0.0.0.0 --no-default-features --features web,dev

@@ -11,3 +11,4 @@ starbloom-base.workspace = true
 starbloom-states.workspace = true
 starbloom-camera.workspace = true
 starbloom-tiles.workspace = true
+starbloom-derive.workspace = true
