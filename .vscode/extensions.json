@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "redhat.vscode-yaml",
+        "github.vscode-github-actions",
+        "bierner.github-markdown-preview",
+        "rust-lang.rust-analyzer",
+        "dustypomerleau.rust-syntax",
+        "fill-labs.dependi",
+    ],
+}

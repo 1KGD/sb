@@ -18,6 +18,7 @@ What exactly consistently causes the (incorrect) behavior
 How should it *actually* behave
 
 **Environment (please indicate which ones were tested):**
+
 - [ ] Linux
 - [ ] Windows
 - [ ] MacOS
