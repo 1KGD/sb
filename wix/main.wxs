@@ -138,7 +138,7 @@
               Comment out or remove the following `ComponentRef` tag to remove
               the license sidecar file from the installer.
             -->
-            <ComponentRef Id='License'/>
+            <!-- <ComponentRef Id='License'/> -->
             
             <ComponentRef Id='binary0'/>
 
@@ -185,8 +185,8 @@
                  2. Comment out or remove the `<WiXVariable Id='WixUILicenseRtf'...` tag further down
 
             -->
-            <!--<Publish Dialog='WelcomeDlg' Control='Next' Event='NewDialog' Value='CustomizeDlg' Order='99'>1</Publish>-->
-            <!--<Publish Dialog='CustomizeDlg' Control='Back' Event='NewDialog' Value='WelcomeDlg' Order='99'>1</Publish>-->
+            <Publish Dialog='WelcomeDlg' Control='Next' Event='NewDialog' Value='CustomizeDlg' Order='99'>1</Publish>
+            <Publish Dialog='CustomizeDlg' Control='Back' Event='NewDialog' Value='WelcomeDlg' Order='99'>1</Publish>
             
         </UI>
 
@@ -194,7 +194,7 @@
           Disabling the EULA dialog in the installer requires commenting out
           or removing the following `WixVariable` tag
         -->
-        <WixVariable Id='WixUILicenseRtf' Value='wix\License.rtf'/>
+        <!--<WixVariable Id='WixUILicenseRtf' Value='wix\License.rtf'/>-->
         
         
         <!--
