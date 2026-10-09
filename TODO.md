@@ -3,7 +3,7 @@
 - [x] `egor` port, so that wasm builds work
   - [ ] Render everything to a separate TextureBuffer, then upscale that and render it to the viewport to allow for arbitrary window sizes on desktop.
     - [ ] Get rid of css scaling nonsense in browser.
-    - [ ] Fullscreen and arbitrary window scale support. 
+    - [ ] Fullscreen and arbitrary window scale support.
   - [ ] Plenty of rendering utilities in `starbloom-base`
     - [ ] Deref for Renderer and FrameData
       - [ ] Also a custom ecs provider to reduce boilerplate.

@@ -171,5 +171,6 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
             });
 
             world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut(); // Look, I'm being safe, OK?
-        });
+        }
+    );
 }
