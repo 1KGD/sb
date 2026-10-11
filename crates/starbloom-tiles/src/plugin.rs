@@ -1,9 +1,6 @@
 use crate::grass::*;
 use crate::*;
 
-use starbloom_core_shared::*;
-
-#[derive(Clone, Copy, Debug)]
 pub struct DefaultTilePlugin;
 
 impl Plugin<SharedPlugin> for DefaultTilePlugin {

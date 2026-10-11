@@ -5,7 +5,6 @@ use crate::presents_sequence::*;
 use crate::rust_sequence::*;
 use crate::title_sequence::*;
 
-#[derive(Clone, Copy, Debug)]
 pub struct IntroPlugin;
 
 mod presents_sequence;

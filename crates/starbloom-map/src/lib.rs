@@ -9,7 +9,6 @@ pub use crate::chunk::*;
 pub use crate::chunkloader::*;
 use crate::data::*;
 
-#[derive(Clone, Copy, Debug)]
 pub struct MapPlugin;
 
 impl Plugin<ClientPlugin> for MapPlugin {

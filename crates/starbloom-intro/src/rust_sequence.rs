@@ -8,7 +8,6 @@ struct FerrisTexture;
 static FERRIS_TEXTURE_SIZE: std::sync::LazyLock<Vec2> =
     std::sync::LazyLock::new(|| vec2(420., 307.) / 5.);
 
-#[derive(Clone, Copy, Debug)]
 pub(crate) struct RustSequencePlugin;
 
 impl Plugin<ClientPlugin> for RustSequencePlugin {

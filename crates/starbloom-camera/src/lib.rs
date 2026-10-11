@@ -2,7 +2,6 @@ use bevy_ecs::prelude::*;
 use egor_glue::camera::*;
 use starbloom_base::*;
 
-#[derive(Clone, Copy, Debug)]
 pub struct CameraPlugin;
 
 impl Plugin<ClientPlugin> for CameraPlugin {

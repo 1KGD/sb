@@ -23,7 +23,6 @@ pub enum GameState {
     Mainloop,
 }
 
-#[derive(Clone, Copy, Debug)]
 pub struct FrameStepPlugin;
 
 impl Plugin<ClientPlugin> for FrameStepPlugin {
@@ -66,7 +65,6 @@ pub enum FrameStep {
     Cleanup,
 }
 
-#[derive(Clone, Copy, Debug)]
 pub struct GameStatePlugin;
 
 impl Plugin<SharedPlugin> for GameStatePlugin {

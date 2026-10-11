@@ -4,7 +4,6 @@ use starbloom_base::*;
 use starbloom_renderer::*;
 use starbloom_states::*;
 
-#[derive(Clone, Copy, Debug)]
 pub struct BootstrapPlugin;
 
 impl Plugin<ClientPlugin> for BootstrapPlugin {

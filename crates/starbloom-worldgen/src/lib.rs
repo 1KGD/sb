@@ -7,7 +7,6 @@ mod biome;
 
 use crate::biome::*;
 
-#[derive(Clone, Copy, Debug)]
 pub struct WorldgenPlugin;
 
 impl Plugin<ServerPlugin> for WorldgenPlugin {

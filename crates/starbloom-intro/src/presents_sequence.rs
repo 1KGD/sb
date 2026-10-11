@@ -4,7 +4,6 @@ const SEQUENCE_TIME: f32 = 7.;
 
 const TEXT: &'static str = include_str!("../../../Cargo.toml"); // Rule of cool
 
-#[derive(Clone, Copy, Debug)]
 pub(crate) struct PresentsSequencePlugin;
 
 impl Plugin<ClientPlugin> for PresentsSequencePlugin {

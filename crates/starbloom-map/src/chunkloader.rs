@@ -5,9 +5,8 @@ use std::collections::HashMap;
 use starbloom_core_client::*;
 use starbloom_core_shared::*;
 
-use crate::{chunk::*, generate_chunks};
+use crate::chunk::*;
 
-#[derive(Clone, Copy, Debug)]
 pub struct ChunkloaderPlugin;
 
 impl Plugin<ServerPlugin> for ChunkloaderPlugin {
