@@ -1,5 +1,3 @@
-use std::ops::Deref;
-
 use starbloom_core_shared::*;
 
 const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[];
