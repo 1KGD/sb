@@ -1,11 +1,11 @@
 run:
-	cargo run --no-default-features --features dev,singleplayer,multiplayer
+	cargo run --no-default-features --features dev,singleplayer,multiplayer,env_logger
 
 run-web:
 	trunk serve -c -a 0.0.0.0 --no-default-features --features web,dev
 
 run-server:
-	cargo run --no-default-features --features multiplayer,server,dev
+	cargo run --no-default-features --features server_build,dev
 
 fmt:
 	cargo fmt --all

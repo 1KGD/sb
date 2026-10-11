@@ -80,7 +80,7 @@ fn render_player_names(
     }
 }
 
-#[sided(Server)]
+#[sided(Client)]
 fn update_local_player(
     mut query: Query<&mut Position, With<LocalPlayer>>,
     //mut main_camera: ResMut<MainCamera>,

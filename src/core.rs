@@ -24,7 +24,6 @@ pub fn main() {
         .init();
 
     info!("STARBLOOM v{}", VERSION);
-    debug!("IS_MOBILE = {}", *IS_MOBILE);
 
     let mut world: World = World::new();
     let mut schedule: Schedule = Schedule::default();

@@ -4,6 +4,8 @@ use starbloom_core_shared::prelude::*;
 mod client;
 mod core;
 mod player;
+#[sided(Server)]
+mod server;
 
 #[cfg(feature = "client")]
 egor::main!(main);
