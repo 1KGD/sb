@@ -4,9 +4,10 @@ use starbloom_base::*;
 use starbloom_renderer::*;
 use starbloom_states::*;
 
+#[derive(Clone, Copy, Debug)]
 pub struct BootstrapPlugin;
 
-impl Plugin for BootstrapPlugin {
+impl Plugin<ClientPlugin> for BootstrapPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         world.insert_resource(BootstrapMananger::new());
         schedule.add_systems(

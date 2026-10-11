@@ -7,9 +7,10 @@ use starbloom_core_shared::*;
 
 use crate::{chunk::*, generate_chunks};
 
+#[derive(Clone, Copy, Debug)]
 pub struct ChunkloaderPlugin;
 
-impl Plugin for ChunkloaderPlugin {
+impl Plugin<ServerPlugin> for ChunkloaderPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         /*schedule.add_systems(
             (cull_chunks, load_chunks)

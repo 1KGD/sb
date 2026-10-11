@@ -19,12 +19,13 @@ pub struct RemotePlayer {
     pub name: String,
 }
 
+#[derive(Clone, Copy, Debug)]
 pub struct PlayerPlugin;
 
 #[derive(Component, Debug, Clone, Copy)]
 struct PlayerTexture;
 
-impl Plugin for PlayerPlugin {
+impl Plugin<SharedPlugin> for PlayerPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         //declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
         //schedule.add_systems(update_local_player.in_set(FrameStep::UpdatePlayer));

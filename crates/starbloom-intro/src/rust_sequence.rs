@@ -8,9 +8,10 @@ struct FerrisTexture;
 static FERRIS_TEXTURE_SIZE: std::sync::LazyLock<Vec2> =
     std::sync::LazyLock::new(|| vec2(420., 307.) / 5.);
 
-pub struct RustSequencePlugin;
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct RustSequencePlugin;
 
-impl Plugin for RustSequencePlugin {
+impl Plugin<ClientPlugin> for RustSequencePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/ferris.png"), FerrisTexture);
         schedule.add_systems((render_ferris, rust_sequence_timeout).in_set(IntroState::Rust));

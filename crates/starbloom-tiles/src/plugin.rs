@@ -3,9 +3,10 @@ use crate::*;
 
 use starbloom_core_shared::*;
 
+#[derive(Clone, Copy, Debug)]
 pub struct DefaultTilePlugin;
 
-impl Plugin for DefaultTilePlugin {
+impl Plugin<SharedPlugin> for DefaultTilePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(
             insert_tile_textures_into_regestry

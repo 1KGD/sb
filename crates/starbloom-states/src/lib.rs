@@ -23,9 +23,10 @@ pub enum GameState {
     Mainloop,
 }
 
+#[derive(Clone, Copy, Debug)]
 pub struct FrameStepPlugin;
 
-impl Plugin for FrameStepPlugin {
+impl Plugin<ClientPlugin> for FrameStepPlugin {
     fn create(&self, _world: &mut World, schedule: &mut Schedule) {
         schedule.configure_sets(
             (
@@ -65,9 +66,10 @@ pub enum FrameStep {
     Cleanup,
 }
 
+#[derive(Clone, Copy, Debug)]
 pub struct GameStatePlugin;
 
-impl Plugin for GameStatePlugin {
+impl Plugin<SharedPlugin> for GameStatePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         let manager: GameStateManager = GameStateManager::new();
         manager.configure(schedule, GameState::Bootstrap);

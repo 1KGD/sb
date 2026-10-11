@@ -4,9 +4,10 @@ const SEQUENCE_TIME: f32 = 7.;
 
 const TEXT: &'static str = include_str!("../../../Cargo.toml"); // Rule of cool
 
-pub struct PresentsSequencePlugin;
+#[derive(Clone, Copy, Debug)]
+pub(crate) struct PresentsSequencePlugin;
 
-impl Plugin for PresentsSequencePlugin {
+impl Plugin<ClientPlugin> for PresentsSequencePlugin {
     fn create(&self, _world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(all_the_text_stuff_in_one_system.in_set(IntroState::Presents));
     }

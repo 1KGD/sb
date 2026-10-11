@@ -5,13 +5,14 @@ use crate::presents_sequence::*;
 use crate::rust_sequence::*;
 use crate::title_sequence::*;
 
+#[derive(Clone, Copy, Debug)]
 pub struct IntroPlugin;
 
 mod presents_sequence;
 mod rust_sequence;
 mod title_sequence;
 
-impl Plugin for IntroPlugin {
+impl Plugin<ClientPlugin> for IntroPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         let manager: IntroStateManager = IntroStateManager::new();
         schedule.configure_sets(

@@ -9,9 +9,10 @@ pub use crate::chunk::*;
 pub use crate::chunkloader::*;
 use crate::data::*;
 
+#[derive(Clone, Copy, Debug)]
 pub struct MapPlugin;
 
-impl Plugin for MapPlugin {
+impl Plugin<ClientPlugin> for MapPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         ChunkloaderPlugin.create(world, schedule);
         schedule.add_systems(generate_chunks.in_set(FrameStep::UpdateMap));

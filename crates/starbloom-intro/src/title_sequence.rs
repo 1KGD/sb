@@ -6,9 +6,10 @@ use crate::*;
 
 const SEQUENCE_TIME: f32 = 15.;
 
+#[derive(Clone, Copy, Debug)]
 pub(crate) struct TitleSequencePlugin;
 
-impl Plugin for TitleSequencePlugin {
+impl Plugin<ClientPlugin> for TitleSequencePlugin {
     fn create(&self, _world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(
             (

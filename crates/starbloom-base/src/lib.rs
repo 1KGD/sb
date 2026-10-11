@@ -1,4 +1,7 @@
-use std::ops::{Deref, DerefMut};
+use std::{
+    fmt::Debug,
+    ops::{Deref, DerefMut},
+};
 
 use bevy_ecs::prelude::*;
 use const_format::concatcp;
@@ -37,7 +40,20 @@ pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(|| {
     false
 });
 
-pub trait Plugin {
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub struct ClientPlugin;
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub struct ServerPlugin;
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub struct SharedPlugin;
+
+impl PluginScope for ClientPlugin {}
+impl PluginScope for ServerPlugin {}
+impl PluginScope for SharedPlugin {}
+
+pub trait PluginScope: Clone + Copy + PartialEq + Debug {}
+
+pub trait Plugin<S: PluginScope> {
     fn create(&self, world: &mut World, schedule: &mut Schedule);
 }
 
