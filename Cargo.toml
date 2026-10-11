@@ -51,7 +51,7 @@ members = [
     "crates/starbloom-tiles",
     "crates/starbloom-worldgen",
     "crates/starbloom-states",
-    "crates/starbloom-bootstrap",
+    "crates/starbloom-bootstrap", "crates/starbloom-client-deps", "crates/starbloom-server-deps", "crates/starbloom-shared-deps",
 ]
 
 [package]
