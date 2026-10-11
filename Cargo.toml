@@ -28,6 +28,7 @@ starbloom-renderer = { version = "^0", path = "./crates/starbloom-renderer" }
 # Level 0.5
 starbloom-core-shared = { version = "^0", path = "./crates/starbloom-core-shared" }
 starbloom-core-client = { version = "^0", path = "./crates/starbloom-core-client" }
+starbloom-core-server = { version = "^0", path = "./crates/starbloom-core-server" }
 
 rand = { version = "0.10.3", default-features = false, features = [
     "std",

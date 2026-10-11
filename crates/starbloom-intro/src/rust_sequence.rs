@@ -1,5 +1,3 @@
-use starbloom_bootstrap::*;
-
 use crate::*;
 
 const SEQUENCE_TIME: f32 = 5.;

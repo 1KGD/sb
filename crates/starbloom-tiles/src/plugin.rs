@@ -1,7 +1,7 @@
 use crate::grass::*;
 use crate::*;
 
-use starbloom_states::*;
+use starbloom_core_shared::*;
 
 pub struct DefaultTilePlugin;
 

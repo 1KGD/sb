@@ -11,3 +11,4 @@ egor.workspace = true # For the math, I swear
 bevy_ecs.workspace = true
 starbloom-base.workspace = true
 starbloom-derive.workspace = true
+starbloom-states.workspace = true

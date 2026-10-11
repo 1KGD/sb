@@ -1,7 +1,5 @@
-use starbloom_base::prelude::*;
-use starbloom_bootstrap::TextureAsset;
-use starbloom_derive::*;
-use starbloom_states::*;
+use starbloom_core_client::*;
+use starbloom_core_shared::*;
 
 use crate::presents_sequence::*;
 use crate::rust_sequence::*;

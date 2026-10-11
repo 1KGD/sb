@@ -1,6 +1,5 @@
-use starbloom_base::prelude::*;
-use starbloom_camera::*;
-use starbloom_tiles::*;
+use starbloom_core_client::*;
+use starbloom_core_shared::*;
 
 use crate::data::*;
 

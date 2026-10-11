@@ -1,7 +1,7 @@
-use starbloom_base::prelude::*;
+use starbloom_core_shared::*;
+use starbloom_core_client::*;
+
 #[sided(Client)]
-use starbloom_bootstrap::*;
-use starbloom_derive::*;
 
 pub const TILE_SIZE: f32 = 16.;
 
