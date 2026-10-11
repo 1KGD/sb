@@ -77,6 +77,8 @@ publish = true
 [dependencies]
 starbloom-core-shared.workspace = true
 starbloom-core-client.workspace = true
+starbloom-core-server.workspace = true
+starbloom-derive.workspace = true
 egor.workspace = true                                             # Not optional due to math requirement
 bevy_ecs.workspace = true
 egor_glue = { workspace = true, optional = true }
@@ -105,10 +107,17 @@ web = [
     "naia-shared?/wbindgen",
     "naia-client?/wbindgen",
 ]
+
 multiplayer = ["dep:naia-shared"]
 
-server = ["multiplayer", "dep:naia-server"]
-client = ["multiplayer", "dep:naia-client", "dep:egor_glue"]
+server = ["starbloom-core-server/enabled", "starbloom-derive/server"]
+client = [
+    "starbloom-core-client/enabled",
+    "starbloom-derive/client",
+    "dep:egor_glue",
+]
+
+singleplayer = ["client", "server"]
 
 mobile_build = ["intro", "mobile", "env_logger"]
 desktop_build = ["intro", "env_logger", "client", "server"]

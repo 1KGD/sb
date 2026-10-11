@@ -1,5 +1,5 @@
-use starbloom_core_client::*;
-use starbloom_core_shared::*;
+use starbloom_core_client::prelude::*;
+use starbloom_core_shared::prelude::*;
 
 const PLAYER_SPEED: f32 = 200.;
 
@@ -19,7 +19,6 @@ pub struct RemotePlayer {
     pub name: String,
 }
 
-#[derive(Clone, Copy, Debug)]
 pub struct PlayerPlugin;
 
 #[derive(Component, Debug, Clone, Copy)]

@@ -1,6 +1,6 @@
 use noise::Simplex;
 
-use starbloom_core_shared::*;
+use starbloom_core_shared::prelude::*;
 use starbloom_map::*;
 
 mod biome;

@@ -1,4 +1,4 @@
-use starbloom_core_shared::*;
+use starbloom_core_shared::prelude::*;
 
 use crate::chunk::*;
 

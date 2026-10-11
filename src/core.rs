@@ -1,4 +1,4 @@
-use starbloom_core_shared::*;
+use starbloom_core_shared::prelude::*;
 
 const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[];
 
@@ -6,6 +6,7 @@ const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[];
 
 const CORE_SERVER_PLUGINS: &'static [&dyn Plugin<ServerPlugin>] = &[];
 
+#[allow(unreachable_code)]
 pub fn main() {
     let modded: bool = false;
 
@@ -32,18 +33,19 @@ pub fn main() {
         plugin.create(&mut world, &mut schedule);
     }
 
+    #[cfg(feature = "client")]
     for plugin in CORE_CLIENT_PLUGINS {
         plugin.create(&mut world, &mut schedule);
     }
 
+    #[cfg(feature = "server")]
     for plugin in CORE_SERVER_PLUGINS {
         plugin.create(&mut world, &mut schedule);
     }
 
-    #[cfg(feature = "multiplayer")]
-    {
-        crate::client::main(world, schedule, modded);
-    }
-    #[cfg(not(feature = "multiplayer"))]
+    #[cfg(not(feature = "client"))]
+    crate::server::main(world, schedule, modded);
+
+    #[cfg(feature = "client")]
     crate::client::main(world, schedule, modded);
 }

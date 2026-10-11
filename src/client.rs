@@ -1,5 +1,5 @@
-use starbloom_core_client::*;
-use starbloom_core_shared::*;
+use starbloom_core_client::prelude::*;
+use starbloom_core_shared::prelude::*;
 
 pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
     world.insert_non_send(Renderer::new());

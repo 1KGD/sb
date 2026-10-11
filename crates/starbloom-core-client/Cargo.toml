@@ -10,3 +10,6 @@ egor.workspace = true
 starbloom-renderer.workspace = true
 starbloom-camera.workspace = true
 starbloom-bootstrap.workspace = true
+
+[features]
+enabled = []
