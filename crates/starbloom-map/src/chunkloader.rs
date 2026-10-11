@@ -2,9 +2,8 @@
 
 use std::collections::HashMap;
 
-use starbloom_base::prelude::*;
-use starbloom_camera::*;
-use starbloom_states::*;
+use starbloom_core_client::*;
+use starbloom_core_shared::*;
 
 use crate::{chunk::*, generate_chunks};
 

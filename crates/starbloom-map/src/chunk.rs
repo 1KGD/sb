@@ -1,5 +1,6 @@
 use starbloom_core_client::*;
 use starbloom_core_shared::*;
+use starbloom_tiles::*;
 
 use crate::data::*;
 

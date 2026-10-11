@@ -1,4 +1,4 @@
-extern crate bevy_ecs;
+pub extern crate bevy_ecs;
 
 pub use bevy_ecs::prelude::*;
 pub use egor::math::*;

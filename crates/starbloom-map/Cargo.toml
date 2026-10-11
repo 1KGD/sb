@@ -9,3 +9,4 @@ edition.workspace = true
 starbloom-core-server.workspace = true
 starbloom-core-shared.workspace = true
 starbloom-core-client.workspace = true
+starbloom-tiles.workspace = true

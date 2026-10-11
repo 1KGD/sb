@@ -8,5 +8,5 @@ edition.workspace = true
 [dependencies]
 bevy_ecs.workspace = true
 noise.workspace = true
-starbloom-base.workspace = true
+starbloom-core-shared.workspace = true
 starbloom-map.workspace = true
