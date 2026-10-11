@@ -1,8 +1,11 @@
 [package]
-name = "starbloom-client-deps"
+name = "starbloom-renderer"
 version.workspace = true
 authors.workspace = true
 license.workspace = true
 edition.workspace = true
 
 [dependencies]
+bevy_ecs.workspace = true
+log.workspace = true
+egor.workspace = true

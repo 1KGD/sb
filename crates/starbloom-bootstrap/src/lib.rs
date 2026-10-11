@@ -1,4 +1,7 @@
-use starbloom_base::prelude::*;
+use bevy_ecs::prelude::*;
+use log::*;
+use starbloom_base::*;
+use starbloom_renderer::*;
 use starbloom_states::*;
 
 pub struct BootstrapPlugin;

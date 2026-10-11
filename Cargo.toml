@@ -14,20 +14,25 @@ egor = { version = "0.10.0", default-features = false, features = [
     "ui",
 ] }
 noise = "0.9.0"
-starbloom-derive = { version = "^0", path = "crates/starbloom-derive" }
-starbloom-intro = { version = "^0", path = "crates/starbloom-intro" }
-starbloom-map = { version = "^0", path = "crates/starbloom-map" }
-starbloom-worldgen = { version = "^0", path = "crates/starbloom-worldgen" }
-starbloom-camera = { version = "^0", path = "crates/starbloom-camera" }
-starbloom-tiles = { version = "^0", path = "crates/starbloom-tiles" }
-starbloom-base = { version = "^0", path = "crates/starbloom-base" }
-starbloom-input = { version = "^0", path = "crates/starbloom-input" }
-starbloom-states = { version = "^0", path = "crates/starbloom-states" }
+
+# Level 0
+starbloom-base = { version = "^0", path = "./crates/starbloom-base" }
+starbloom-bootstrap = { version = "^0", path = "./crates/starbloom-bootstrap" }
+starbloom-derive = { version = "^0", path = "./crates/starbloom-derive" }
+starbloom-states = { version = "^0", path = "./crates/starbloom-states" }
+starbloom-camera = { version = "^0", path = "./crates/starbloom-camera" }
+starbloom-tiles = { version = "^0", path = "./crates/starbloom-tiles" }
+starbloom-map = { version = "^0", path = "./crates/starbloom-map" }
+starbloom-renderer = { version = "^0", path = "./crates/starbloom-renderer" }
+
+# Level 0.5
+starbloom-core-shared = { version = "^0", path = "./crates/starbloom-core-shared" }
+starbloom-core-client = { version = "^0", path = "./crates/starbloom-core-client" }
+
 rand = { version = "0.10.3", default-features = false, features = [
     "std",
     "std_rng",
 ] }
-starbloom-bootstrap = { version = "^0", path = "crates/starbloom-bootstrap" }
 log = "0.4.33"
 egor_glue = "0.10.0"
 web-sys = { version = "0.3.106", features = [
@@ -51,7 +56,11 @@ members = [
     "crates/starbloom-tiles",
     "crates/starbloom-worldgen",
     "crates/starbloom-states",
-    "crates/starbloom-bootstrap", "crates/starbloom-client-deps", "crates/starbloom-server-deps", "crates/starbloom-shared-deps",
+    "crates/starbloom-bootstrap",
+    "crates/starbloom-renderer",
+    "crates/starbloom-core-shared",
+    "crates/starbloom-core-client",
+    "crates/starbloom-core-server",
 ]
 
 [package]
@@ -65,21 +74,12 @@ repository = "https://github.com/1kgd/sb"
 publish = true
 
 [dependencies]
-
-egor.workspace = true # Not optional due to math requirement
+starbloom-core-shared.workspace = true
+starbloom-core-client.workspace = true
+egor.workspace = true                                             # Not optional due to math requirement
 bevy_ecs.workspace = true
 egor_glue = { workspace = true, optional = true }
 web-sys = { workspace = true, optional = true }
-starbloom-base.workspace = true
-starbloom-camera = { workspace = true, optional = true }
-starbloom-intro = { workspace = true, optional = true }
-starbloom-map.workspace = true
-starbloom-tiles.workspace = true
-starbloom-worldgen.workspace = true
-starbloom-input = { workspace = true, optional = true }
-starbloom-states.workspace = true
-starbloom-bootstrap = { workspace = true, optional = true }
-starbloom-derive.workspace = true
 wasm-logger = { version = "0.2.0", optional = true }
 cosmic-text = { version = "0.19.0", optional = true }
 env_logger = { version = "0.11.11", optional = true }
@@ -90,16 +90,14 @@ naia-server = { workspace = true, optional = true }
 naia-shared = { workspace = true, optional = true }
 
 [features]
-intro = ["starbloom-bootstrap/intro", "dep:starbloom-intro"]
+intro = []
 debug_ui = []
 debug_logging = []
 env_logger = ["dep:env_logger"]
-mobile = ["starbloom-input/mobile"]
+mobile = []
 web = [
     "mobile",
-    "starbloom-input/gilrs",
     "cosmic-text?/wasm-web",
-    "starbloom-base/web",
     "dep:web-sys",
     "dep:wasm-logger",
     "dep:console_error_panic_hook",
@@ -108,27 +106,11 @@ web = [
 ]
 multiplayer = ["dep:naia-shared"]
 
-server = ["multiplayer", "dep:naia-server", "starbloom-derive/server"]
-client = [
-    "multiplayer",
-    "dep:naia-client",
-    "starbloom-base/client",
-    "starbloom-derive/client",
-    "starbloom-input",
-    "dep:starbloom-camera",
-    "dep:starbloom-intro",
-    "dep:starbloom-bootstrap",
-    "dep:egor_glue",
-]
+server = ["multiplayer", "dep:naia-server"]
+client = ["multiplayer", "dep:naia-client", "dep:egor_glue"]
 
 mobile_build = ["intro", "mobile", "env_logger"]
-desktop_build = [
-    "intro",
-    "starbloom-input/gilrs",
-    "env_logger",
-    "client",
-    "server",
-]
+desktop_build = ["intro", "env_logger", "client", "server"]
 web_build = ["intro", "web"]
 server_build = ["env_logger", "server"]
 

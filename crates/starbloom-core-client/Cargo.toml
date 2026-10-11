@@ -1,0 +1,12 @@
+[package]
+name = "starbloom-core-client"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+
+[dependencies]
+egor.workspace = true
+starbloom-renderer.workspace = true
+starbloom-camera.workspace = true
+starbloom-bootstrap.workspace = true

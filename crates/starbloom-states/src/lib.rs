@@ -1,5 +1,6 @@
 use bevy_ecs::prelude::*;
-use starbloom_base::prelude::*;
+use log::*;
+use starbloom_base::*;
 use starbloom_derive::*;
 
 #[derive(Resource, StateSetManager)]

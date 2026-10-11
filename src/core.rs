@@ -1,14 +1,6 @@
-use starbloom_base::prelude::*;
-use starbloom_derive::*;
-use starbloom_map::*;
-use starbloom_tiles::*;
-use starbloom_worldgen::*;
+use starbloom_core_shared::*;
 
-const CORE_PLUGINS: &'static [&dyn Plugin] = &[
-    &MapPlugin,
-    &DefaultTilePlugin,
-    &WorldgenPlugin,
-];
+const CORE_PLUGINS: &'static [&dyn Plugin] = &[];
 
 pub fn main(mod_plugins: &'static [&dyn Plugin]) {
     let modded: bool = !mod_plugins.is_empty();
@@ -42,7 +34,6 @@ pub fn main(mod_plugins: &'static [&dyn Plugin]) {
 
     #[cfg(feature = "multiplayer")]
     {
-        #[sided(Client)]
         crate::client::main(world, schedule, modded);
     }
     #[cfg(not(feature = "multiplayer"))]

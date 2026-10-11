@@ -1,6 +1,4 @@
-#![feature(proc_macro_hygiene)]
-
-use starbloom_derive::*;
+use starbloom_core_shared::*;
 
 #[sided(Client)]
 mod client;

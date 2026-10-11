@@ -10,3 +10,4 @@ description = "A sub package for starbloom"
 starbloom-base.workspace = true
 starbloom-derive.workspace = true
 bevy_ecs.workspace = true
+log.workspace = true

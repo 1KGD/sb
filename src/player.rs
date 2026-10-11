@@ -1,13 +1,5 @@
-use starbloom_base::prelude::*;
-#[sided(Client)]
-use starbloom_bootstrap::*;
-#[sided(Client)]
-use starbloom_camera::*;
-use starbloom_derive::*;
-#[sided(Client)]
-use starbloom_input::prelude::*;
-#[sided(Client)]
-use starbloom_states::*;
+use starbloom_core_client::*;
+use starbloom_core_shared::*;
 
 const PLAYER_SPEED: f32 = 200.;
 

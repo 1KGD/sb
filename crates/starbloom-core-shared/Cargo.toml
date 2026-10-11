@@ -1,0 +1,13 @@
+[package]
+name = "starbloom-core-shared"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+
+[dependencies]
+log.workspace = true
+egor.workspace = true # For the math, I swear
+bevy_ecs.workspace = true
+starbloom-base.workspace = true
+starbloom-derive.workspace = true
