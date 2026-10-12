@@ -127,7 +127,7 @@ server_build = ["env_logger", "server"]
 dev = ["debug_ui", "debug_logging"]
 cosmic-text = ["dep:cosmic-text"]
 
-default = ["server_build"]
+default = ["desktop_build"]
 
 [lib]
 name = "sb"
