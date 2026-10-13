@@ -121,7 +121,7 @@ singleplayer = ["client", "server"]
 
 mobile_build = ["intro", "mobile", "env_logger"]
 desktop_build = ["intro", "env_logger", "client", "server"]
-web_build = ["intro", "web"]
+web_build = ["intro", "web", "client"]
 server_build = ["env_logger", "server"]
 
 dev = ["debug_ui", "debug_logging"]
