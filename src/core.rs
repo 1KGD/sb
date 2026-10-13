@@ -1,14 +1,39 @@
+#[cfg(feature = "client")]
+use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
-const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[];
+use crate::player::*;
 
-const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[];
+const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[&PlayerPlugin];
 
+#[cfg(feature = "client")]
+const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
+    &GameStatePlugin,
+    &BootstrapPlugin,
+    &FrameStepPlugin,
+    &CameraPlugin,
+    &InputPlugin,
+];
+
+#[cfg(feature = "server")]
 const CORE_SERVER_PLUGINS: &'static [&dyn Plugin<ServerPlugin>] = &[];
 
 #[allow(unreachable_code)]
 pub fn main() {
     let modded: bool = false;
+
+    #[cfg(feature = "web")]
+    {
+        wasm_logger::init(
+            wasm_logger::Config::new(if cfg!(feature = "debug_logging") {
+                Level::Debug
+            } else {
+                Level::Info
+            })
+            .module_prefix("starbloom"),
+        );
+        console_error_panic_hook::set_once();
+    }
 
     #[cfg(feature = "env_logger")]
     env_logger::builder()

@@ -67,7 +67,7 @@ pub enum FrameStep {
 
 pub struct GameStatePlugin;
 
-impl Plugin<SharedPlugin> for GameStatePlugin {
+impl Plugin<ClientPlugin> for GameStatePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         let manager: GameStateManager = GameStateManager::new();
         manager.configure(schedule, GameState::Bootstrap);

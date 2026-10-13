@@ -4,7 +4,9 @@ use crate::input_ctx::*;
 
 mod actions;
 mod input_ctx;
-pub mod prelude;
+
+pub use crate::actions::*;
+pub use crate::input_ctx::*;
 
 pub struct InputPlugin;
 

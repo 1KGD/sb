@@ -1,7 +1,6 @@
 use bevy_ecs::prelude::*;
 use egor::app::*;
 use egor::math::*;
-use log::*;
 
 #[derive(Resource)]
 pub struct FrameData {
@@ -26,12 +25,18 @@ impl<'a> Renderer<'a> {
     pub fn new() -> Self {
         Self(std::ptr::null_mut())
     }
+}
 
-    pub fn ctx(&mut self) -> Option<&mut FrameContext<'a>> {
-        if self.0.is_null() {
-            error!("Expired FrameContext");
-            return None;
-        }
-        unsafe { self.0.as_mut() }
+impl<'a> std::ops::Deref for Renderer<'a> {
+    type Target = FrameContext<'a>;
+
+    fn deref(&self) -> &Self::Target {
+        unsafe { self.0.as_ref_unchecked() }
+    }
+}
+
+impl<'a> std::ops::DerefMut for Renderer<'a> {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        unsafe { self.0.as_mut_unchecked() }
     }
 }

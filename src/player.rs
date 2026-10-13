@@ -26,13 +26,14 @@ struct PlayerTexture;
 
 impl Plugin<SharedPlugin> for PlayerPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
-        //declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
-        //schedule.add_systems(update_local_player.in_set(FrameStep::UpdatePlayer));
-        /*schedule.add_systems(
+        debug!("uhhhhh...");
+        declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
+        schedule.add_systems(update_local_player.in_set(FrameStep::UpdatePlayer));
+        schedule.add_systems(
             (render_players, render_player_names)
                 .chain()
                 .in_set(FrameStep::RenderEntities),
-        );*/
+        );
         world.spawn(LocalPlayer::default());
     }
 }
@@ -44,16 +45,15 @@ fn render_players(
     main_camera: Res<MainCamera>,
     mut renderer: NonSendMut<Renderer>,
 ) {
-    let texture_id: usize = asset.into_inner().id;
-    if let Some(ctx) = renderer.ctx() {
-        for pos in query {
-            ctx.gfx
-                .rect()
-                .texture(texture_id)
-                .anchor(Anchor::Center)
-                .size(Vec2::splat(16.))
-                .at(main_camera.cam.world_to_screen(**pos));
-        }
+    for pos in query {
+        debug!("{:#?}", pos);
+        renderer
+            .gfx
+            .rect()
+            .texture(***asset)
+            .anchor(Anchor::Center)
+            .size(Vec2::splat(16.))
+            .at(main_camera.cam.world_to_screen(**pos));
     }
 }
 
@@ -63,54 +63,56 @@ fn render_player_names(
     main_camera: Res<MainCamera>,
     mut renderer: NonSendMut<Renderer>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        for (pos, remote) in query {
-            let rect: Rect = Rect::new(
-                main_camera.cam.world_to_screen(**pos)
-                    - vec2(ctx.gfx.screen_size().x / 2., ctx.gfx.screen_size().y)
-                    - vec2(0., 10.),
-                ctx.gfx.screen_size(),
-            );
-            ctx.gfx
-                .text(&remote.name)
-                .in_rect(rect, Align::BottomCenter)
-                .font("Pixelify Sans".to_owned())
-                .size(PLAYER_NAME_FNT_SIZE);
-        }
+    for (pos, remote) in query {
+        let rect: Rect = Rect::new(
+            main_camera.cam.world_to_screen(**pos)
+                - vec2(
+                    renderer.gfx.screen_size().x / 2.,
+                    renderer.gfx.screen_size().y,
+                )
+                - vec2(0., 10.),
+            renderer.gfx.screen_size(),
+        );
+        renderer
+            .gfx
+            .text(&remote.name)
+            .in_rect(rect, Align::BottomCenter)
+            .font("Pixelify Sans".to_owned())
+            .size(PLAYER_NAME_FNT_SIZE);
     }
 }
 
 #[sided(Client)]
 fn update_local_player(
     mut query: Query<&mut Position, With<LocalPlayer>>,
-    //mut main_camera: ResMut<MainCamera>,
-    //input: Res<InputCtx>,
+    mut main_camera: ResMut<MainCamera>,
+    input: Res<InputCtx>,
     frame_data: Res<FrameData>,
 ) {
     if let Ok(mut pos) = query.single_mut() {
         let mut motion: Vec2 = Vec2::ZERO;
-        /*
-                if input.action_held(Action::Down) {
-                    motion.y += 1.;
-                }
 
-                if input.action_held(Action::Up) {
-                    motion.y -= 1.;
-                }
+        if input.action_held(Action::Down) {
+            motion.y += 1.;
+        }
 
-                if input.action_held(Action::Left) {
-                    motion.x -= 1.;
-                }
+        if input.action_held(Action::Up) {
+            motion.y -= 1.;
+        }
 
-                if input.action_held(Action::Right) {
-                    motion.x += 1.;
-                }
-        */
+        if input.action_held(Action::Left) {
+            motion.x -= 1.;
+        }
+
+        if input.action_held(Action::Right) {
+            motion.x += 1.;
+        }
+
         // Don't use an expensive square root if you don't need it.
         if motion.distance_squared(Vec2::ZERO) != 0. {
             **pos = **pos + motion.normalize() * PLAYER_SPEED * frame_data.delta;
         }
 
-        //main_camera.cam.center(**pos, frame_data.screen_size);
+        main_camera.cam.center(**pos, frame_data.screen_size);
     }
 }

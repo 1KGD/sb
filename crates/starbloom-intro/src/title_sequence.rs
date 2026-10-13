@@ -56,23 +56,22 @@ fn render_title(
     mut manager: ResMut<IntroStateManager>,
     mut age: Local<f32>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        let screen_rect: Rect = Rect::new(Vec2::ZERO, ctx.gfx.screen_size());
-        ctx.gfx
-            .text("STARBLOOM")
-            .font("Pixelify Sans".to_owned())
-            .color(Color::new([
-                1.,
-                1.,
-                1.,
-                1. - (*age * f32::consts::PI).cos().powi(2),
-            ]))
-            .in_rect(screen_rect, Align::MiddleCenter);
-        *age += frame_data.delta / SEQUENCE_TIME;
+    let screen_rect: Rect = Rect::new(Vec2::ZERO, renderer.gfx.screen_size());
+    renderer
+        .gfx
+        .text("STARBLOOM")
+        .font("Pixelify Sans".to_owned())
+        .color(Color::new([
+            1.,
+            1.,
+            1.,
+            1. - (*age * f32::consts::PI).cos().powi(2),
+        ]))
+        .in_rect(screen_rect, Align::MiddleCenter);
+    *age += frame_data.delta / SEQUENCE_TIME;
 
-        if *age > 1. {
-            manager.switch(IntroState::Finish);
-        }
+    if *age > 1. {
+        manager.switch(IntroState::Finish);
     }
 }
 
@@ -98,13 +97,12 @@ fn spawn_starfall(
 }
 
 fn render_starfall(query: Query<(&Position, &Starfall)>, mut renderer: NonSendMut<Renderer>) {
-    if let Some(ctx) = renderer.ctx() {
-        for (pos, starfall) in query {
-            ctx.gfx
-                .polyline()
-                .points(&[**pos, **pos - vec2(-1., 1.) * starfall.length])
-                .color(Color::WHITE);
-        }
+    for (pos, starfall) in query {
+        renderer
+            .gfx
+            .polyline()
+            .points(&[**pos, **pos - vec2(-1., 1.) * starfall.length])
+            .color(Color::WHITE);
     }
 }
 

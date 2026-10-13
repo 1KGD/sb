@@ -21,26 +21,26 @@ fn render_ferris(
     texture: Single<&TextureAsset, With<FerrisTexture>>,
     mut renderer: NonSendMut<Renderer>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        let screen_size: Vec2 = ctx.gfx.screen_size();
-        ctx.gfx
-            .rect()
-            .texture(texture.id)
-            .size(*FERRIS_TEXTURE_SIZE)
-            .at(screen_size / 2. - *FERRIS_TEXTURE_SIZE / 2.);
+    let screen_size: Vec2 = renderer.gfx.screen_size();
+    renderer
+        .gfx
+        .rect()
+        .texture(***texture)
+        .size(*FERRIS_TEXTURE_SIZE)
+        .at(screen_size / 2. - *FERRIS_TEXTURE_SIZE / 2.);
 
-        ctx.gfx
-            .text("Made with Rust")
-            .font("Pixelify Sans".to_owned())
-            .color(Color::WHITE)
-            .in_rect(
-                Rect::new(
-                    vec2(0., screen_size.y / 2. + FERRIS_TEXTURE_SIZE.y / 2. + 10.),
-                    vec2(screen_size.x, screen_size.y / 2.),
-                ),
-                Align::TopCenter,
-            );
-    }
+    renderer
+        .gfx
+        .text("Made with Rust")
+        .font("Pixelify Sans".to_owned())
+        .color(Color::WHITE)
+        .in_rect(
+            Rect::new(
+                vec2(0., screen_size.y / 2. + FERRIS_TEXTURE_SIZE.y / 2. + 10.),
+                vec2(screen_size.x, screen_size.y / 2.),
+            ),
+            Align::TopCenter,
+        );
 }
 
 fn rust_sequence_timeout(

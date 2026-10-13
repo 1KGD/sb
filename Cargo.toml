@@ -24,6 +24,7 @@ starbloom-camera = { version = "^0", path = "./crates/starbloom-camera" }
 starbloom-tiles = { version = "^0", path = "./crates/starbloom-tiles" }
 starbloom-map = { version = "^0", path = "./crates/starbloom-map" }
 starbloom-renderer = { version = "^0", path = "./crates/starbloom-renderer" }
+starbloom-input = { version = "^0", path = "./crates/starbloom-input" }
 
 # Level 0.5
 starbloom-core-shared = { version = "^0", path = "./crates/starbloom-core-shared" }
@@ -119,9 +120,9 @@ client = [
 
 singleplayer = ["client", "server"]
 
-mobile_build = ["intro", "mobile", "env_logger"]
-desktop_build = ["intro", "env_logger", "client", "server"]
-web_build = ["intro", "web", "client"]
+mobile_build = ["intro", "mobile", "env_logger", "singleplayer", "multiplayer"]
+desktop_build = ["intro", "env_logger", "singleplayer", "multiplayer"]
+web_build = ["intro", "web", "singleplayer", "multiplayer"]
 server_build = ["env_logger", "server"]
 
 dev = ["debug_ui", "debug_logging"]

@@ -2,28 +2,17 @@ use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
 pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
-    debug!("IS_MOBILE = {}", *IS_MOBILE);
-    world.insert_non_send(Renderer::new());
-
     let title: String = format!("STARBOOM v{}{}", VERSION, if modded { "*" } else { "" });
 
     #[cfg(feature = "web")]
-    {
-        wasm_logger::init(
-            wasm_logger::Config::new(if cfg!(feature = "debug_logging") {
-                Level::Debug
-            } else {
-                Level::Info
-            })
-            .module_prefix("starbloom"),
-        );
-        console_error_panic_hook::set_once();
-        web_sys::window()
-            .unwrap()
-            .document()
-            .unwrap()
-            .set_title(&title);
-    }
+    web_sys::window()
+        .unwrap()
+        .document()
+        .unwrap()
+        .set_title(&title);
+
+    debug!("IS_MOBILE = {}", *IS_MOBILE);
+    world.insert_non_send(Renderer::new());
 
     let mut fonts: egui::FontDefinitions = egui::FontDefinitions::default();
     fonts.font_data.insert(
@@ -94,10 +83,10 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
             world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
                 (&raw mut *ctx) as *mut FrameContext<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
 
-            /*world
-            .get_resource_mut::<InputCtx>()
-            .unwrap()
-            .update(ctx.input);*/
+            world
+                .get_resource_mut::<InputCtx>()
+                .unwrap()
+                .update(ctx.input);
 
             schedule.run(&mut world);
 

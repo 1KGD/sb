@@ -75,6 +75,12 @@ impl DerefMut for Position {
     }
 }
 
+impl Debug for Position {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(f)
+    }
+}
+
 impl AsRef<Vec2> for Position {
     #[inline]
     fn as_ref(&self) -> &Vec2 {

@@ -24,25 +24,23 @@ pub fn load_assets(
     mut renderer: NonSendMut<Renderer>,
 ) {
     if manager.phase == BootstrapPhase::Assets {
-        if let Some(ctx) = renderer.ctx() {
-            for (entity, asset) in &query {
-                match asset {
-                    AssetRequest::Texture(texture_data) => {
-                        let id: usize = ctx.gfx.load_texture(texture_data);
-                        debug!(
-                            "Loaded texture with entity id {} and texture id {}",
-                            entity, id
-                        );
-                        commands
-                            .entity(entity)
-                            .insert(TextureAsset { id })
-                            .remove::<AssetRequest>();
-                    }
+        for (entity, asset) in &query {
+            match asset {
+                AssetRequest::Texture(texture_data) => {
+                    let id: usize = renderer.gfx.load_texture(texture_data);
+                    debug!(
+                        "Loaded texture with entity id {} and texture id {}",
+                        entity, id
+                    );
+                    commands
+                        .entity(entity)
+                        .insert(TextureAsset { id })
+                        .remove::<AssetRequest>();
                 }
             }
-            debug!("Done loading assets");
-            manager.phase = BootstrapPhase::Handoff;
         }
+        debug!("Done loading assets");
+        manager.phase = BootstrapPhase::Handoff;
     }
 }
 
@@ -80,7 +78,15 @@ pub enum AssetRequest {
 
 #[derive(Component)]
 pub struct TextureAsset {
-    pub id: usize,
+    id: usize,
+}
+
+impl std::ops::Deref for TextureAsset {
+    type Target = usize;
+
+    fn deref(&self) -> &Self::Target {
+        &self.id
+    }
 }
 
 pub fn declare_texture_asset(

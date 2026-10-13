@@ -20,7 +20,7 @@ fn insert_tile_textures_into_regestry(
 ) {
     for (entity, asset) in query {
         if let Some(entry) = regestry.entries.get_mut(&entity) {
-            entry.texture = Some(asset.id);
+            entry.texture = Some(**asset);
         }
     }
 }
