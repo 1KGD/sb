@@ -31,3 +31,4 @@ The multiplayer-seperation layer. Everything above this layer should be client/s
 ## Level 1
 
 - `starbloom-intro` -> Intro sequence. Completely ignored if the `intro` feature flag is omitted.
+- `starbloom-networking` -> Hidden multiplayer layer. None of the other crates should even be aware of it's interactions with the ECS.
