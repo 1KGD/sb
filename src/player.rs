@@ -46,7 +46,6 @@ fn render_players(
     mut renderer: NonSendMut<Renderer>,
 ) {
     for pos in query {
-        debug!("{:#?}", pos);
         renderer
             .gfx
             .rect()
