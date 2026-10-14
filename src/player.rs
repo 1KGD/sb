@@ -1,8 +1,10 @@
+#[sided(Client)]
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
 const PLAYER_SPEED: f32 = 200.;
 
+#[sided(Client)]
 const PLAYER_NAME_FNT_SIZE: f32 = 16.;
 
 #[derive(Component, Default)]
@@ -13,18 +15,25 @@ pub struct Player;
 #[require(Player)]
 pub struct LocalPlayer;
 
+#[sided(Client)]
 #[derive(Component, Default)]
 #[require(Player)]
 pub struct RemotePlayer {
     pub name: String,
 }
 
-pub struct PlayerPlugin;
+#[sided(Client)]
+pub struct PlayerClientPlugin;
 
+#[sided(Server)]
+pub struct PlayerServerPlugin;
+
+#[sided(Client)]
 #[derive(Component, Debug, Clone, Copy)]
 struct PlayerTexture;
 
-impl Plugin<SharedPlugin> for PlayerPlugin {
+#[sided(Client)]
+impl Plugin<ClientPlugin> for PlayerClientPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
         schedule.add_systems(update_local_player.in_set(FrameStep::UpdatePlayer));
@@ -33,6 +42,12 @@ impl Plugin<SharedPlugin> for PlayerPlugin {
                 .chain()
                 .in_set(FrameStep::RenderEntities),
         );
+    }
+}
+
+#[sided(Server)]
+impl Plugin<ServerPlugin> for PlayerServerPlugin {
+    fn create(&self, world: &mut World, _schedule: &mut Schedule) {
         world.spawn(LocalPlayer::default());
     }
 }

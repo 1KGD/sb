@@ -1,14 +1,18 @@
 use crate::*;
 
+#[sided(Client)]
 #[derive(Component, Debug, Clone, Copy)]
 pub struct Air;
 
+#[sided(Client)]
 #[derive(Component, Debug, Clone, Copy)]
 pub struct Grass;
 
+#[sided(Client)]
 #[derive(Component, Debug, Clone, Copy)]
 pub struct GrassRough;
 
+#[sided(Client)]
 pub(crate) fn regester_grass(world: &mut World) {
     let air: Tile = Tile::declare(world, None, Air);
     world

@@ -5,14 +5,11 @@ license = "MIT"
 edition = "2024"
 
 [workspace.dependencies]
-bevy_ecs = { version = "0.19", default-features = false, features = [
+bevy_ecs = { version = "0.20", default-features = false, features = [
     "debug",
     "std",
 ] }
-egor = { version = "0.10.0", default-features = false, features = [
-    "webgl",
-    "ui",
-] }
+egor = { version = "0.10.0", default-features = false }
 noise = "0.9.0"
 
 # Level 0
@@ -114,26 +111,33 @@ web = [
 ]
 
 multiplayer = ["dep:naia-shared", "dep:starbloom-networking"]
+remote_host = ["multiplayer", "server", "dep:naia-server"]
 
-server = ["starbloom-core-server/enabled", "starbloom-derive/server"]
+server = [
+    "starbloom-core-server/enabled",
+    "starbloom-derive/server",
+    "starbloom-networking?/server",
+]
 client = [
     "starbloom-core-client/enabled",
     "starbloom-networking?/client",
     "starbloom-derive/client",
     "dep:egor_glue",
+    "egor/webgl",
+    "egor/ui",
 ]
 
 singleplayer = ["client", "server"]
 
 mobile_build = ["intro", "mobile", "env_logger", "singleplayer", "multiplayer"]
-desktop_build = ["intro", "env_logger", "singleplayer", "multiplayer"]
+desktop_build = ["intro", "env_logger", "singleplayer", "remote_host"]
 web_build = ["intro", "web", "singleplayer", "multiplayer"]
-server_build = ["env_logger", "server"]
+server_build = ["env_logger", "remote_host"]
 
 dev = ["debug_ui", "debug_logging"]
 cosmic-text = ["dep:cosmic-text"]
 
-default = ["desktop_build"]
+default = ["server_build"]
 
 [lib]
 name = "sb"

@@ -1,8 +1,10 @@
+#[sided(Client)]
 use crate::grass::*;
 use crate::*;
 
 pub struct DefaultTilePlugin;
 
+#[sided(Client)]
 impl Plugin<SharedPlugin> for DefaultTilePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(
@@ -14,6 +16,7 @@ impl Plugin<SharedPlugin> for DefaultTilePlugin {
     }
 }
 
+#[sided(Client)]
 fn insert_tile_textures_into_regestry(
     query: Query<(Entity, &TextureAsset), With<TileComponent>>,
     mut regestry: ResMut<TileRegestry>,
