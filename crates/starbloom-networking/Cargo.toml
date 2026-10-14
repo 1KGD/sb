@@ -7,3 +7,11 @@ edition.workspace = true
 
 [dependencies]
 starbloom-core-shared.workspace = true
+naia-shared.workspace = true
+naia-client = { workspace = true, optional = true }
+naia-server = { workspace = true, optional = true }
+
+[features]
+server = ["dep:naia-server"]
+client = ["dep:naia-client"]
+web = ["naia-shared/wbindgen", "naia-client?/wbindgen"]

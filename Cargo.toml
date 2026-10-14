@@ -45,8 +45,8 @@ web-sys = { version = "0.3.106", features = [
     "Navigator",
     "Document",
 ] }
-naia-server = "0.25.0"
-naia-client = "0.25.0"
+naia-server = { version = "0.25.0", features = ["transport_webrtc"] }
+naia-client = { version = "0.25.0", features = ["transport_webrtc"] }
 naia-shared = "0.25.0"
 
 [workspace]
@@ -84,6 +84,7 @@ starbloom-core-shared.workspace = true
 starbloom-core-client.workspace = true
 starbloom-core-server.workspace = true
 starbloom-derive.workspace = true
+starbloom-networking = { workspace = true, optional = true }
 egor.workspace = true                                             # Not optional due to math requirement
 bevy_ecs.workspace = true
 egor_glue = { workspace = true, optional = true }
@@ -109,15 +110,15 @@ web = [
     "dep:web-sys",
     "dep:wasm-logger",
     "dep:console_error_panic_hook",
-    "naia-shared?/wbindgen",
-    "naia-client?/wbindgen",
+    "starbloom-networking?/web",
 ]
 
-multiplayer = ["dep:naia-shared"]
+multiplayer = ["dep:naia-shared", "dep:starbloom-networking"]
 
 server = ["starbloom-core-server/enabled", "starbloom-derive/server"]
 client = [
     "starbloom-core-client/enabled",
+    "starbloom-networking?/client",
     "starbloom-derive/client",
     "dep:egor_glue",
 ]

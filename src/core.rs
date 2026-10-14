@@ -4,7 +4,11 @@ use starbloom_core_shared::prelude::*;
 
 use crate::player::*;
 
-const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[&PlayerPlugin];
+const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[
+    &PlayerPlugin,
+    #[cfg(feature = "multiplayer")]
+    &starbloom_networking::NetworkingPlugin,
+];
 
 #[cfg(feature = "client")]
 const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[

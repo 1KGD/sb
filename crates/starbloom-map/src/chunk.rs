@@ -33,7 +33,8 @@ impl Chunk {
                         let pos = main_camera.cam.world_to_screen(
                             vec2(x as f32, y as f32) * TILE_SIZE + self.get_world_pos(),
                         );
-                        renderer.gfx
+                        renderer
+                            .gfx
                             .rect()
                             .texture(texture)
                             .size(vec2(TILE_SIZE, TILE_SIZE))
