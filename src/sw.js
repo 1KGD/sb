@@ -18,4 +18,19 @@ self.addEventListener("fetch", (e) => {
     );
 });
 
+self.addEventListener("activate", (e) => {
+  e.waitUntil(
+    caches.keys().then((keyList) =>
+      Promise.all(
+        keyList.map((key) => {
+          if (key === cacheName) {
+            return undefined;
+          }
+          return caches.delete(key);
+        }),
+      ),
+    ),
+  );
+});
+
 self.addEventListener("install", (e) => caches.delete(cacheName));
