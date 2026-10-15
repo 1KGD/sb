@@ -4,7 +4,7 @@ use starbloom_core_shared::prelude::*;
 mod client;
 mod core;
 mod player;
-#[sided(Server)]
+#[cfg(feature="remote_host")]
 mod server;
 
 #[cfg(feature = "client")]

@@ -111,13 +111,14 @@ web = [
 ]
 
 multiplayer = ["dep:naia-shared", "dep:starbloom-networking"]
-remote_host = ["multiplayer", "server", "dep:naia-server"]
-
-server = [
-    "starbloom-core-server/enabled",
-    "starbloom-derive/server",
+remote_host = [
+    "multiplayer",
+    "server",
+    "dep:naia-server",
     "starbloom-networking?/server",
 ]
+
+server = ["starbloom-core-server/enabled", "starbloom-derive/server"]
 client = [
     "starbloom-core-client/enabled",
     "starbloom-networking?/client",
@@ -137,7 +138,7 @@ server_build = ["env_logger", "remote_host"]
 dev = ["debug_ui", "debug_logging"]
 cosmic-text = ["dep:cosmic-text"]
 
-default = ["server_build"]
+default = ["web_build"]
 
 [lib]
 name = "sb"

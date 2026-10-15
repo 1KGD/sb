@@ -21,7 +21,7 @@ const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
 #[cfg(feature = "server")]
 const CORE_SERVER_PLUGINS: &'static [&dyn Plugin<ServerPlugin>] = &[
     &PlayerServerPlugin,
-    #[cfg(feature = "multiplayer")]
+    #[cfg(feature = "remote_host")]
     &starbloom_networking::ServerNetworkingPlugin,
 ];
 
@@ -75,6 +75,7 @@ pub fn main() {
     }
 
     #[cfg(not(feature = "client"))]
+    #[cfg(feature = "remote_host")]
     crate::server::main(world, schedule, modded);
 
     #[cfg(feature = "client")]

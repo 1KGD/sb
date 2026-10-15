@@ -4,8 +4,8 @@
   - [ ] Render everything to a separate TextureBuffer, then upscale that and render it to the viewport to allow for arbitrary window sizes on desktop.
     - [ ] Get rid of css scaling nonsense in browser.
     - [ ] Fullscreen and arbitrary window scale support.
-  - [ ] Plenty of rendering utilities in `starbloom-base`
-    - [ ] Deref for Renderer and FrameData
+  - [ ] Plenty of rendering utilities in `starbloom-renderer`
+    - [x] Deref for Renderer and FrameData
       - [ ] Also a custom ecs provider to reduce boilerplate.
     - [ ] Clamp delta in Renderer as well.
     - [x] Image rendering
@@ -16,13 +16,12 @@
   - [ ] Native mobile (android, almost certainly no IOS)
   - [ ] Web mobile (with `gilrs`)
 - [x] Controller support using `gilrs`
-  - [ ] Integrate into input abstraction utils in `starbloom-base`
+  - [ ] Integrate into input abstraction utils in `starbloom-input`
   - [x] Leave out of native mobile builds, as `gilrs` does not support it
 - [ ] Multiplayer framework framework
-  - [ ] Discriminatory builds for server, client, and server+client
+  - [x] Discriminatory builds for server, client, and server+client
     - [ ] Dedicated wasm client self-hosted for dedicated servers.
-    - [ ] Custom macros for annotating systems for server, client, or both.
-      - [ ] Same for entire crates?
+    - [x] Custom macros for annotating systems for server, client, or both.
   - [ ] Naia integration
     - [ ] Should be indistinguishable from a local ECS world, so singleplayer does not require spinning up a server (for the sake of wasm singleplayer)
   - [ ] Bring chunk map system into multiplayer.

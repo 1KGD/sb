@@ -28,7 +28,6 @@ pub struct ClientNetworkingManager {
 
 #[sided(Client)]
 impl ClientNetworkingManager {
-    #[sided(Client)]
     pub fn new() -> Self {
         let mut client: Client<Entity> = Client::<Entity>::new(ClientConfig::default(), protocol());
         let socket = naia_client::transport::webrtc::Socket::new(
