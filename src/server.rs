@@ -4,10 +4,10 @@ use starbloom_core_shared::prelude::*;
 use starbloom_networking::*;
 
 #[cfg(not(feature = "client"))]
-pub(crate) fn main(mut world: World, mut schedule: Schedule, modded: bool) {
-    info!("Server started!");
+pub(crate) fn main(mut world: World, mut schedule: Schedule, _modded: bool) {
+    info!("Starting dedicated server...");
 
-    let mut networked_world = NetworkedWorld::new(&mut world);
+    let mut networked_world: NetworkedWorld<'_> = NetworkedWorld::new(&mut world);
 
     let mut server: Server<Entity> = Server::new(ServerConfig::default(), protocol());
     let socket = transport::webrtc::Socket::new(
@@ -16,6 +16,7 @@ pub(crate) fn main(mut world: World, mut schedule: Schedule, modded: bool) {
     );
     server.listen(socket);
 
+    info!("Dedicated server started!");
     loop {
         server.receive_all_packets();
         server.process_all_packets(&mut networked_world, &Instant::now());

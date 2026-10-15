@@ -1,8 +1,12 @@
+#[sided(Client)]
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
+#[sided(Client)]
 use crate::presents_sequence::*;
+#[sided(Client)]
 use crate::rust_sequence::*;
+#[sided(Client)]
 use crate::title_sequence::*;
 
 pub struct IntroPlugin;
@@ -11,6 +15,7 @@ mod presents_sequence;
 mod rust_sequence;
 mod title_sequence;
 
+#[sided(Client)]
 impl Plugin<ClientPlugin> for IntroPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         let manager: IntroStateManager = IntroStateManager::new();
@@ -32,11 +37,13 @@ impl Plugin<ClientPlugin> for IntroPlugin {
     }
 }
 
+#[sided(Client)]
 #[derive(Resource, StateSetManager)]
 struct IntroStateManager {
     state: IntroState,
 }
 
+#[sided(Client)]
 impl IntroStateManager {
     fn new() -> Self {
         Self {
@@ -45,6 +52,7 @@ impl IntroStateManager {
     }
 }
 
+#[sided(Client)]
 #[derive(SystemSet, Hash, Debug, PartialEq, Eq, Clone, Copy)]
 enum IntroState {
     Rust,
@@ -53,6 +61,7 @@ enum IntroState {
     Finish,
 }
 
+#[sided(Client)]
 fn catch_finish(mut game_manager: ResMut<GameStateManager>) {
     game_manager.switch(GameState::Mainloop);
 }

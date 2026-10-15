@@ -1,17 +1,22 @@
 use crate::*;
 
+#[sided(Client)]
 const SEQUENCE_TIME: f32 = 7.;
 
+#[sided(Client)]
 const TEXT: &'static str = include_str!("../../../Cargo.toml"); // Rule of cool
 
+#[sided(Client)]
 pub(crate) struct PresentsSequencePlugin;
 
+#[sided(Client)]
 impl Plugin<ClientPlugin> for PresentsSequencePlugin {
     fn create(&self, _world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(all_the_text_stuff_in_one_system.in_set(IntroState::Presents));
     }
 }
 
+#[sided(Client)]
 fn all_the_text_stuff_in_one_system(
     mut renderer: NonSendMut<Renderer>,
     mut progress: Local<f32>,

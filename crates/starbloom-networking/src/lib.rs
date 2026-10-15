@@ -2,8 +2,6 @@ use std::ops::{Deref, DerefMut};
 
 #[sided(Client)]
 use naia_client::*;
-#[sided(Server)]
-use naia_server::*;
 use naia_shared::*;
 use starbloom_core_shared::prelude::*;
 
@@ -77,7 +75,7 @@ impl<'w> NetworkedWorld<'w> {
 }
 
 impl<'w> WorldRefType<Entity> for &mut NetworkedWorld<'w> {
-    fn has_entity(&self, world_entity: &Entity) -> bool {
+    fn has_entity(&self, _world_entity: &Entity) -> bool {
         todo!()
     }
 
@@ -85,25 +83,25 @@ impl<'w> WorldRefType<Entity> for &mut NetworkedWorld<'w> {
         todo!()
     }
 
-    fn has_component<R: ReplicatedComponent>(&self, world_entity: &Entity) -> bool {
+    fn has_component<R: ReplicatedComponent>(&self, _world_entity: &Entity) -> bool {
         todo!()
     }
 
-    fn has_component_of_kind(&self, world_entity: &Entity, component_kind: &ComponentKind) -> bool {
+    fn has_component_of_kind(&self, _world_entity: &Entity, _component_kind: &ComponentKind) -> bool {
         todo!()
     }
 
     fn component<'a, R: ReplicatedComponent>(
         &'a self,
-        entity: &Entity,
+        _entity: &Entity,
     ) -> Option<ReplicaRefWrapper<'a, R>> {
         todo!()
     }
 
     fn component_of_kind<'a>(
         &'a self,
-        entity: &Entity,
-        component_kind: &ComponentKind,
+        _entity: &Entity,
+        _component_kind: &ComponentKind,
     ) -> Option<ReplicaDynRefWrapper<'a>> {
         todo!()
     }
@@ -114,156 +112,158 @@ impl<'w> WorldMutType<Entity> for &mut NetworkedWorld<'w> {
         self.world.spawn_empty().id()
     }
 
-    fn local_duplicate_entity(&mut self, world_entity: &Entity) -> Entity {
+    fn local_duplicate_entity(&mut self, _world_entity: &Entity) -> Entity {
         todo!()
     }
 
-    fn local_duplicate_components(&mut self, mutable_entity: &Entity, immutable_entity: &Entity) {
+    fn local_duplicate_components(&mut self, _mutable_entity: &Entity, _immutable_entity: &Entity) {
         todo!()
     }
 
     fn despawn_entity(&mut self, world_entity: &Entity) {
-        todo!()
+        self.world.entity_mut(*world_entity).despawn();
     }
 
-    fn component_kinds(&mut self, world_entity: &Entity) -> Vec<ComponentKind> {
+    fn component_kinds(&mut self, _world_entity: &Entity) -> Vec<ComponentKind> {
         todo!()
     }
 
     fn component_mut<'a, R: ReplicatedComponent>(
         &'a mut self,
-        world_entity: &Entity,
+        _world_entity: &Entity,
     ) -> Option<ReplicaMutWrapper<'a, R>> {
         todo!()
     }
 
     fn component_mut_of_kind<'a>(
         &'a mut self,
-        world_entity: &Entity,
-        component_kind: &ComponentKind,
+        _world_entity: &Entity,
+        _component_kind: &ComponentKind,
     ) -> Option<ReplicaDynMutWrapper<'a>> {
         todo!()
     }
 
     fn component_apply_update(
         &mut self,
-        converter: &dyn LocalEntityAndGlobalEntityConverter,
-        world_entity: &Entity,
-        component_kind: &ComponentKind,
-        update: ComponentUpdate,
+        _converter: &dyn LocalEntityAndGlobalEntityConverter,
+        _world_entity: &Entity,
+        _component_kind: &ComponentKind,
+        _update: ComponentUpdate,
     ) -> std::prelude::v1::Result<(), SerdeErr> {
         todo!()
     }
 
     fn component_apply_field_update(
         &mut self,
-        converter: &dyn LocalEntityAndGlobalEntityConverter,
-        world_entity: &Entity,
-        component_kind: &ComponentKind,
-        update: ComponentFieldUpdate,
+        _converter: &dyn LocalEntityAndGlobalEntityConverter,
+        _world_entity: &Entity,
+        _component_kind: &ComponentKind,
+        _update: ComponentFieldUpdate,
     ) -> std::prelude::v1::Result<(), SerdeErr> {
         todo!()
     }
 
     fn mirror_entities(&mut self, mutable_entity: &Entity, immutable_entity: &Entity) {
-        todo!()
+        self.world
+            .entity_mut(*immutable_entity)
+            .clone_components::<()>(*mutable_entity);
     }
 
     fn mirror_components(
         &mut self,
-        mutable_entity: &Entity,
-        immutable_entity: &Entity,
-        component_kind: &ComponentKind,
+        _mutable_entity: &Entity,
+        _immutable_entity: &Entity,
+        _component_kind: &ComponentKind,
     ) {
         todo!()
     }
 
     fn insert_component<R: ReplicatedComponent>(
         &mut self,
-        world_entity: &Entity,
-        component_ref: R,
+        _world_entity: &Entity,
+        _component_ref: R,
     ) {
         todo!()
     }
 
     fn insert_boxed_component(
         &mut self,
-        world_entity: &Entity,
-        boxed_component: Box<dyn Replicate>,
+        _world_entity: &Entity,
+        _boxed_component: Box<dyn Replicate>,
     ) {
         todo!()
     }
 
-    fn remove_component<R: ReplicatedComponent>(&mut self, world_entity: &Entity) -> Option<R> {
+    fn remove_component<R: ReplicatedComponent>(&mut self, _world_entity: &Entity) -> Option<R> {
         todo!()
     }
 
     fn remove_component_of_kind(
         &mut self,
-        world_entity: &Entity,
-        component_kind: &ComponentKind,
+        _world_entity: &Entity,
+        _component_kind: &ComponentKind,
     ) -> Option<Box<dyn Replicate>> {
         todo!()
     }
 
     fn entity_publish(
         &mut self,
-        component_kinds: &ComponentKinds,
-        converter: &dyn EntityAndGlobalEntityConverter<Entity>,
-        global_world_manager: &dyn GlobalWorldManagerType,
-        world_entity: &Entity,
+        _component_kinds: &ComponentKinds,
+        _converter: &dyn EntityAndGlobalEntityConverter<Entity>,
+        _global_world_manager: &dyn GlobalWorldManagerType,
+        _world_entity: &Entity,
     ) {
         todo!()
     }
 
     fn component_publish(
         &mut self,
-        component_kinds: &ComponentKinds,
-        converter: &dyn EntityAndGlobalEntityConverter<Entity>,
-        global_world_manager: &dyn GlobalWorldManagerType,
-        world_entity: &Entity,
-        component_kind: &ComponentKind,
+        _component_kinds: &ComponentKinds,
+        _converter: &dyn EntityAndGlobalEntityConverter<Entity>,
+        _global_world_manager: &dyn GlobalWorldManagerType,
+        _world_entity: &Entity,
+        _component_kind: &ComponentKind,
     ) {
         todo!()
     }
 
-    fn entity_unpublish(&mut self, world_entity: &Entity) {
+    fn entity_unpublish(&mut self, _world_entity: &Entity) {
         todo!()
     }
 
-    fn component_unpublish(&mut self, world_entity: &Entity, component_kind: &ComponentKind) {
+    fn component_unpublish(&mut self, _world_entity: &Entity, _component_kind: &ComponentKind) {
         todo!()
     }
 
     fn entity_enable_delegation(
         &mut self,
-        component_kinds: &ComponentKinds,
-        converter: &dyn EntityAndGlobalEntityConverter<Entity>,
-        global_world_manager: &dyn GlobalWorldManagerType,
-        world_entity: &Entity,
+        _component_kinds: &ComponentKinds,
+        _converter: &dyn EntityAndGlobalEntityConverter<Entity>,
+        _global_world_manager: &dyn GlobalWorldManagerType,
+        _world_entity: &Entity,
     ) {
         todo!()
     }
 
     fn component_enable_delegation(
         &mut self,
-        component_kinds: &ComponentKinds,
-        converter: &dyn EntityAndGlobalEntityConverter<Entity>,
-        global_world_manager: &dyn GlobalWorldManagerType,
-        world_entity: &Entity,
-        component_kind: &ComponentKind,
+        _component_kinds: &ComponentKinds,
+        _converter: &dyn EntityAndGlobalEntityConverter<Entity>,
+        _global_world_manager: &dyn GlobalWorldManagerType,
+        _world_entity: &Entity,
+        _component_kind: &ComponentKind,
     ) {
         todo!()
     }
 
-    fn entity_disable_delegation(&mut self, world_entity: &Entity) {
+    fn entity_disable_delegation(&mut self, _world_entity: &Entity) {
         todo!()
     }
 
     fn component_disable_delegation(
         &mut self,
-        world_entity: &Entity,
-        component_kind: &ComponentKind,
+        _world_entity: &Entity,
+        _component_kind: &ComponentKind,
     ) {
         todo!()
     }

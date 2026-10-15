@@ -1,13 +1,15 @@
+use naia_shared::Replicate;
 #[sided(Client)]
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
+#[sided(Client)]
 const PLAYER_SPEED: f32 = 200.;
 
 #[sided(Client)]
 const PLAYER_NAME_FNT_SIZE: f32 = 16.;
 
-#[derive(Component, Default)]
+#[derive(Component, Default, Replicate)]
 #[require(Position)]
 pub struct Player;
 

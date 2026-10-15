@@ -1,4 +1,5 @@
 use starbloom_core_shared::prelude::*;
+#[sided(Client)]
 use starbloom_tiles::*;
 
 mod chunk;
@@ -6,11 +7,13 @@ mod chunkloader;
 mod data;
 
 pub use crate::chunk::*;
+#[sided(Client)]
 pub use crate::chunkloader::*;
 use crate::data::*;
 
 pub struct MapPlugin;
 
+#[sided(Client)]
 impl Plugin<ClientPlugin> for MapPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         ChunkloaderPlugin.create(world, schedule);

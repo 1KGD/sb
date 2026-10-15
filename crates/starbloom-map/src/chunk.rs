@@ -1,3 +1,4 @@
+#[sided(Client)]
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 use starbloom_tiles::*;
@@ -6,6 +7,7 @@ use crate::data::*;
 
 pub const CHUNK_DIM: usize = 8;
 
+#[sided(Client)]
 pub const CHUNK_SIZE: f32 = CHUNK_DIM as f32 * TILE_SIZE;
 
 #[derive(Component)]
@@ -19,6 +21,7 @@ impl Chunk {
         Self { pos, tiles: None }
     }
 
+    #[sided(Client)]
     pub fn render(
         &self,
         renderer: &mut NonSendMut<Renderer>,
@@ -45,6 +48,7 @@ impl Chunk {
         }
     }
 
+    #[sided(Server)]
     pub fn generate(&mut self, data_provider: &ChunkDataProvider) {
         self.tiles = Some(data_provider.get_chunk_data(self.pos));
     }
@@ -53,14 +57,17 @@ impl Chunk {
         self.tiles.map(|tiles: [[u16; 8]; 8]| tiles[x][y])
     }
 
+    #[sided(Client)]
     pub(crate) fn get_world_pos(&self) -> Vec2 {
         self.pos.as_vec2() * CHUNK_SIZE
     }
 
+    #[sided(Client)]
     pub(crate) fn get_bounding_rect(&self) -> Rect {
         Rect::new(self.get_world_pos(), Vec2::splat(CHUNK_SIZE))
     }
 
+    #[sided(Client)]
     pub(crate) fn should_be_culled(&self, viewport: Rect) -> bool {
         for vert in self.get_bounding_rect().corners() {
             if viewport.contains(vert) {

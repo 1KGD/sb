@@ -1,14 +1,19 @@
 // TODO: REQUIRES FULL REWRITE FOR MULTIPLAYER COMPATABLILITY
 
+#[sided(Client)]
 use std::collections::HashMap;
 
+#[sided(Client)]
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
+#[sided(Client)]
 use crate::chunk::*;
 
+#[sided(Client)]
 pub struct ChunkloaderPlugin;
 
+#[sided(Client)]
 impl Plugin<ServerPlugin> for ChunkloaderPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         /*schedule.add_systems(
@@ -20,11 +25,13 @@ impl Plugin<ServerPlugin> for ChunkloaderPlugin {
     }
 }
 
+#[sided(Client)]
 #[derive(Resource)]
 pub struct ChunkManager {
     chunks: HashMap<IVec2, Entity>,
 }
 
+#[sided(Client)]
 impl ChunkManager {
     fn new() -> Self {
         Self {
@@ -36,6 +43,7 @@ impl ChunkManager {
         self.chunks.contains_key(&pos)
     }
 
+    #[sided(Client)]
     fn spawn_chunk(&mut self, commands: &mut Commands, pos: IVec2, viewport: Rect) {
         let chunk_component = Chunk::load(pos);
         if chunk_component.should_be_culled(viewport) {
@@ -56,6 +64,7 @@ impl ChunkManager {
         self.chunks.remove(&pos);
     }
 
+    #[sided(Client)]
     fn spawn_new_chunks(&mut self, mut commands: Commands, viewport: Rect) {
         let min: IVec2 = (viewport.min() / CHUNK_SIZE).as_ivec2() - IVec2::ONE;
         let max: IVec2 = (viewport.max() / CHUNK_SIZE).as_ivec2() + IVec2::ONE;

@@ -1,15 +1,20 @@
 use crate::*;
 
+#[sided(Client)]
 const SEQUENCE_TIME: f32 = 5.;
 
+#[sided(Client)]
 #[derive(Component, Clone, Copy, Debug)]
 struct FerrisTexture;
 
+#[sided(Client)]
 static FERRIS_TEXTURE_SIZE: std::sync::LazyLock<Vec2> =
     std::sync::LazyLock::new(|| vec2(420., 307.) / 5.);
 
+#[sided(Client)]
 pub(crate) struct RustSequencePlugin;
 
+#[sided(Client)]
 impl Plugin<ClientPlugin> for RustSequencePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/ferris.png"), FerrisTexture);
@@ -17,6 +22,7 @@ impl Plugin<ClientPlugin> for RustSequencePlugin {
     }
 }
 
+#[sided(Client)]
 fn render_ferris(
     texture: Single<&TextureAsset, With<FerrisTexture>>,
     mut renderer: NonSendMut<Renderer>,
@@ -43,6 +49,7 @@ fn render_ferris(
         );
 }
 
+#[sided(Client)]
 fn rust_sequence_timeout(
     mut timer: Local<f32>,
     mut manager: ResMut<IntroStateManager>,
