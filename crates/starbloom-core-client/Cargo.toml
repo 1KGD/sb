@@ -7,10 +7,15 @@ edition.workspace = true
 
 [dependencies]
 egor.workspace = true
-starbloom-renderer.workspace = true
-starbloom-camera.workspace = true
-starbloom-bootstrap.workspace = true
-starbloom-input.workspace = true
+starbloom-renderer = { workspace = true, optional = true }
+starbloom-camera = { workspace = true, optional = true }
+starbloom-bootstrap = { workspace = true, optional = true }
+starbloom-input = { workspace = true, optional = true }
 
 [features]
-enabled = []
+enabled = [
+    "starbloom-renderer",
+    "starbloom-camera",
+    "starbloom-bootstrap",
+    "starbloom-input",
+]
