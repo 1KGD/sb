@@ -30,6 +30,7 @@ starbloom-core-server = { version = "^0", path = "./crates/starbloom-core-server
 
 # Level 1
 starbloom-networking = { version = "^0", path = "./crates/starbloom-networking" }
+starbloom-intro = { version = "^0", path = "./crates/starbloom-intro" }
 
 rand = { version = "0.10.3", default-features = false, features = [
     "std",
@@ -82,6 +83,8 @@ starbloom-core-client.workspace = true
 starbloom-core-server.workspace = true
 starbloom-derive.workspace = true
 starbloom-networking = { workspace = true, optional = true }
+starbloom-intro = { workspace = true, optional = true }
+starbloom-bootstrap.workspace = true
 egor.workspace = true                                             # Not optional due to math requirement
 bevy_ecs.workspace = true
 egor_glue = { workspace = true, optional = true }
@@ -96,7 +99,7 @@ naia-server = { workspace = true, optional = true }
 naia-shared = { workspace = true, optional = true }
 
 [features]
-intro = []
+intro = ["dep:starbloom-intro", "starbloom-bootstrap/intro"]
 debug_ui = []
 debug_logging = []
 env_logger = ["dep:env_logger"]
