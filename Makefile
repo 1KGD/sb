@@ -2,7 +2,7 @@ run:
 	cargo run --no-default-features --features dev,singleplayer,multiplayer,env_logger
 
 run-web:
-	trunk serve -c -a 0.0.0.0 --no-default-features --features web_build,dev,intro
+	trunk serve -c -a 0.0.0.0 --no-default-features --features web_build,dev
 
 run-server:
 	cargo run --no-default-features --features server_build,dev
