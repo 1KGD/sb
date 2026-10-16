@@ -16,6 +16,8 @@ const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
     &PlayerClientPlugin,
     #[cfg(feature = "multiplayer")]
     &starbloom_networking::ClientNetworkingPlugin,
+    #[cfg(feature = "intro")]
+    &starbloom_intro::IntroPlugin,
 ];
 
 #[cfg(feature = "server")]
