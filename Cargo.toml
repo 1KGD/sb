@@ -43,6 +43,7 @@ web-sys = { version = "0.3.106", features = [
     "Window",
     "Navigator",
     "Document",
+    "Element",
 ] }
 naia-server = { version = "0.25.0", features = ["transport_webrtc"] }
 naia-client = { version = "0.25.0", features = ["transport_webrtc"] }

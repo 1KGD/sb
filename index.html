@@ -15,7 +15,7 @@
     <script>
         let swRegistration = null;
 
-        if ("serviceWorker" in navigator) { 
+        if ("serviceWorker" in navigator) {
             navigator.serviceWorker
                 .register("./sw.js")
                 .then((reg) => {
@@ -63,6 +63,10 @@
 </head>
 
 <body>
+    <div id="panic-message-container" style="display: none;">
+        <pre id="panic-message" style="margin: auto; color: red; background: white; padding: 4%; border-radius: 20px;" />
+    </div>
+
     <div id="loading-panel">
         <pre id="loading-bytes"></pre>
         <progress id="loading-progress"></progress>
