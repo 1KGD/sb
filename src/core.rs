@@ -18,6 +18,7 @@ const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
     &starbloom_networking::ClientNetworkingPlugin,
     #[cfg(feature = "intro")]
     &starbloom_intro::IntroPlugin,
+    &starbloom_menus::MenusPlugin,
 ];
 
 #[cfg(feature = "server")]
