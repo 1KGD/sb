@@ -63,8 +63,11 @@
 </head>
 
 <body>
-    <div id="panic-message-container" style="display: none;">
-        <pre id="panic-message" style="margin: auto; color: red; background: white; padding: 4%; border-radius: 20px;" />
+    <!-- When has a massive z-index ever failed? -->
+    <div id="panic-message-container"
+        style="display: none; position: absolute; top: 0; left: 0; z-index: 10000000; width: 100vw; height: 100vh;">
+        <pre id="panic-message"
+            style="margin: auto; color: red; background: white; padding: 4%; border-radius: 20px; overflow: scroll; max-width: 80%; max-height: 80%;" />
     </div>
 
     <div id="loading-panel">
