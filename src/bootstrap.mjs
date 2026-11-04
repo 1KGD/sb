@@ -1,7 +1,6 @@
 export default function initializer() {
     new MutationObserver(() => {
         document.getElementById("panic-message-container").style.display = "flex";
-        console.log("foo");
     }).observe(document.getElementById("panic-message"), { characterData: false, childList: true, attributes: false });
     return {
         onProgress: ({ current, total }) => {
