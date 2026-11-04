@@ -112,7 +112,6 @@ fn update_local_player(
         }
 
         if input.action_held(Action::Up) {
-    panic!("Oops... Did I do that?");
             motion.y -= 1.;
         }
 

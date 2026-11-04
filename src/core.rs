@@ -51,7 +51,7 @@ pub fn main() {
                 .unwrap()
                 .document()
                 .unwrap()
-                .get_element_by_id(&"panic-message")
+                .get_element_by_id(&"panic-message-message")
                 .unwrap();
             element.set_inner_html(&info.to_string());
         }));
