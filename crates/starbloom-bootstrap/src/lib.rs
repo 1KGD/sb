@@ -12,7 +12,7 @@ impl Plugin<ClientPlugin> for BootstrapPlugin {
         schedule.add_systems(
             (load_assets, finish_bootstrap)
                 .chain()
-                .in_set(GameState::Bootstrap),
+                .in_set(ClientState::Bootstrap),
         );
     }
 }
@@ -44,11 +44,11 @@ pub fn load_assets(
     }
 }
 
-fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
+fn finish_bootstrap(mut state_manager: ResMut<ClientStateManager>) {
     state_manager.switch(if cfg!(feature = "intro") {
-        GameState::Intro
+        ClientState::Intro
     } else {
-        GameState::Mainloop
+        ClientState::Mainloop
     });
 }
 

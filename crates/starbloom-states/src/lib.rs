@@ -4,51 +4,52 @@ use starbloom_base::*;
 use starbloom_derive::*;
 
 #[derive(Resource, StateSetManager)]
-pub struct GameStateManager {
-    state: GameState,
+pub struct ClientStateManager {
+    state: ClientState,
 }
 
-impl GameStateManager {
+impl ClientStateManager {
     fn new() -> Self {
         Self {
-            state: GameState::Bootstrap,
+            state: ClientState::Bootstrap,
         }
     }
 }
 
 #[derive(SystemSet, Hash, Debug, PartialEq, Eq, Clone, Copy)]
-pub enum GameState {
+pub enum ClientState {
     Bootstrap,
     Intro,
+    MainMenu,
     Mainloop,
 }
 
-pub struct FrameStepPlugin;
+pub struct ClientStepPlugin;
 
-impl Plugin<ClientPlugin> for FrameStepPlugin {
+impl Plugin<ClientPlugin> for ClientStepPlugin {
     fn create(&self, _world: &mut World, schedule: &mut Schedule) {
         schedule.configure_sets(
             (
-                FrameStep::Prepare,
-                FrameStep::UpdatePlayer,
-                FrameStep::SyncMultiplayer,
-                (FrameStep::UpdateMap, FrameStep::UpdateEntities),
+                ClientStep::Prepare,
+                ClientStep::UpdatePlayer,
+                ClientStep::SyncMultiplayer,
+                (ClientStep::UpdateMap, ClientStep::UpdateEntities),
                 (
-                    FrameStep::RenderMap,
-                    FrameStep::RenderEntities,
-                    FrameStep::RenderUI,
+                    ClientStep::RenderMap,
+                    ClientStep::RenderEntities,
+                    ClientStep::RenderUI,
                 )
                     .chain(),
-                FrameStep::Cleanup,
+                ClientStep::Cleanup,
             )
                 .chain()
-                .in_set(GameState::Mainloop),
+                .in_set(ClientState::Mainloop),
         );
     }
 }
 
 #[derive(SystemSet, Hash, Debug, PartialEq, Eq, Clone, Copy)]
-pub enum FrameStep {
+pub enum ClientStep {
     Prepare,
 
     SyncMultiplayer, // Does nothing yet
@@ -65,26 +66,24 @@ pub enum FrameStep {
     Cleanup,
 }
 
-pub struct GameStatePlugin;
+pub struct ClientStatePlugin;
 
-impl Plugin<ClientPlugin> for GameStatePlugin {
+impl Plugin<ClientPlugin> for ClientStatePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
-        let manager: GameStateManager = GameStateManager::new();
-        manager.configure(schedule, GameState::Bootstrap);
-        schedule.configure_sets(
-            GameState::Intro.run_if(|state_manager: Res<GameStateManager>| {
-                state_manager.state == GameState::Intro
-            }),
-        );
-        schedule.configure_sets(GameState::Mainloop.run_if(
-            |state_manager: Res<GameStateManager>| state_manager.state == GameState::Mainloop,
+        let manager: ClientStateManager = ClientStateManager::new();
+        manager.configure(schedule, ClientState::Bootstrap);
+        schedule.configure_sets(ClientState::Intro.run_if(
+            |state_manager: Res<ClientStateManager>| state_manager.state == ClientState::Intro,
+        ));
+        schedule.configure_sets(ClientState::Mainloop.run_if(
+            |state_manager: Res<ClientStateManager>| state_manager.state == ClientState::Mainloop,
         ));
         world.insert_resource(manager);
         schedule.add_systems(on_state_switch);
     }
 }
 
-fn on_state_switch(state_manager: Res<GameStateManager>) {
+fn on_state_switch(state_manager: Res<ClientStateManager>) {
     if state_manager.is_changed() {
         info!(
             "Switched game state to {:#?} within this frame",

@@ -38,11 +38,11 @@ struct PlayerTexture;
 impl Plugin<ClientPlugin> for PlayerClientPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
-        schedule.add_systems(update_local_player.in_set(FrameStep::UpdatePlayer));
+        schedule.add_systems(update_local_player.in_set(ClientStep::UpdatePlayer));
         schedule.add_systems(
             (render_players, render_player_names)
                 .chain()
-                .in_set(FrameStep::RenderEntities),
+                .in_set(ClientStep::RenderEntities),
         );
     }
 }

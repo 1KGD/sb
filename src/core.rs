@@ -8,9 +8,9 @@ const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[];
 
 #[cfg(feature = "client")]
 const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
-    &GameStatePlugin,
+    &ClientStatePlugin,
     &BootstrapPlugin,
-    &FrameStepPlugin,
+    &ClientStepPlugin,
     &CameraPlugin,
     &InputPlugin,
     &PlayerClientPlugin,
