@@ -55,10 +55,6 @@ pub enum ClientStep {
 
     SyncMultiplayer, // Does nothing yet
 
-    UpdatePlayer,
-    UpdateMap,
-    UpdateEntities,
-
     RenderMap,
     RenderEntities,
     //Add a RenderPost for post-processing effects (e.g. lighting) when I add them
@@ -87,7 +83,7 @@ impl Plugin<ClientPlugin> for ClientStatePlugin {
 fn on_state_switch(state_manager: Res<ClientStateManager>) {
     if state_manager.is_changed() {
         info!(
-            "Switched client state to {:#?} within this frame",
+            "Switched CLIENT state to {:#?} within this frame",
             state_manager.state
         );
     }
