@@ -9,6 +9,11 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    allow:
-      - dependency-name: "*"
-        dependency-type: "all"
+    groups:
+      major:
+        update-types:
+          - "major"
+      minor:
+        update-types:
+          - "minor"
+          - "patch"
