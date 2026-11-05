@@ -10,7 +10,7 @@ impl Plugin<SharedPlugin> for DefaultTilePlugin {
         schedule.add_systems(
             insert_tile_textures_into_regestry
                 .after(load_assets)
-                .in_set(GameState::Bootstrap),
+                .in_set(ClientState::Bootstrap),
         );
         regester_grass(world);
     }

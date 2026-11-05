@@ -8,9 +8,9 @@ const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[];
 
 #[cfg(feature = "client")]
 const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
-    &GameStatePlugin,
+    &ClientStatePlugin,
     &BootstrapPlugin,
-    &FrameStepPlugin,
+    &ClientStepPlugin,
     &CameraPlugin,
     &InputPlugin,
     &PlayerClientPlugin,
@@ -18,6 +18,7 @@ const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
     &starbloom_networking::ClientNetworkingPlugin,
     #[cfg(feature = "intro")]
     &starbloom_intro::IntroPlugin,
+    &starbloom_menus::MenusPlugin,
 ];
 
 #[cfg(feature = "server")]
@@ -33,6 +34,8 @@ pub fn main() {
 
     #[cfg(feature = "web")]
     {
+        use std::panic;
+
         wasm_logger::init(
             wasm_logger::Config::new(if cfg!(feature = "debug_logging") {
                 Level::Debug
@@ -41,7 +44,17 @@ pub fn main() {
             })
             .module_prefix("starbloom"),
         );
-        console_error_panic_hook::set_once();
+        panic::set_hook(Box::new(|info: &panic::PanicHookInfo| {
+            console_error_panic_hook::hook(&info);
+            // A totally sane number of unwrap calls
+            let element = web_sys::window()
+                .unwrap()
+                .document()
+                .unwrap()
+                .get_element_by_id(&"panic-message-message")
+                .unwrap();
+            element.set_inner_html(&info.to_string());
+        }));
     }
 
     #[cfg(feature = "env_logger")]

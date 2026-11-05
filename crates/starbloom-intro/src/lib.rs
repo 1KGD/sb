@@ -20,7 +20,7 @@ impl Plugin<ClientPlugin> for IntroPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         let manager: IntroStateManager = IntroStateManager::new();
         schedule.configure_sets(
-            (IntroState::Rust, IntroState::Title, IntroState::Finish).in_set(GameState::Intro),
+            (IntroState::Rust, IntroState::Title, IntroState::Finish).in_set(ClientState::Intro),
         );
         manager
             .configure(schedule, IntroState::Rust)
@@ -62,6 +62,6 @@ enum IntroState {
 }
 
 #[sided(Client)]
-fn catch_finish(mut game_manager: ResMut<GameStateManager>) {
-    game_manager.switch(GameState::Mainloop);
+fn catch_finish(mut game_manager: ResMut<ClientStateManager>) {
+    game_manager.switch(ClientState::Mainloop);
 }

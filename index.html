@@ -15,7 +15,7 @@
     <script>
         let swRegistration = null;
 
-        if ("serviceWorker" in navigator) { 
+        if ("serviceWorker" in navigator) {
             navigator.serviceWorker
                 .register("./sw.js")
                 .then((reg) => {
@@ -52,6 +52,35 @@
             color: white;
         }
 
+        #panic-message-container {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* When has a massive z-index ever failed? */
+            z-index: 10000000;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #panic-message {
+            margin: auto;
+            
+            /* From https://css.glass */
+            background: rgba(255, 0, 0, 0.16);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12.3px);
+            -webkit-backdrop-filter: blur(12.3px);
+            border: 1px solid rgba(255, 0, 0, 0.43);
+            
+            padding: 4%;
+            overflow: scroll;
+            max-width: 80%;
+            max-height: 80%;
+            color: white;
+        }
+
         progress[value] {
             background-color: green;
         }
@@ -63,6 +92,13 @@
 </head>
 
 <body>
+    <div id="panic-message-container">
+        <div id="panic-message">
+            <h1>ERROR</h1>
+            <pre id="panic-message-message" style="color: red;"></pre>
+        </div>
+    </div>
+
     <div id="loading-panel">
         <pre id="loading-bytes"></pre>
         <progress id="loading-progress"></progress>

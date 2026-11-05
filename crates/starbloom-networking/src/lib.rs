@@ -23,21 +23,21 @@ impl Plugin<ClientPlugin> for ClientNetworkingPlugin {
 
 #[sided(Client)]
 pub struct ClientNetworkingManager {
-    client: Client<Entity>,
+    _client: Client<Entity>,
 }
 
 #[sided(Client)]
 impl ClientNetworkingManager {
     pub fn new() -> Self {
-        let mut client: Client<Entity> = Client::<Entity>::new(ClientConfig::default(), protocol());
+        let mut _client: Client<Entity> = Client::<Entity>::new(ClientConfig::default(), protocol());
         let socket = naia_client::transport::webrtc::Socket::new(
             "http://127.0.0.1:14191",
-            client.socket_config(),
+            _client.socket_config(),
         );
 
-        client.connect(socket);
+        _client.connect(socket);
 
-        Self { client }
+        Self { _client }
     }
 }
 

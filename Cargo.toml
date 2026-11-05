@@ -5,7 +5,7 @@ license = "MIT"
 edition = "2024"
 
 [workspace.dependencies]
-bevy_ecs = { version = "0.20", default-features = false, features = [
+bevy_ecs = { version = "0.20.1", default-features = false, features = [
     "debug",
     "std",
 ] }
@@ -31,6 +31,7 @@ starbloom-core-server = { version = "^0", path = "./crates/starbloom-core-server
 # Level 1
 starbloom-networking = { version = "^0", path = "./crates/starbloom-networking" }
 starbloom-intro = { version = "^0", path = "./crates/starbloom-intro" }
+starbloom-menus = { version = "^0", path = "./crates/starbloom-menus" }
 
 rand = { version = "0.10.3", default-features = false, features = [
     "std",
@@ -42,6 +43,7 @@ web-sys = { version = "0.3.106", features = [
     "Window",
     "Navigator",
     "Document",
+    "Element",
 ] }
 naia-server = { version = "0.25.0", features = ["transport_webrtc"] }
 naia-client = { version = "0.25.0", features = ["transport_webrtc"] }
@@ -65,6 +67,7 @@ members = [
     "crates/starbloom-core-client",
     "crates/starbloom-core-server",
     "crates/starbloom-networking",
+    "crates/starbloom-menus",
 ]
 
 [package]
@@ -85,6 +88,7 @@ starbloom-derive.workspace = true
 starbloom-networking = { workspace = true, optional = true }
 starbloom-intro = { workspace = true, optional = true }
 starbloom-bootstrap.workspace = true
+starbloom-menus.workspace = true
 egor.workspace = true                                             # Not optional due to math requirement
 bevy_ecs.workspace = true
 egor_glue = { workspace = true, optional = true }
