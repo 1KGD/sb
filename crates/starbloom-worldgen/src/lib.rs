@@ -1,6 +1,6 @@
 use noise::Simplex;
 
-use starbloom_base::prelude::*;
+use starbloom_core_shared::prelude::*;
 use starbloom_map::*;
 
 mod biome;
@@ -9,7 +9,7 @@ use crate::biome::*;
 
 pub struct WorldgenPlugin;
 
-impl Plugin for WorldgenPlugin {
+impl Plugin<ServerPlugin> for WorldgenPlugin {
     fn create(&self, world: &mut World, _schedule: &mut Schedule) {
         world.insert_resource(WorldgenProvider::new(0));
     }

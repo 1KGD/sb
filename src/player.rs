@@ -1,14 +1,15 @@
-use starbloom_base::prelude::*;
-use starbloom_bootstrap::*;
-use starbloom_camera::*;
-use starbloom_input::prelude::*;
-use starbloom_states::*;
+use naia_shared::Replicate;
+#[sided(Client)]
+use starbloom_core_client::prelude::*;
+use starbloom_core_shared::prelude::*;
 
+#[sided(Client)]
 const PLAYER_SPEED: f32 = 200.;
 
+#[sided(Client)]
 const PLAYER_NAME_FNT_SIZE: f32 = 16.;
 
-#[derive(Component, Default)]
+#[derive(Component, Default, Replicate)]
 #[require(Position)]
 pub struct Player;
 
@@ -16,70 +17,87 @@ pub struct Player;
 #[require(Player)]
 pub struct LocalPlayer;
 
+#[sided(Client)]
 #[derive(Component, Default)]
 #[require(Player)]
 pub struct RemotePlayer {
     pub name: String,
 }
 
-pub struct PlayerPlugin;
+#[sided(Client)]
+pub struct PlayerClientPlugin;
 
+#[sided(Server)]
+pub struct PlayerServerPlugin;
+
+#[sided(Client)]
 #[derive(Component, Debug, Clone, Copy)]
 struct PlayerTexture;
 
-impl Plugin for PlayerPlugin {
+#[sided(Client)]
+impl Plugin<ClientPlugin> for PlayerClientPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
-        schedule.add_systems(update_local_player.in_set(FrameStep::UpdatePlayer));
+        schedule.add_systems(update_local_player.in_set(ClientStep::ProcessInput));
         schedule.add_systems(
             (render_players, render_player_names)
                 .chain()
-                .in_set(FrameStep::RenderEntities),
+                .in_set(ClientStep::RenderEntities),
         );
+    }
+}
+
+#[sided(Server)]
+impl Plugin<ServerPlugin> for PlayerServerPlugin {
+    fn create(&self, world: &mut World, _schedule: &mut Schedule) {
         world.spawn(LocalPlayer::default());
     }
 }
+
+#[sided(Client)]
 fn render_players(
     query: Query<&Position, With<Player>>,
     asset: Single<&TextureAsset, With<PlayerTexture>>,
     main_camera: Res<MainCamera>,
     mut renderer: NonSendMut<Renderer>,
 ) {
-    let texture_id: usize = asset.into_inner().id;
-    if let Some(ctx) = renderer.ctx() {
-        for pos in query {
-            ctx.gfx
-                .rect()
-                .texture(texture_id)
-                .anchor(Anchor::Center)
-                .size(Vec2::splat(16.))
-                .at(main_camera.cam.world_to_screen(**pos));
-        }
+    for pos in query {
+        renderer
+            .gfx
+            .rect()
+            .texture(***asset)
+            .anchor(Anchor::Center)
+            .size(Vec2::splat(16.))
+            .at(main_camera.cam.world_to_screen(**pos));
     }
 }
 
+#[sided(Client)]
 fn render_player_names(
     query: Query<(&Position, &RemotePlayer), With<Player>>,
     main_camera: Res<MainCamera>,
     mut renderer: NonSendMut<Renderer>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        for (pos, remote) in query {
-            let rect: Rect = Rect::new(
-                main_camera.cam.world_to_screen(**pos)
-                    - vec2(ctx.gfx.screen_size().x / 2., ctx.gfx.screen_size().y)
-                    - vec2(0., 10.),
-                ctx.gfx.screen_size(),
-            );
-            ctx.gfx
-                .text(&remote.name)
-                .in_rect(rect, Align::BottomCenter)
-                .font("Pixelify Sans".to_owned())
-                .size(PLAYER_NAME_FNT_SIZE);
-        }
+    for (pos, remote) in query {
+        let rect: Rect = Rect::new(
+            main_camera.cam.world_to_screen(**pos)
+                - vec2(
+                    renderer.gfx.screen_size().x / 2.,
+                    renderer.gfx.screen_size().y,
+                )
+                - vec2(0., 10.),
+            renderer.gfx.screen_size(),
+        );
+        renderer
+            .gfx
+            .text(&remote.name)
+            .in_rect(rect, Align::BottomCenter)
+            .font("Pixelify Sans".to_owned())
+            .size(PLAYER_NAME_FNT_SIZE);
     }
 }
 
+#[sided(Client)]
 fn update_local_player(
     mut query: Query<&mut Position, With<LocalPlayer>>,
     mut main_camera: ResMut<MainCamera>,

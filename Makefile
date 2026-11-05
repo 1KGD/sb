@@ -1,8 +1,11 @@
 run:
-	cargo run --features desktop_build,dev
+	cargo run --no-default-features --features dev,singleplayer,multiplayer,remote_host,env_logger
 
 run-web:
-	trunk serve -c -a 0.0.0.0 --features web,dev
+	trunk serve -c -a 0.0.0.0 --no-default-features --features web,singleplayer,multiplayer,dev
+
+run-server:
+	cargo run --no-default-features --features server_build,dev
 
 fmt:
 	cargo fmt --all
@@ -14,7 +17,7 @@ build:
 	cargo build --release
 
 build-web:
-	trunk build --features web_build
+	trunk build --features --no-default-features --features web_build
 
 install:
 	cargo install --path .

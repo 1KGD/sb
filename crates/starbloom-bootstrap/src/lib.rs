@@ -1,15 +1,18 @@
-use starbloom_base::prelude::*;
+use bevy_ecs::prelude::*;
+use log::*;
+use starbloom_base::*;
+use starbloom_renderer::*;
 use starbloom_states::*;
 
 pub struct BootstrapPlugin;
 
-impl Plugin for BootstrapPlugin {
+impl Plugin<ClientPlugin> for BootstrapPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         world.insert_resource(BootstrapMananger::new());
         schedule.add_systems(
             (load_assets, finish_bootstrap)
                 .chain()
-                .in_set(GameState::Bootstrap),
+                .in_set(ClientState::Bootstrap),
         );
     }
 }
@@ -21,33 +24,31 @@ pub fn load_assets(
     mut renderer: NonSendMut<Renderer>,
 ) {
     if manager.phase == BootstrapPhase::Assets {
-        if let Some(ctx) = renderer.ctx() {
-            for (entity, asset) in &query {
-                match asset {
-                    AssetRequest::Texture(texture_data) => {
-                        let id: usize = ctx.gfx.load_texture(texture_data);
-                        debug!(
-                            "Loaded texture with entity id {} and texture id {}",
-                            entity, id
-                        );
-                        commands
-                            .entity(entity)
-                            .insert(TextureAsset { id })
-                            .remove::<AssetRequest>();
-                    }
+        for (entity, asset) in &query {
+            match asset {
+                AssetRequest::Texture(texture_data) => {
+                    let id: usize = renderer.gfx.load_texture(texture_data);
+                    debug!(
+                        "Loaded texture with entity id {} and texture id {}",
+                        entity, id
+                    );
+                    commands
+                        .entity(entity)
+                        .insert(TextureAsset { id })
+                        .remove::<AssetRequest>();
                 }
             }
-            debug!("Done loading assets");
-            manager.phase = BootstrapPhase::Handoff;
         }
+        debug!("Done loading assets");
+        manager.phase = BootstrapPhase::Handoff;
     }
 }
 
-fn finish_bootstrap(mut state_manager: ResMut<GameStateManager>) {
+fn finish_bootstrap(mut state_manager: ResMut<ClientStateManager>) {
     state_manager.switch(if cfg!(feature = "intro") {
-        GameState::Intro
+        ClientState::Intro
     } else {
-        GameState::Mainloop
+        ClientState::MainMenu
     });
 }
 
@@ -77,7 +78,15 @@ pub enum AssetRequest {
 
 #[derive(Component)]
 pub struct TextureAsset {
-    pub id: usize,
+    id: usize,
+}
+
+impl std::ops::Deref for TextureAsset {
+    type Target = usize;
+
+    fn deref(&self) -> &Self::Target {
+        &self.id
+    }
 }
 
 pub fn declare_texture_asset(

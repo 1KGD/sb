@@ -1,10 +1,13 @@
-use std::ops::{Deref, DerefMut};
+use std::{
+    fmt::Debug,
+    ops::{Deref, DerefMut},
+};
 
 use bevy_ecs::prelude::*;
 use const_format::concatcp;
 use egor::math::*;
 
-pub mod prelude;
+#[cfg(feature = "client")]
 mod render;
 
 #[cfg(feature = "web")]
@@ -28,7 +31,7 @@ pub const VERSION: &'static str = concatcp!(
     if cfg!(debug_assertions) { " DEV" } else { "" }
 );
 
-#[allow(unreachable_code)]
+#[allow(unreachable_code)] // The things we do for the sake of berevety...
 pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(|| {
     #[cfg(target_os = "android")]
     return true;
@@ -37,7 +40,20 @@ pub static IS_MOBILE: std::sync::LazyLock<bool> = std::sync::LazyLock::new(|| {
     false
 });
 
-pub trait Plugin {
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub struct ClientPlugin;
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub struct ServerPlugin;
+#[derive(Clone, Copy, PartialEq, Debug)]
+pub struct SharedPlugin;
+
+impl PluginScope for ClientPlugin {}
+impl PluginScope for ServerPlugin {}
+impl PluginScope for SharedPlugin {}
+
+pub trait PluginScope: Clone + Copy + PartialEq + Debug {}
+
+pub trait Plugin<S: PluginScope> {
     fn create(&self, world: &mut World, schedule: &mut Schedule);
 }
 
@@ -56,6 +72,12 @@ impl DerefMut for Position {
     #[inline]
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.0
+    }
+}
+
+impl Debug for Position {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        self.0.fmt(f)
     }
 }
 

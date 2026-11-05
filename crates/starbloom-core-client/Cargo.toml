@@ -1,0 +1,21 @@
+[package]
+name = "starbloom-core-client"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+
+[dependencies]
+egor.workspace = true
+starbloom-renderer = { workspace = true, optional = true }
+starbloom-camera = { workspace = true, optional = true }
+starbloom-bootstrap = { workspace = true, optional = true }
+starbloom-input = { workspace = true, optional = true }
+
+[features]
+enabled = [
+    "starbloom-renderer",
+    "starbloom-camera",
+    "starbloom-bootstrap",
+    "starbloom-input",
+]

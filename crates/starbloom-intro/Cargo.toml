@@ -6,9 +6,7 @@ version.workspace = true
 edition.workspace = true
 
 [dependencies]
-starbloom-base.workspace = true
-starbloom-derive.workspace = true
-starbloom-states.workspace = true
-starbloom-bootstrap.workspace = true
+starbloom-core-shared.workspace = true
+starbloom-core-client.workspace = true
 bevy_ecs.workspace = true
 rand.workspace = true

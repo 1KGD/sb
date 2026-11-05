@@ -9,6 +9,8 @@ description = "A sub package for starbloom"
 [dependencies]
 starbloom-base.workspace = true
 starbloom-states.workspace = true
+starbloom-renderer.workspace = true
+log.workspace = true
 bevy_ecs.workspace = true
 
 [features]

@@ -1,14 +1,20 @@
+#[sided(Client)]
 use core::f32;
+#[sided(Client)]
 use rand::prelude::*;
+#[sided(Client)]
 use std::ops::{Deref, DerefMut};
 
 use crate::*;
 
+#[sided(Client)]
 const SEQUENCE_TIME: f32 = 15.;
 
+#[sided(Client)]
 pub(crate) struct TitleSequencePlugin;
 
-impl Plugin for TitleSequencePlugin {
+#[sided(Client)]
+impl Plugin<ClientPlugin> for TitleSequencePlugin {
     fn create(&self, _world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(
             (
@@ -21,6 +27,7 @@ impl Plugin for TitleSequencePlugin {
     }
 }
 
+#[sided(Client)]
 #[derive(Component)]
 #[require(Position)]
 struct Starfall {
@@ -28,14 +35,17 @@ struct Starfall {
     speed: f32,
 }
 
+#[sided(Client)]
 struct LocalRng(StdRng);
 
+#[sided(Client)]
 impl Default for LocalRng {
     fn default() -> Self {
         Self(StdRng::seed_from_u64(0))
     }
 }
 
+#[sided(Client)]
 impl Deref for LocalRng {
     type Target = StdRng;
 
@@ -44,38 +54,40 @@ impl Deref for LocalRng {
     }
 }
 
+#[sided(Client)]
 impl DerefMut for LocalRng {
     fn deref_mut(&mut self) -> &mut Self::Target {
         &mut self.0
     }
 }
 
+#[sided(Client)]
 fn render_title(
     mut renderer: NonSendMut<Renderer>,
     frame_data: Res<FrameData>,
     mut manager: ResMut<IntroStateManager>,
     mut age: Local<f32>,
 ) {
-    if let Some(ctx) = renderer.ctx() {
-        let screen_rect: Rect = Rect::new(Vec2::ZERO, ctx.gfx.screen_size());
-        ctx.gfx
-            .text("STARBLOOM")
-            .font("Pixelify Sans".to_owned())
-            .color(Color::new([
-                1.,
-                1.,
-                1.,
-                1. - (*age * f32::consts::PI).cos().powi(2),
-            ]))
-            .in_rect(screen_rect, Align::MiddleCenter);
-        *age += frame_data.delta / SEQUENCE_TIME;
+    let screen_rect: Rect = Rect::new(Vec2::ZERO, renderer.gfx.screen_size());
+    renderer
+        .gfx
+        .text("STARBLOOM")
+        .font("Pixelify Sans".to_owned())
+        .color(Color::new([
+            1.,
+            1.,
+            1.,
+            1. - (*age * f32::consts::PI).cos().powi(2),
+        ]))
+        .in_rect(screen_rect, Align::MiddleCenter);
+    *age += frame_data.delta / SEQUENCE_TIME;
 
-        if *age > 1. {
-            manager.switch(IntroState::Finish);
-        }
+    if *age > 1. {
+        manager.switch(IntroState::Finish);
     }
 }
 
+#[sided(Client)]
 fn spawn_starfall(
     mut commands: Commands,
     mut timer: Local<f32>,
@@ -97,17 +109,18 @@ fn spawn_starfall(
     *timer += frame_data.delta;
 }
 
+#[sided(Client)]
 fn render_starfall(query: Query<(&Position, &Starfall)>, mut renderer: NonSendMut<Renderer>) {
-    if let Some(ctx) = renderer.ctx() {
-        for (pos, starfall) in query {
-            ctx.gfx
-                .polyline()
-                .points(&[**pos, **pos - vec2(-1., 1.) * starfall.length])
-                .color(Color::WHITE);
-        }
+    for (pos, starfall) in query {
+        renderer
+            .gfx
+            .polyline()
+            .points(&[**pos, **pos - vec2(-1., 1.) * starfall.length])
+            .color(Color::WHITE);
     }
 }
 
+#[sided(Client)]
 fn update_starfall(
     mut commands: Commands,
     query: Query<(Entity, &mut Position, &Starfall)>,

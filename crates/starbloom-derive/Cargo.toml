@@ -12,3 +12,8 @@ syn = { version = "3.0.6", features = ["full", "parsing"] }
 
 [lib]
 proc-macro = true
+
+[features]
+multiplayer = []
+client = ["multiplayer"]
+server = ["multiplayer"]

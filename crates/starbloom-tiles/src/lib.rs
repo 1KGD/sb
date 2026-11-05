@@ -1,5 +1,8 @@
-use starbloom_base::prelude::*;
-use starbloom_bootstrap::*;
+#[sided(Client)]
+use starbloom_core_client::prelude::*;
+use starbloom_core_shared::prelude::*;
+
+#[sided(Client)]
 
 pub const TILE_SIZE: f32 = 16.;
 
@@ -18,6 +21,7 @@ pub struct Tile {
 #[derive(Component, Debug, Clone, Copy)]
 pub struct TileComponent;
 
+#[sided(Client)]
 impl Tile {
     pub fn declare<T: Component + std::fmt::Debug + Copy>(
         world: &mut World,
