@@ -93,10 +93,6 @@ jobs:
             filestub: macos
             butler-tag: mac
             filesuffix:
-          - os: windows-latest
-            filestub: windows
-            butler-tag: win
-            filesuffix: ".exe"
     permissions:
       contents: write
     env:
