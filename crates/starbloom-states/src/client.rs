@@ -32,9 +32,7 @@ impl Plugin<ClientPlugin> for ClientStepPlugin {
         schedule.configure_sets(
             (
                 ClientStep::Prepare,
-                ClientStep::UpdatePlayer,
                 ClientStep::SyncMultiplayer,
-                (ClientStep::UpdateMap, ClientStep::UpdateEntities),
                 (
                     ClientStep::RenderMap,
                     ClientStep::RenderEntities,
@@ -53,7 +51,9 @@ impl Plugin<ClientPlugin> for ClientStepPlugin {
 pub enum ClientStep {
     Prepare,
 
-    SyncMultiplayer, // Does nothing yet
+    ProcessInput,
+    SyncMultiplayer,
+    UpdateMap,
 
     RenderMap,
     RenderEntities,
@@ -69,12 +69,9 @@ impl Plugin<ClientPlugin> for ClientStatePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         let manager: ClientStateManager = ClientStateManager::new();
         manager.configure(schedule, ClientState::Bootstrap);
-        schedule.configure_sets(ClientState::Intro.run_if(
-            |state_manager: Res<ClientStateManager>| state_manager.state == ClientState::Intro,
-        ));
-        schedule.configure_sets(ClientState::Mainloop.run_if(
-            |state_manager: Res<ClientStateManager>| state_manager.state == ClientState::Mainloop,
-        ));
+        manager.configure(schedule, ClientState::Intro);
+        manager.configure(schedule, ClientState::MainMenu);
+        manager.configure(schedule, ClientState::Mainloop);
         world.insert_resource(manager);
         schedule.add_systems(on_state_switch);
     }

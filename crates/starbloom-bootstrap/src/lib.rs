@@ -48,7 +48,7 @@ fn finish_bootstrap(mut state_manager: ResMut<ClientStateManager>) {
     state_manager.switch(if cfg!(feature = "intro") {
         ClientState::Intro
     } else {
-        ClientState::Mainloop
+        ClientState::MainMenu
     });
 }
 
