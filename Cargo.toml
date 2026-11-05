@@ -37,7 +37,7 @@ rand = { version = "0.10.3", default-features = false, features = [
     "std",
     "std_rng",
 ] }
-log = "0.4.31"
+log = "0.3.31"
 egor_glue = "0.10.0"
 web-sys = { version = "0.3.106", features = [
     "Window",
