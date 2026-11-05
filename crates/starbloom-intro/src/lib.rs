@@ -63,5 +63,5 @@ enum IntroState {
 
 #[sided(Client)]
 fn catch_finish(mut game_manager: ResMut<ClientStateManager>) {
-    game_manager.switch(ClientState::Mainloop);
+    game_manager.switch(ClientState::MainMenu);
 }
