@@ -9,4 +9,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    version-update: semver-patch
+    allow:
+      dependency-name: *
+      dependency-type: all
