@@ -63,7 +63,6 @@ fn render_players(
 ) {
     for pos in query {
         renderer
-            .gfx
             .rect()
             .texture(***asset)
             .anchor(Anchor::Center)
@@ -81,15 +80,11 @@ fn render_player_names(
     for (pos, remote) in query {
         let rect: Rect = Rect::new(
             main_camera.cam.world_to_screen(**pos)
-                - vec2(
-                    renderer.gfx.screen_size().x / 2.,
-                    renderer.gfx.screen_size().y,
-                )
+                - vec2(renderer.screen_size().x / 2., renderer.screen_size().y)
                 - vec2(0., 10.),
-            renderer.gfx.screen_size(),
+            renderer.screen_size(),
         );
         renderer
-            .gfx
             .text(&remote.name)
             .in_rect(rect, Align::BottomCenter)
             .font("Pixelify Sans".to_owned())

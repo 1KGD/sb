@@ -1,6 +1,22 @@
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
+fn compute_offscreen_texture_scale(screen_size: Vec2) -> (Vec2, Vec2) {
+    let dim: Vec2 =
+        if screen_size.x * MIN_DIMENSION.y as f32 <= screen_size.y * MIN_DIMENSION.x as f32 {
+            vec2(
+                screen_size.x,
+                MIN_DIMENSION.y as f32 * screen_size.x / MIN_DIMENSION.x as f32,
+            )
+        } else {
+            vec2(
+                MIN_DIMENSION.x as f32 * screen_size.y / MIN_DIMENSION.y as f32,
+                screen_size.y,
+            )
+        };
+    return (dim, (screen_size - dim) / 2.);
+}
+
 pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
     let title: String = format!("STARBOOM v{}{}", VERSION, if modded { "*" } else { "" });
 
@@ -12,6 +28,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
         .set_title(&title);
 
     debug!("IS_MOBILE = {}", *IS_MOBILE);
+    world.insert_non_send(Egui::new());
     world.insert_non_send(Renderer::new());
 
     let mut fonts: egui::FontDefinitions = egui::FontDefinitions::default();
@@ -28,20 +45,23 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
     );
     fonts.families.append(&mut newfam);
 
+    let mut offscreen: Option<OffscreenTarget> = None;
+
     App::new()
-        .window_size(256, 256)
-        .resizable(false)
         .title(&title)
         .run(move |ctx: &mut FrameContext<'_>| {
             if ctx.timer.frame == 0 {
+                offscreen = Some(
+                    ctx.gfx
+                        .create_offscreen(MIN_DIMENSION.x as u32, MIN_DIMENSION.y as u32),
+                );
+
                 ctx.gfx.load_font(include_bytes!("../assets/fonts/PS.ttf"));
 
                 ctx.egui_ctx.set_fonts(fonts.clone());
-                ctx.egui_ctx.set_pixels_per_point(0.75);
             } else if ctx.timer.frame == 1 {
                 ctx.egui_ctx.tessellation_options_mut(
                     |options: &mut egui::epaint::TessellationOptions| {
-                        options.feathering = false;
                         options.round_line_segments_to_pixels = true;
                         options.round_rects_to_pixels = true;
                         options.round_text_to_pixels = true;
@@ -51,15 +71,15 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                     style.text_styles = [
                         (
                             egui::TextStyle::Heading,
-                            egui::FontId::new(16., egui::FontFamily::Name("Pixelify Sans".into())),
+                            egui::FontId::new(32., egui::FontFamily::Name("Pixelify Sans".into())),
                         ),
                         (
                             egui::TextStyle::Body,
-                            egui::FontId::new(16., egui::FontFamily::Name("Pixelify Sans".into())),
+                            egui::FontId::new(24., egui::FontFamily::Name("Pixelify Sans".into())),
                         ),
                         (
                             egui::TextStyle::Button,
-                            egui::FontId::new(16., egui::FontFamily::Name("Pixelify Sans".into())),
+                            egui::FontId::new(24., egui::FontFamily::Name("Pixelify Sans".into())),
                         ),
                     ]
                     .into();
@@ -73,22 +93,37 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                     style.interaction.selectable_labels = false;
                     style.visuals.window_highlight_topmost = false;
                     style.visuals.window_stroke.color = egui::Color32::BLACK;
-                    style.visuals.window_stroke.width = 0.1;
+                    style.visuals.window_stroke.width = 1.;
 
                     style.spacing.scroll.floating = false;
                 });
             }
 
             world.insert_resource(FrameData::from(&*ctx));
-            world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
-                (&raw mut *ctx) as *mut FrameContext<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
 
-            world
-                .get_resource_mut::<InputCtx>()
-                .unwrap()
-                .update(ctx.input);
+            world.get_non_send_mut::<Egui>().unwrap().0 =
+                (&raw const *ctx.egui_ctx) as *mut egui::Context;
 
-            schedule.run(&mut world);
+            ctx.gfx
+                .render_offscreen(offscreen.as_mut().unwrap(), |gfx| {
+                    gfx.clear(Color::BLUE);
+                    world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
+                        (&raw mut *gfx) as *mut Graphics<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
+
+                    world
+                        .get_resource_mut::<InputCtx>()
+                        .unwrap()
+                        .update(ctx.input);
+
+                    schedule.run(&mut world);
+
+                    world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut();
+                    // Look, I'm being safe, OK?
+                });
+            world.get_non_send_mut::<Egui>().unwrap().0 = std::ptr::null_mut();
+
+            let offscreen_texture: usize =
+                ctx.gfx.offscreen_as_texture(offscreen.as_mut().unwrap());
 
             #[cfg(feature = "debug_ui")]
             egui::Window::new("Debug").show(ctx.egui_ctx, |ui: &mut egui::Ui| {
@@ -99,7 +134,8 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                     ctx.timer.frame
                 ));
             });
-
-            world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut(); // Look, I'm being safe, OK?
+            ctx.gfx.clear(Color::BLACK);
+            let (dim, pos) = compute_offscreen_texture_scale(ctx.gfx.screen_size());
+            ctx.gfx.rect().texture(offscreen_texture).size(dim).at(pos);
         });
 }

@@ -68,9 +68,8 @@ fn render_title(
     mut manager: ResMut<IntroStateManager>,
     mut age: Local<f32>,
 ) {
-    let screen_rect: Rect = Rect::new(Vec2::ZERO, renderer.gfx.screen_size());
+    let screen_rect: Rect = Rect::new(Vec2::ZERO, renderer.screen_size());
     renderer
-        .gfx
         .text("STARBLOOM")
         .font("Pixelify Sans".to_owned())
         .color(Color::new([
@@ -113,7 +112,6 @@ fn spawn_starfall(
 fn render_starfall(query: Query<(&Position, &Starfall)>, mut renderer: NonSendMut<Renderer>) {
     for (pos, starfall) in query {
         renderer
-            .gfx
             .polyline()
             .points(&[**pos, **pos - vec2(-1., 1.) * starfall.length])
             .color(Color::WHITE);
