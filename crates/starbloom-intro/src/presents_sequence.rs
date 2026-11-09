@@ -34,7 +34,6 @@ fn all_the_text_stuff_in_one_system(
         .map(|t: &[char]| t.iter().collect::<String>())
     {
         renderer
-            .gfx
             .text(&text)
             .color(Color::GREEN)
             .size(3.)
@@ -42,7 +41,6 @@ fn all_the_text_stuff_in_one_system(
 
         if *progress > 0.3 {
             renderer
-                .gfx
                 .text("John Schiefelbein")
                 .color(Color::WHITE)
                 .font("Pixelify Sans".to_owned())
@@ -57,7 +55,6 @@ fn all_the_text_stuff_in_one_system(
 
         if *progress > 0.6 {
             renderer
-                .gfx
                 .text("Presents")
                 .color(Color::WHITE)
                 .font("Pixelify Sans".to_owned())

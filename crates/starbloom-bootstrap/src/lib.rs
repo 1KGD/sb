@@ -27,7 +27,7 @@ pub fn load_assets(
         for (entity, asset) in &query {
             match asset {
                 AssetRequest::Texture(texture_data) => {
-                    let id: usize = renderer.gfx.load_texture(texture_data);
+                    let id: usize = renderer.load_texture(texture_data);
                     debug!(
                         "Loaded texture with entity id {} and texture id {}",
                         entity, id

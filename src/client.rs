@@ -29,8 +29,6 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
     fonts.families.append(&mut newfam);
 
     App::new()
-        .window_size(256, 256)
-        .resizable(false)
         .title(&title)
         .run(move |ctx: &mut FrameContext<'_>| {
             if ctx.timer.frame == 0 {
@@ -79,27 +77,37 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                 });
             }
 
+            let mut screen: OffscreenTarget = ctx
+                .gfx
+                .create_offscreen(MIN_DIMENSION.x as u32, MIN_DIMENSION.y as u32);
+
             world.insert_resource(FrameData::from(&*ctx));
-            world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
-                (&raw mut *ctx) as *mut FrameContext<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
 
-            world
-                .get_resource_mut::<InputCtx>()
-                .unwrap()
-                .update(ctx.input);
+            ctx.gfx.render_offscreen(&mut screen, |gfx| {
+                world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
+                    (&raw mut *gfx) as *mut Graphics<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
 
-            schedule.run(&mut world);
+                world
+                    .get_resource_mut::<InputCtx>()
+                    .unwrap()
+                    .update(ctx.input);
 
-            #[cfg(feature = "debug_ui")]
-            egui::Window::new("Debug").show(ctx.egui_ctx, |ui: &mut egui::Ui| {
-                ui.label(format!(
-                    "FPS: {}\nDELTA: {}\nFRAME: {}",
-                    ctx.timer.fps,
-                    (ctx.timer.delta * 1000.).round() / 1000.,
-                    ctx.timer.frame
-                ));
+                schedule.run(&mut world);
+
+                #[cfg(feature = "debug_ui")]
+                egui::Window::new("Debug").show(ctx.egui_ctx, |ui: &mut egui::Ui| {
+                    ui.label(format!(
+                        "FPS: {}\nDELTA: {}\nFRAME: {}",
+                        ctx.timer.fps,
+                        (ctx.timer.delta * 1000.).round() / 1000.,
+                        ctx.timer.frame
+                    ));
+                });
+
+                world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut(); // Look, I'm being safe, OK?
             });
+            let offscreen_texture: usize = ctx.gfx.offscreen_as_texture(&mut screen);
 
-            world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut(); // Look, I'm being safe, OK?
+            ctx.gfx.rect().texture(offscreen_texture);
         });
 }

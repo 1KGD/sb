@@ -27,16 +27,14 @@ fn render_ferris(
     texture: Single<&TextureAsset, With<FerrisTexture>>,
     mut renderer: NonSendMut<Renderer>,
 ) {
-    let screen_size: Vec2 = renderer.gfx.screen_size();
+    let screen_size: Vec2 = renderer.screen_size();
     renderer
-        .gfx
         .rect()
         .texture(***texture)
         .size(*FERRIS_TEXTURE_SIZE)
         .at(screen_size / 2. - *FERRIS_TEXTURE_SIZE / 2.);
 
     renderer
-        .gfx
         .text("Made with Rust")
         .font("Pixelify Sans".to_owned())
         .color(Color::WHITE)
