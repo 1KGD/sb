@@ -22,6 +22,22 @@ impl From<&FrameContext<'_>> for FrameData {
     }
 }
 
+pub struct Egui(pub *const egui::Context);
+
+impl Egui {
+    pub fn new() -> Self {
+        Self(std::ptr::null_mut())
+    }
+}
+
+impl std::ops::Deref for Egui {
+    type Target = egui::Context;
+
+    fn deref(&self) -> &Self::Target {
+        unsafe { self.0.as_ref_unchecked() }
+    }
+}
+
 pub struct Renderer<'a>(pub *mut Graphics<'a>);
 
 impl<'a> Renderer<'a> {

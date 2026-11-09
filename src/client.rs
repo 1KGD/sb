@@ -12,6 +12,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
         .set_title(&title);
 
     debug!("IS_MOBILE = {}", *IS_MOBILE);
+    world.insert_non_send(Egui::new());
     world.insert_non_send(Renderer::new());
 
     let mut fonts: egui::FontDefinitions = egui::FontDefinitions::default();
@@ -83,6 +84,9 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
 
             world.insert_resource(FrameData::from(&*ctx));
 
+            world.get_non_send_mut::<Egui>().unwrap().0 =
+                (&raw const *ctx.egui_ctx) as *mut egui::Context;
+
             ctx.gfx.render_offscreen(&mut screen, |gfx| {
                 world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
                     (&raw mut *gfx) as *mut Graphics<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
@@ -94,19 +98,22 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
 
                 schedule.run(&mut world);
 
-                #[cfg(feature = "debug_ui")]
-                egui::Window::new("Debug").show(ctx.egui_ctx, |ui: &mut egui::Ui| {
-                    ui.label(format!(
-                        "FPS: {}\nDELTA: {}\nFRAME: {}",
-                        ctx.timer.fps,
-                        (ctx.timer.delta * 1000.).round() / 1000.,
-                        ctx.timer.frame
-                    ));
-                });
-
-                world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut(); // Look, I'm being safe, OK?
+                world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut();
+                // Look, I'm being safe, OK?
             });
+            world.get_non_send_mut::<Egui>().unwrap().0 = std::ptr::null_mut();
+
             let offscreen_texture: usize = ctx.gfx.offscreen_as_texture(&mut screen);
+
+            #[cfg(feature = "debug_ui")]
+            egui::Window::new("Debug").show(ctx.egui_ctx, |ui: &mut egui::Ui| {
+                ui.label(format!(
+                    "FPS: {}\nDELTA: {}\nFRAME: {}",
+                    ctx.timer.fps,
+                    (ctx.timer.delta * 1000.).round() / 1000.,
+                    ctx.timer.frame
+                ));
+            });
 
             ctx.gfx.rect().texture(offscreen_texture);
         });
