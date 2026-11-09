@@ -1,6 +1,10 @@
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
+fn compute_offscreen_texture_scale(screen_size: Vec2) -> Vec2 {
+    screen_size
+}
+
 pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
     let title: String = format!("STARBOOM v{}{}", VERSION, if modded { "*" } else { "" });
 
@@ -29,14 +33,20 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
     );
     fonts.families.append(&mut newfam);
 
+    let mut offscreen: Option<OffscreenTarget> = None;
+
     App::new()
         .title(&title)
         .run(move |ctx: &mut FrameContext<'_>| {
             if ctx.timer.frame == 0 {
+                offscreen = Some(
+                    ctx.gfx
+                        .create_offscreen(MIN_DIMENSION.x as u32, MIN_DIMENSION.y as u32),
+                );
+
                 ctx.gfx.load_font(include_bytes!("../assets/fonts/PS.ttf"));
 
                 ctx.egui_ctx.set_fonts(fonts.clone());
-                ctx.egui_ctx.set_pixels_per_point(0.75);
             } else if ctx.timer.frame == 1 {
                 ctx.egui_ctx.tessellation_options_mut(
                     |options: &mut egui::epaint::TessellationOptions| {
@@ -50,15 +60,15 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                     style.text_styles = [
                         (
                             egui::TextStyle::Heading,
-                            egui::FontId::new(16., egui::FontFamily::Name("Pixelify Sans".into())),
+                            egui::FontId::new(64., egui::FontFamily::Name("Pixelify Sans".into())),
                         ),
                         (
                             egui::TextStyle::Body,
-                            egui::FontId::new(16., egui::FontFamily::Name("Pixelify Sans".into())),
+                            egui::FontId::new(64., egui::FontFamily::Name("Pixelify Sans".into())),
                         ),
                         (
                             egui::TextStyle::Button,
-                            egui::FontId::new(16., egui::FontFamily::Name("Pixelify Sans".into())),
+                            egui::FontId::new(64., egui::FontFamily::Name("Pixelify Sans".into())),
                         ),
                     ]
                     .into();
@@ -78,32 +88,30 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                 });
             }
 
-            let mut screen: OffscreenTarget = ctx
-                .gfx
-                .create_offscreen(MIN_DIMENSION.x as u32, MIN_DIMENSION.y as u32);
-
             world.insert_resource(FrameData::from(&*ctx));
 
             world.get_non_send_mut::<Egui>().unwrap().0 =
                 (&raw const *ctx.egui_ctx) as *mut egui::Context;
 
-            ctx.gfx.render_offscreen(&mut screen, |gfx| {
-                world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
-                    (&raw mut *gfx) as *mut Graphics<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
+            ctx.gfx
+                .render_offscreen(offscreen.as_mut().unwrap(), |gfx| {
+                    world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
+                        (&raw mut *gfx) as *mut Graphics<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
 
-                world
-                    .get_resource_mut::<InputCtx>()
-                    .unwrap()
-                    .update(ctx.input);
+                    world
+                        .get_resource_mut::<InputCtx>()
+                        .unwrap()
+                        .update(ctx.input);
 
-                schedule.run(&mut world);
+                    schedule.run(&mut world);
 
-                world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut();
-                // Look, I'm being safe, OK?
-            });
+                    world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut();
+                    // Look, I'm being safe, OK?
+                });
             world.get_non_send_mut::<Egui>().unwrap().0 = std::ptr::null_mut();
 
-            let offscreen_texture: usize = ctx.gfx.offscreen_as_texture(&mut screen);
+            let offscreen_texture: usize =
+                ctx.gfx.offscreen_as_texture(offscreen.as_mut().unwrap());
 
             #[cfg(feature = "debug_ui")]
             egui::Window::new("Debug").show(ctx.egui_ctx, |ui: &mut egui::Ui| {
@@ -115,6 +123,11 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                 ));
             });
 
-            ctx.gfx.rect().texture(offscreen_texture);
+            let screen_size: Vec2 = ctx.gfx.screen_size();
+
+            ctx.gfx
+                .rect()
+                .texture(offscreen_texture)
+                .size(compute_offscreen_texture_scale(screen_size));
         });
 }
