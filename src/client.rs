@@ -50,7 +50,6 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
             } else if ctx.timer.frame == 1 {
                 ctx.egui_ctx.tessellation_options_mut(
                     |options: &mut egui::epaint::TessellationOptions| {
-                        options.feathering = false;
                         options.round_line_segments_to_pixels = true;
                         options.round_rects_to_pixels = true;
                         options.round_text_to_pixels = true;
@@ -60,15 +59,15 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                     style.text_styles = [
                         (
                             egui::TextStyle::Heading,
-                            egui::FontId::new(64., egui::FontFamily::Name("Pixelify Sans".into())),
+                            egui::FontId::new(32., egui::FontFamily::Name("Pixelify Sans".into())),
                         ),
                         (
                             egui::TextStyle::Body,
-                            egui::FontId::new(64., egui::FontFamily::Name("Pixelify Sans".into())),
+                            egui::FontId::new(24., egui::FontFamily::Name("Pixelify Sans".into())),
                         ),
                         (
                             egui::TextStyle::Button,
-                            egui::FontId::new(64., egui::FontFamily::Name("Pixelify Sans".into())),
+                            egui::FontId::new(24., egui::FontFamily::Name("Pixelify Sans".into())),
                         ),
                     ]
                     .into();
