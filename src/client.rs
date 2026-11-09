@@ -106,7 +106,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
 
             ctx.gfx
                 .render_offscreen(offscreen.as_mut().unwrap(), |gfx| {
-                    gfx.clear(Color::BLACK);
+                    gfx.clear(Color::BLUE);
                     world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
                         (&raw mut *gfx) as *mut Graphics<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
 
@@ -134,11 +134,8 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                     ctx.timer.frame
                 ));
             });
-
-            let screen_size: Vec2 = ctx.gfx.screen_size();
-
-            let (dim, pos) = compute_offscreen_texture_scale(screen_size);
-
+            ctx.gfx.clear(Color::BLACK);
+            let (dim, pos) = compute_offscreen_texture_scale(ctx.gfx.screen_size());
             ctx.gfx.rect().texture(offscreen_texture).size(dim).at(pos);
         });
 }
