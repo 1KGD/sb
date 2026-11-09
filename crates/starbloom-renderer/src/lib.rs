@@ -3,7 +3,7 @@ use egor::app::*;
 use egor::math::*;
 use egor::render::*;
 
-pub const MIN_DIMENSION: IVec2 = ivec2(256, 256);
+pub const MIN_DIMENSION: IVec2 = ivec2((1.77777 * 256.) as i32 + 1, 256);
 
 #[derive(Resource)]
 pub struct FrameData {

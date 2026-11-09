@@ -1,8 +1,20 @@
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
-fn compute_offscreen_texture_scale(screen_size: Vec2) -> Vec2 {
-    screen_size
+fn compute_offscreen_texture_scale(screen_size: Vec2) -> (Vec2, Vec2) {
+    let dim: Vec2 =
+        if screen_size.x * MIN_DIMENSION.y as f32 <= screen_size.y * MIN_DIMENSION.x as f32 {
+            vec2(
+                screen_size.x,
+                MIN_DIMENSION.y as f32 * screen_size.x / MIN_DIMENSION.x as f32,
+            )
+        } else {
+            vec2(
+                MIN_DIMENSION.x as f32 * screen_size.y / MIN_DIMENSION.y as f32,
+                screen_size.y,
+            )
+        };
+    return (dim, (screen_size - dim) / 2.);
 }
 
 pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
@@ -81,7 +93,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                     style.interaction.selectable_labels = false;
                     style.visuals.window_highlight_topmost = false;
                     style.visuals.window_stroke.color = egui::Color32::BLACK;
-                    style.visuals.window_stroke.width = 0.1;
+                    style.visuals.window_stroke.width = 1.;
 
                     style.spacing.scroll.floating = false;
                 });
@@ -94,6 +106,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
 
             ctx.gfx
                 .render_offscreen(offscreen.as_mut().unwrap(), |gfx| {
+                    gfx.clear(Color::BLACK);
                     world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
                         (&raw mut *gfx) as *mut Graphics<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
 
@@ -124,9 +137,8 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
 
             let screen_size: Vec2 = ctx.gfx.screen_size();
 
-            ctx.gfx
-                .rect()
-                .texture(offscreen_texture)
-                .size(compute_offscreen_texture_scale(screen_size));
+            let (dim, pos) = compute_offscreen_texture_scale(screen_size);
+
+            ctx.gfx.rect().texture(offscreen_texture).size(dim).at(pos);
         });
 }
