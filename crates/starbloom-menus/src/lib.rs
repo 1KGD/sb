@@ -8,7 +8,7 @@ use main_menu::*;
 pub struct MenusPlugin;
 
 impl Plugin<ClientPlugin> for MenusPlugin {
-    fn create(&self, world: &mut World, schedule: &mut Schedule) {
+    fn create(&self, _world: &mut World, schedule: &mut Schedule) {
         schedule.add_systems(render_main_menu.in_set(ClientState::MainMenu));
     }
 }

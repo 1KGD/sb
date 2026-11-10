@@ -18,16 +18,21 @@ pub(crate) struct RustSequencePlugin;
 impl Plugin<ClientPlugin> for RustSequencePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/ferris.png"), FerrisTexture);
-        schedule.add_systems((render_ferris, rust_sequence_timeout).in_set(IntroState::Rust).after(clear_background));
+        schedule.add_systems(
+            (render_ferris, rust_sequence_timeout)
+                .in_set(IntroState::Rust)
+                .after(clear_background),
+        );
     }
 }
 
 #[sided(Client)]
 fn render_ferris(
     texture: Single<&TextureAsset, With<FerrisTexture>>,
+    frame_data: Res<FrameData>,
     mut renderer: NonSendMut<Renderer>,
 ) {
-    let screen_size: Vec2 = renderer.screen_size();
+    let screen_size: Vec2 = frame_data.screen_size;
     renderer
         .rect()
         .texture(***texture)

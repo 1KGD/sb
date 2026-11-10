@@ -69,7 +69,7 @@ fn render_title(
     mut manager: ResMut<IntroStateManager>,
     mut age: Local<f32>,
 ) {
-    let screen_rect: Rect = Rect::new(Vec2::ZERO, renderer.screen_size());
+    let screen_rect: Rect = Rect::new(Vec2::ZERO, frame_data.screen_size);
     renderer
         .text("STARBLOOM")
         .font("Pixelify Sans".to_owned())
