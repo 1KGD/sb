@@ -5,7 +5,7 @@ use starbloom_core_shared::prelude::*;
 use starbloom_map::*;
 use starbloom_tiles::*;
 
-use crate::player::*;
+use crate::entrypoint::player::*;
 
 const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[&DefaultTilePlugin];
 
@@ -98,5 +98,5 @@ pub fn main() {
     crate::server::main(world, schedule, modded);
 
     #[cfg(feature = "client")]
-    crate::client::main(world, schedule, modded);
+    crate::entrypoint::client::main(world, schedule, modded);
 }

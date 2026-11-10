@@ -22,7 +22,7 @@ impl Plugin<ClientPlugin> for MapClientPlugin {
             ClientChunk {},
             Chunk {
                 pos: IVec2::ZERO,
-                tiles: Some([[1; CHUNK_DIM]; CHUNK_DIM]),
+                tiles: Some([[2; CHUNK_DIM]; CHUNK_DIM]),
             },
         ));
     }
