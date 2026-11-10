@@ -22,7 +22,8 @@ impl Plugin<ClientPlugin> for TitleSequencePlugin {
                 update_starfall,
                 (render_starfall, render_title).chain(),
             )
-                .in_set(IntroState::Title),
+                .in_set(IntroState::Title)
+                .after(clear_background),
         );
     }
 }

@@ -31,6 +31,8 @@ impl Plugin<ClientPlugin> for IntroPlugin {
 
         schedule.add_systems(catch_finish.in_set(IntroState::Finish));
 
+        schedule.add_systems(clear_background);
+
         RustSequencePlugin.create(world, schedule);
         PresentsSequencePlugin.create(world, schedule);
         TitleSequencePlugin.create(world, schedule);
@@ -64,4 +66,9 @@ enum IntroState {
 #[sided(Client)]
 fn catch_finish(mut game_manager: ResMut<ClientStateManager>) {
     game_manager.switch(ClientState::MainMenu);
+}
+
+#[sided(Client)]
+pub(crate) fn clear_background(mut renderer: NonSendMut<Renderer>) {
+    renderer.clear(Color::BLACK);
 }

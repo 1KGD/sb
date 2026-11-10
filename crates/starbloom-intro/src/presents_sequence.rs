@@ -12,7 +12,7 @@ pub(crate) struct PresentsSequencePlugin;
 #[sided(Client)]
 impl Plugin<ClientPlugin> for PresentsSequencePlugin {
     fn create(&self, _world: &mut World, schedule: &mut Schedule) {
-        schedule.add_systems(all_the_text_stuff_in_one_system.in_set(IntroState::Presents));
+        schedule.add_systems(all_the_text_stuff_in_one_system.in_set(IntroState::Presents).after(clear_background));
     }
 }
 

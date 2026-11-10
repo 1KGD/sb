@@ -18,7 +18,7 @@ pub(crate) struct RustSequencePlugin;
 impl Plugin<ClientPlugin> for RustSequencePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         declare_texture_asset(world, include_bytes!("../assets/ferris.png"), FerrisTexture);
-        schedule.add_systems((render_ferris, rust_sequence_timeout).in_set(IntroState::Rust));
+        schedule.add_systems((render_ferris, rust_sequence_timeout).in_set(IntroState::Rust).after(clear_background));
     }
 }
 
