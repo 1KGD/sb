@@ -32,7 +32,7 @@ fn render_ferris(
     frame_data: Res<FrameData>,
     mut renderer: NonSendMut<Renderer>,
 ) {
-    let screen_size: Vec2 = frame_data.screen_size;
+    let screen_size: Vec2 = renderer.screen_size();
     renderer
         .rect()
         .texture(***texture)
@@ -45,8 +45,11 @@ fn render_ferris(
         .color(Color::WHITE)
         .in_rect(
             Rect::new(
-                vec2(0., screen_size.y / 2. + FERRIS_TEXTURE_SIZE.y / 2. + 10.),
-                vec2(screen_size.x, screen_size.y / 2.),
+                vec2(
+                    0.,
+                    frame_data.screen_size.y / 2. + FERRIS_TEXTURE_SIZE.y / 2. + 100.,
+                ),
+                vec2(frame_data.screen_size.x, frame_data.screen_size.y / 2.),
             ),
             Align::TopCenter,
         );

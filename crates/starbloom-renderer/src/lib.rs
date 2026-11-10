@@ -15,7 +15,7 @@ pub struct FrameData {
 impl From<&FrameContext<'_>> for FrameData {
     fn from(ctx: &FrameContext<'_>) -> Self {
         Self {
-            screen_size: MIN_DIMENSION.as_vec2(),
+            screen_size: ctx.gfx.screen_size(),
             delta: ctx.timer.delta.clamp(0., 1. / 16.), // No massive jumps
             frame: ctx.timer.frame,
         }
