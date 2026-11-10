@@ -13,6 +13,7 @@ mod plugin;
 
 pub use crate::plugin::*;
 
+#[derive(Debug)]
 pub struct Tile {
     pub entity: Entity,
     pub texture: Option<usize>,
@@ -55,7 +56,12 @@ impl TileRegestry {
     pub fn regester(&mut self, tile: Tile) {
         let entity: Entity = tile.entity;
         self.entries.insert(entity, tile);
-        if self.ids.values().find(|v| **v == entity).is_none() {
+        if self
+            .ids
+            .values()
+            .find(|v: &&Entity| **v == entity)
+            .is_none()
+        {
             self.ids.insert(self.ids.len() as TileRepr, entity);
         }
         debug!("Regestered tile '{}'", entity);
@@ -64,6 +70,6 @@ impl TileRegestry {
     pub fn get_tile_by_idx(&self, idx: &TileRepr) -> &Tile {
         self.entries
             .get(self.ids.get(idx).expect("bad tile idx"))
-            .expect("Bad tile idx")
+            .expect("Bad tile id")
     }
 }

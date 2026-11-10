@@ -1,10 +1,13 @@
 #[cfg(feature = "client")]
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
+#[cfg(feature = "client")]
+use starbloom_map::*;
+use starbloom_tiles::*;
 
 use crate::player::*;
 
-const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[];
+const CORE_SHARED_PLUGINS: &'static [&dyn Plugin<SharedPlugin>] = &[&DefaultTilePlugin];
 
 #[cfg(feature = "client")]
 const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
@@ -14,6 +17,7 @@ const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
     &CameraPlugin,
     &InputPlugin,
     &PlayerClientPlugin,
+    &MapClientPlugin,
     #[cfg(feature = "multiplayer")]
     &starbloom_networking::ClientNetworkingPlugin,
     #[cfg(feature = "intro")]
