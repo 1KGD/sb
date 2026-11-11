@@ -37,7 +37,7 @@ struct PlayerTexture;
 #[sided(Client)]
 impl Plugin<ClientPlugin> for PlayerClientPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
-        declare_texture_asset(world, include_bytes!("../assets/debug.png"), PlayerTexture);
+        declare_texture_asset(world, include_bytes!("../../assets/debug.png"), PlayerTexture);
         schedule.add_systems(update_local_player.in_set(ClientStep::ProcessInput));
         schedule.add_systems(
             (render_players, render_player_names)

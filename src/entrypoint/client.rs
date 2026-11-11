@@ -34,7 +34,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
     let mut fonts: egui::FontDefinitions = egui::FontDefinitions::default();
     fonts.font_data.insert(
         "Pixelify Sans".to_owned(),
-        egui::FontData::from_static(include_bytes!("../assets/fonts/PS.ttf")).into(),
+        egui::FontData::from_static(include_bytes!("../../assets/fonts/PS.ttf")).into(),
     );
 
     let mut newfam: std::collections::BTreeMap<egui::FontFamily, Vec<String>> =
@@ -56,7 +56,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                         .create_offscreen(MIN_DIMENSION.x as u32, MIN_DIMENSION.y as u32),
                 );
 
-                ctx.gfx.load_font(include_bytes!("../assets/fonts/PS.ttf"));
+                ctx.gfx.load_font(include_bytes!("../../assets/fonts/PS.ttf"));
 
                 ctx.egui_ctx.set_fonts(fonts.clone());
             } else if ctx.timer.frame == 1 {
@@ -105,8 +105,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                 (&raw const *ctx.egui_ctx) as *mut egui::Context;
 
             ctx.gfx
-                .render_offscreen(offscreen.as_mut().unwrap(), |gfx| {
-                    gfx.clear(Color::BLUE);
+                .render_offscreen(offscreen.as_mut().unwrap(), |gfx: &mut Graphics<'_>| {
                     world.get_non_send_mut::<Renderer<'_>>().unwrap().0 =
                         (&raw mut *gfx) as *mut Graphics<'_>; // I DON'T WANT TO TALK ABOUT IT, OK?
 
@@ -117,8 +116,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
 
                     schedule.run(&mut world);
 
-                    world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut();
-                    // Look, I'm being safe, OK?
+                    world.get_non_send_mut::<Renderer<'_>>().unwrap().0 = std::ptr::null_mut(); // Look, I'm being safe, OK?
                 });
             world.get_non_send_mut::<Egui>().unwrap().0 = std::ptr::null_mut();
 

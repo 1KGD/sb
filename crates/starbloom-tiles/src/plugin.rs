@@ -7,6 +7,7 @@ pub struct DefaultTilePlugin;
 #[sided(Client)]
 impl Plugin<SharedPlugin> for DefaultTilePlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
+        world.insert_resource(TileRegestry::new());
         schedule.add_systems(
             insert_tile_textures_into_regestry
                 .after(load_assets)

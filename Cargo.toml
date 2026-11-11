@@ -18,8 +18,6 @@ starbloom-bootstrap = { version = "^0", path = "./crates/starbloom-bootstrap" }
 starbloom-derive = { version = "^0", path = "./crates/starbloom-derive" }
 starbloom-states = { version = "^0", path = "./crates/starbloom-states" }
 starbloom-camera = { version = "^0", path = "./crates/starbloom-camera" }
-starbloom-tiles = { version = "^0", path = "./crates/starbloom-tiles" }
-starbloom-map = { version = "^0", path = "./crates/starbloom-map" }
 starbloom-renderer = { version = "^0", path = "./crates/starbloom-renderer" }
 starbloom-input = { version = "^0", path = "./crates/starbloom-input" }
 
@@ -32,6 +30,8 @@ starbloom-core-server = { version = "^0", path = "./crates/starbloom-core-server
 starbloom-networking = { version = "^0", path = "./crates/starbloom-networking" }
 starbloom-intro = { version = "^0", path = "./crates/starbloom-intro" }
 starbloom-menus = { version = "^0", path = "./crates/starbloom-menus" }
+starbloom-map = { version = "^0", path = "./crates/starbloom-map" }
+starbloom-tiles = { version = "^0", path = "./crates/starbloom-tiles" }
 
 rand = { version = "0.10.3", default-features = false, features = [
     "std",
@@ -89,6 +89,7 @@ starbloom-networking = { workspace = true, optional = true }
 starbloom-intro = { workspace = true, optional = true }
 starbloom-bootstrap.workspace = true
 starbloom-menus.workspace = true
+starbloom-map.workspace = true
 egor.workspace = true                                             # Not optional due to math requirement
 bevy_ecs.workspace = true
 egor_glue = { workspace = true, optional = true }
@@ -101,6 +102,7 @@ rand.workspace = true
 naia-client = { workspace = true, optional = true }
 naia-server = { workspace = true, optional = true }
 naia-shared = { workspace = true, optional = true }
+starbloom-tiles.workspace = true
 
 [features]
 intro = ["dep:starbloom-intro", "starbloom-bootstrap/intro"]
