@@ -37,7 +37,11 @@ struct PlayerTexture;
 #[sided(Client)]
 impl Plugin<ClientPlugin> for PlayerClientPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
-        declare_texture_asset(world, include_bytes!("../../assets/debug.png"), PlayerTexture);
+        declare_texture_asset(
+            world,
+            include_bytes!("../../assets/debug.png"),
+            PlayerTexture,
+        );
         schedule.add_systems(update_local_player.in_set(ClientStep::ProcessInput));
         schedule.add_systems(
             (render_players, render_player_names)
@@ -67,7 +71,7 @@ fn render_players(
             .texture(***asset)
             .anchor(Anchor::Center)
             .size(Vec2::splat(16.))
-            .at(main_camera.cam.world_to_screen(**pos));
+            .at(main_camera.world_to_screen(**pos));
     }
 }
 
@@ -79,7 +83,7 @@ fn render_player_names(
 ) {
     for (pos, remote) in query {
         let rect: Rect = Rect::new(
-            main_camera.cam.world_to_screen(**pos)
+            main_camera.world_to_screen(**pos)
                 - vec2(renderer.screen_size().x / 2., renderer.screen_size().y)
                 - vec2(0., 10.),
             renderer.screen_size(),
@@ -123,6 +127,6 @@ fn update_local_player(
             **pos = **pos + motion.normalize() * PLAYER_SPEED * frame_data.delta;
         }
 
-        main_camera.cam.center(**pos, frame_data.screen_size);
+        main_camera.center(**pos, frame_data.screen_size);
     }
 }

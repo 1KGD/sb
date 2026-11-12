@@ -28,6 +28,7 @@ const CORE_CLIENT_PLUGINS: &'static [&dyn Plugin<ClientPlugin>] = &[
 #[cfg(feature = "server")]
 const CORE_SERVER_PLUGINS: &'static [&dyn Plugin<ServerPlugin>] = &[
     &PlayerServerPlugin,
+    &MapServerPlugin,
     #[cfg(feature = "remote_host")]
     &starbloom_networking::ServerNetworkingPlugin,
 ];

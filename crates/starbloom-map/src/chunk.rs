@@ -15,4 +15,19 @@ impl Chunk {
     pub(crate) fn get_world_pos(&self) -> Vec2 {
         self.pos.as_vec2() * CHUNK_SIZE
     }
+
+    #[sided(Client)]
+    pub(crate) fn get_bounding_rect(&self) -> Rect {
+        Rect::new(self.get_world_pos(), Vec2::splat(CHUNK_SIZE))
+    }
+
+    #[sided(Client)]
+    pub(crate) fn should_be_culled(&self, viewport: Rect) -> bool {
+        for vert in self.get_bounding_rect().corners() {
+            if viewport.contains(vert) {
+                return false;
+            }
+        }
+        true
+    }
 }
