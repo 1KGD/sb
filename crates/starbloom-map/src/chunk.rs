@@ -3,7 +3,6 @@ use starbloom_tiles::*;
 
 pub const CHUNK_DIM: usize = 8;
 
-#[sided(Client)]
 pub const CHUNK_SIZE: f32 = CHUNK_DIM as f32 * TILE_SIZE;
 
 #[derive(Component, Default)]

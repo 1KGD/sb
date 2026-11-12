@@ -33,6 +33,7 @@ impl Plugin<ClientPlugin> for ClientStepPlugin {
             (
                 ClientStep::Prepare,
                 ClientStep::SyncMultiplayer,
+                (ClientStep::UpdateMap),
                 (
                     ClientStep::RenderMap,
                     ClientStep::RenderEntities,

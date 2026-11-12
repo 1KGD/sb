@@ -1,4 +1,4 @@
-const cacheName = "STARBLOOM-v0";
+const cacheName = "STARBLOOM-v1";
 
 self.addEventListener("fetch", (e) => {
     e.respondWith(
