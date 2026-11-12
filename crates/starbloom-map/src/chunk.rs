@@ -12,6 +12,10 @@ pub struct Chunk {
 }
 
 impl Chunk {
+    pub(crate) fn from_pos(pos: IVec2) -> Self {
+        Self { pos, tiles: None }
+    }
+
     pub(crate) fn get_world_pos(&self) -> Vec2 {
         self.pos.as_vec2() * CHUNK_SIZE
     }

@@ -16,4 +16,5 @@ fn spawn_requested_chunks(mut commands: Commands, mut requests: MessageReader<Ch
             tiles: Some([[2; CHUNK_DIM]; CHUNK_DIM]),
         });
     }
+    requests.clear();
 }

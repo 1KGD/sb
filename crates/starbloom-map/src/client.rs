@@ -7,14 +7,31 @@ impl Plugin<ClientPlugin> for MapClientPlugin {
         schedule.add_systems((request_chunks, cull_chunks).in_set(ClientStep::UpdateMap));
         schedule.add_systems(render_chunks.in_set(ClientStep::RenderMap));
         world.insert_resource(Messages::<ChunkRequest>::default());
+        world.insert_resource(ChunkManager::new());
     }
 }
 
-fn request_chunks(mut requests: MessageWriter<ChunkRequest>, mut triggered: Local<bool>) {
-    if !*triggered {
-        requests.write(ChunkRequest(ivec2(1, 0)));
-        requests.write(ChunkRequest(ivec2(-1, 0)));
-        *triggered = true;
+fn request_chunks(
+    mut requests: MessageWriter<ChunkRequest>,
+    main_camera: Res<MainCamera>,
+    frame_data: Res<FrameData>,
+    mut manager: ResMut<ChunkManager>,
+) {
+    let viewport: Rect = main_camera.viewport(frame_data.screen_size);
+
+    let min: IVec2 = (viewport.min() / CHUNK_SIZE).as_ivec2() - IVec2::ONE;
+    let max: IVec2 = (viewport.max() / CHUNK_SIZE).as_ivec2() + IVec2::ONE;
+
+    for x in min.x..max.x {
+        for y in min.y..max.y {
+            let pos: IVec2 = ivec2(x, y);
+            if !Chunk::from_pos(pos).should_be_culled(viewport) {
+                if !manager.has_chunk(pos) {
+                    requests.write(ChunkRequest(pos));
+                    manager.add_chunk(pos);
+                }
+            }
+        }
     }
 }
 
@@ -23,11 +40,13 @@ fn cull_chunks(
     chunks: Query<(Entity, &Chunk)>,
     frame_data: Res<FrameData>,
     main_camera: Res<MainCamera>,
+    mut manager: ResMut<ChunkManager>,
 ) {
     let viewport: Rect = main_camera.viewport(frame_data.screen_size);
     for (entity, chunk) in chunks {
         if chunk.should_be_culled(viewport) {
             commands.entity(entity).despawn();
+            manager.remove_chunk(chunk.pos);
         }
     }
 }
