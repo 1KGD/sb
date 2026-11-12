@@ -27,8 +27,12 @@ impl Chunk {
 
     #[sided(Client)]
     pub(crate) fn should_be_culled(&self, viewport: Rect) -> bool {
+        let viewport_with_margins: Rect = Rect::new(
+            viewport.position - Vec2::splat(CHUNK_SIZE),
+            viewport.size + Vec2::splat(CHUNK_SIZE),
+        );
         for vert in self.get_bounding_rect().corners() {
-            if viewport.contains(vert) {
+            if viewport_with_margins.contains(vert) {
                 return false;
             }
         }
