@@ -56,7 +56,8 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                         .create_offscreen(MIN_DIMENSION.x as u32, MIN_DIMENSION.y as u32),
                 );
 
-                ctx.gfx.load_font(include_bytes!("../../assets/fonts/PS.ttf"));
+                ctx.gfx
+                    .load_font(include_bytes!("../../assets/fonts/PS.ttf"));
 
                 ctx.egui_ctx.set_fonts(fonts.clone());
             } else if ctx.timer.frame == 1 {
@@ -132,7 +133,6 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                     ctx.timer.frame
                 ));
             });
-            ctx.gfx.clear(Color::BLACK);
             let (dim, pos) = compute_offscreen_texture_scale(ctx.gfx.screen_size());
             ctx.gfx.rect().texture(offscreen_texture).size(dim).at(pos);
         });
