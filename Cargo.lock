@@ -1570,14 +1570,14 @@ dependencies = [
 
 [[package]]
 name = "egor"
-version = "0.10.0"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4f5086e8fe9c84942e6b6933813957208a07a0a90b3256ae3cc304bfa31c1885"
 dependencies = [
  "color",
  "cosmic-text 0.14.2",
- "egor_app 0.10.0",
- "egor_render 0.10.0",
+ "egor_app 0.12.0",
+ "egor_render 0.12.0",
  "egui",
  "egui-wgpu",
  "egui-winit",
@@ -1587,7 +1587,7 @@ dependencies = [
 
 [[package]]
 name = "egor_app"
-version = "0.10.0"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ff086990684456ecbc86b6e0bf2d8b632cfa87a83c5b235f91e2640422dd8015"
 dependencies = [
