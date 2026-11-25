@@ -9,11 +9,3 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    groups:
-      major:
-        update-types:
-          - "major"
-      minor:
-        update-types:
-          - "minor"
-          - "patch"
