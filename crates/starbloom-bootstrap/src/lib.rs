@@ -1,4 +1,5 @@
 use bevy_ecs::prelude::*;
+use egor::render::*;
 use log::*;
 use starbloom_base::*;
 use starbloom_renderer::*;
@@ -9,6 +10,7 @@ pub struct BootstrapPlugin;
 impl Plugin<ClientPlugin> for BootstrapPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         world.insert_resource(BootstrapMananger::new());
+        world.insert_non_send(TextureRegestry::new());
         schedule.add_systems(
             (load_assets, finish_bootstrap)
                 .chain()
@@ -17,9 +19,31 @@ impl Plugin<ClientPlugin> for BootstrapPlugin {
     }
 }
 
+pub struct TextureRegestry {
+    regestry: Vec<Texture>,
+}
+
+impl TextureRegestry {
+    fn new() -> Self {
+        Self {
+            regestry: Vec::new(),
+        }
+    }
+
+    fn regester_texture(&mut self, texture: Texture) -> usize {
+        self.regestry.push(texture);
+        self.regestry.len() - 1
+    }
+
+    fn resolve_texture(&self, id: usize) -> Option<&Texture> {
+        self.regestry.get(id)
+    }
+}
+
 pub fn load_assets(
     mut commands: Commands,
     mut manager: ResMut<BootstrapMananger>,
+    mut texture_regestry: NonSendMut<TextureRegestry>,
     query: Query<(Entity, &AssetRequest)>,
     mut renderer: NonSendMut<Renderer>,
 ) {
@@ -27,7 +51,8 @@ pub fn load_assets(
         for (entity, asset) in &query {
             match asset {
                 AssetRequest::Texture(texture_data) => {
-                    let id: usize = renderer.load_texture(texture_data);
+                    let texture: Texture = renderer.load_texture(texture_data);
+                    let id: usize = texture_regestry.regester_texture(texture);
                     debug!(
                         "Loaded texture with entity id {} and texture id {}",
                         entity, id
@@ -76,16 +101,17 @@ pub enum AssetRequest {
     Texture(&'static [u8]),
 }
 
-#[derive(Component)]
+#[derive(Component, Clone, Copy, Debug)]
 pub struct TextureAsset {
     id: usize,
 }
 
-impl std::ops::Deref for TextureAsset {
-    type Target = usize;
-
-    fn deref(&self) -> &Self::Target {
-        &self.id
+impl TextureAsset {
+    pub fn resolve<'a>(
+        &self,
+        texture_regestry: &'a NonSendMut<'a, TextureRegestry>,
+    ) -> Option<&'a Texture> {
+        texture_regestry.resolve_texture(self.id)
     }
 }
 

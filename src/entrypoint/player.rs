@@ -3,6 +3,8 @@ use naia_shared::Replicate;
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
+use egor::math::Rect;
+
 #[sided(Client)]
 const PLAYER_SPEED: f32 = 200.;
 
@@ -61,15 +63,16 @@ impl Plugin<ServerPlugin> for PlayerServerPlugin {
 #[sided(Client)]
 fn render_players(
     query: Query<&Position, With<Player>>,
-    asset: Single<&TextureAsset, With<PlayerTexture>>,
+    texture: Single<&TextureAsset, With<PlayerTexture>>,
+    texture_regestry: NonSendMut<TextureRegestry>,
     main_camera: Res<MainCamera>,
     mut renderer: NonSendMut<Renderer>,
 ) {
     for pos in query {
         renderer
             .rect()
-            .texture(***asset)
-            .anchor(Anchor::Center)
+            .texture(texture.resolve(&texture_regestry))
+            .pivot(Pivot::Center)
             .size(Vec2::splat(16.))
             .at(main_camera.world_to_screen(**pos));
     }

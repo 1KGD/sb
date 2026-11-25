@@ -68,7 +68,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                         options.round_text_to_pixels = true;
                     },
                 );
-                ctx.egui_ctx.style_mut(|style: &mut egui::Style| {
+                ctx.egui_ctx.all_styles_mut(|style: &mut egui::Style| {
                     style.text_styles = [
                         (
                             egui::TextStyle::Heading,
@@ -121,7 +121,7 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                 });
             world.get_non_send_mut::<Egui>().unwrap().0 = std::ptr::null_mut();
 
-            let offscreen_texture: usize =
+            let offscreen_texture: Texture =
                 ctx.gfx.offscreen_as_texture(offscreen.as_mut().unwrap());
 
             #[cfg(feature = "debug_ui")]
@@ -134,6 +134,6 @@ pub fn main(mut world: World, mut schedule: Schedule, modded: bool) {
                 ));
             });
             let (dim, pos) = compute_offscreen_texture_scale(ctx.gfx.screen_size());
-            ctx.gfx.rect().texture(offscreen_texture).size(dim).at(pos);
+            ctx.gfx.rect().texture(&offscreen_texture).size(dim).at(pos);
         });
 }
