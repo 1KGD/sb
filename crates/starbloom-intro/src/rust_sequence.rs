@@ -30,12 +30,13 @@ impl Plugin<ClientPlugin> for RustSequencePlugin {
 fn render_ferris(
     texture: Single<&TextureAsset, With<FerrisTexture>>,
     frame_data: Res<FrameData>,
+    texture_regestry: NonSendMut<TextureRegestry>,
     mut renderer: NonSendMut<Renderer>,
 ) {
     let screen_size: Vec2 = renderer.screen_size();
     renderer
         .rect()
-        .texture(***texture)
+        .texture(texture.resolve(&texture_regestry))
         .size(*FERRIS_TEXTURE_SIZE)
         .at(screen_size / 2. - *FERRIS_TEXTURE_SIZE / 2.);
 

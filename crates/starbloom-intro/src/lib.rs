@@ -2,6 +2,8 @@
 use starbloom_core_client::prelude::*;
 use starbloom_core_shared::prelude::*;
 
+use egor::math::Rect;
+
 #[sided(Client)]
 use crate::presents_sequence::*;
 #[sided(Client)]

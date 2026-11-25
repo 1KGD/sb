@@ -10,6 +10,7 @@ pub struct BootstrapPlugin;
 impl Plugin<ClientPlugin> for BootstrapPlugin {
     fn create(&self, world: &mut World, schedule: &mut Schedule) {
         world.insert_resource(BootstrapMananger::new());
+        world.insert_non_send(TextureRegestry::new());
         schedule.add_systems(
             (load_assets, finish_bootstrap)
                 .chain()

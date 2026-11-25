@@ -7,6 +7,7 @@ edition.workspace = true
 
 [dependencies]
 log.workspace = true
+egor = { workspace = true, default-features = false }
 egor_glue.workspace = true
 bevy_ecs.workspace = true
 starbloom-base.workspace = true
