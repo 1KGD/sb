@@ -4941,7 +4941,7 @@ checksum = "6ce2be8dc25455e1f91df71bfa12ad37d7af1092ae736f3a6cd0e37bc7810596"
 
 [[package]]
 name = "starbloom"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "console_error_panic_hook",
@@ -4969,7 +4969,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-base"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "const_format",
@@ -4980,7 +4980,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-bootstrap"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "log",
@@ -4991,7 +4991,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-camera"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "egor_glue",
@@ -5000,7 +5000,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-core-client"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "egor",
  "starbloom-bootstrap",
@@ -5011,11 +5011,11 @@ dependencies = [
 
 [[package]]
 name = "starbloom-core-server"
-version = "0.6.8"
+version = "0.6.9"
 
 [[package]]
 name = "starbloom-core-shared"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "egor",
@@ -5027,7 +5027,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-derive"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "quote",
  "syn 3.0.10",
@@ -5035,7 +5035,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-input"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "egor",
@@ -5045,7 +5045,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-intro"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "rand 0.10.4",
@@ -5055,7 +5055,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-map"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "starbloom-core-client",
  "starbloom-core-server",
@@ -5065,7 +5065,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-menus"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "starbloom-core-client",
  "starbloom-core-shared",
@@ -5073,7 +5073,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-networking"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "naia-client",
  "naia-server",
@@ -5083,7 +5083,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-renderer"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "egor",
@@ -5092,7 +5092,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-states"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "log",
@@ -5102,7 +5102,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-tiles"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "starbloom-core-client",
@@ -5111,7 +5111,7 @@ dependencies = [
 
 [[package]]
 name = "starbloom-worldgen"
-version = "0.6.8"
+version = "0.6.9"
 dependencies = [
  "bevy_ecs",
  "noise",
