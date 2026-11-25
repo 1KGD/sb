@@ -16,7 +16,7 @@ pub use crate::plugin::*;
 #[derive(Debug)]
 pub struct Tile {
     pub entity: Entity,
-    pub texture: Option<usize>,
+    pub texture: Option<TextureAsset>,
 }
 
 #[derive(Component, Debug, Clone, Copy)]

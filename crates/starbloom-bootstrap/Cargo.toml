@@ -12,6 +12,7 @@ starbloom-states.workspace = true
 starbloom-renderer.workspace = true
 log.workspace = true
 bevy_ecs.workspace = true
+egor.workspace = true
 
 [features]
 intro = []

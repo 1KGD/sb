@@ -55,6 +55,7 @@ fn render_chunks(
     query: Query<&Chunk>,
     tile_regestry: Res<TileRegestry>,
     main_camera: Res<MainCamera>,
+    texture_regestry: NonSendMut<TextureRegestry>,
     mut renderer: NonSendMut<Renderer>,
 ) {
     for chunk in &query {
@@ -68,7 +69,7 @@ fn render_chunks(
                         );
                         renderer
                             .rect()
-                            .texture(texture)
+                            .texture(texture.resolve(&texture_regestry))
                             .size(vec2(TILE_SIZE, TILE_SIZE))
                             .at(pos);
                     }
