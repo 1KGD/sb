@@ -48,7 +48,7 @@ fn render_ferris(
             Rect::new(
                 vec2(
                     0.,
-                    frame_data.screen_size.y / 2. + FERRIS_TEXTURE_SIZE.y / 2. + 100.,
+                    frame_data.screen_size.y / 2. + FERRIS_TEXTURE_SIZE.y / 1.5,
                 ),
                 vec2(frame_data.screen_size.x, frame_data.screen_size.y / 2.),
             ),
