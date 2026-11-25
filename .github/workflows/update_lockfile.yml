@@ -1,0 +1,23 @@
+name: Update Lockfile (FOR EMERGENCY USE ONLY)
+
+on:
+  workflow_dispatch: 
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions: write-all
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Configure git
+      run: git config user.name github_actions && git config user.email nil
+    - name: Update lockfile
+      run: cargo update
+    - name: Commit & push
+      run: git add . && git commit -m "lockfile update" && git push
