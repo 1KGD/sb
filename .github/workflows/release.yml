@@ -79,7 +79,7 @@ jobs:
 
   binary:
     runs-on: ${{matrix.os}}
-    needs: [bump, publish-release]
+    needs: [bump, make-release]
     strategy:
       fail-fast: false
       matrix:
@@ -124,7 +124,7 @@ jobs:
 
   publish-release:
     runs-on: ubuntu-latest
-    needs: [bump,make-release]
+    needs: [bump, make-release]
     permissions:
       contents: write
       id-token: write
