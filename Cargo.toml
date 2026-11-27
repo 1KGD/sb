@@ -99,7 +99,7 @@ cosmic-text = { version = "0.19.0", optional = true }
 env_logger = { version = "0.11.11", optional = true }
 console_error_panic_hook = { version = "0.1.7", optional = true }
 rand.workspace = true
-openssl = { version = "*", features = ["vendored"] }
+openssl = { version = "*" }                                       #, features = ["vendored"] }
 naia-client = { workspace = true, optional = true }
 naia-server = { workspace = true, optional = true }
 naia-shared = { workspace = true, optional = true }
