@@ -90,7 +90,7 @@ starbloom-intro = { workspace = true, optional = true }
 starbloom-bootstrap.workspace = true
 starbloom-menus.workspace = true
 starbloom-map.workspace = true
-egor.workspace = true                                             # Not optional due to math requirement
+egor.workspace = true                                                 # Not optional due to math requirement
 bevy_ecs.workspace = true
 egor_glue = { workspace = true, optional = true }
 web-sys = { workspace = true, optional = true }
@@ -99,7 +99,7 @@ cosmic-text = { version = "0.19.0", optional = true }
 env_logger = { version = "0.11.11", optional = true }
 console_error_panic_hook = { version = "0.1.7", optional = true }
 rand.workspace = true
-openssl = { version = "*" }                                       #, features = ["vendored"] }
+openssl = { version = "*", optional = true, features = ["vendored"] }
 naia-client = { workspace = true, optional = true }
 naia-server = { workspace = true, optional = true }
 naia-shared = { workspace = true, optional = true }
@@ -141,7 +141,7 @@ client = [
 singleplayer = ["client", "server"]
 
 mobile_build = ["intro", "mobile", "env_logger", "singleplayer", "multiplayer"]
-desktop_build = ["intro", "env_logger", "singleplayer", "remote_host"]
+desktop_build = ["intro", "env_logger", "singleplayer", "remote_host", "dep:openssl"]
 web_build = ["intro", "web", "singleplayer", "multiplayer"]
 server_build = ["env_logger", "remote_host"]
 
